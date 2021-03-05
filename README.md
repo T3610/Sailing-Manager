@@ -18,3 +18,12 @@ Jobs:
 14. offical notice board - SI's?? Racecourse??
 15. DONE link to dutyman
 16. OOD sign in page
+
+Things to Fix
+OOD Page
+    form not prepopulating
+    not all classes in start time as in Start time page
+    form not working
+
+Start Time Page
+    Not working for all classes as in OOD page

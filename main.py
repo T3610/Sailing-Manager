@@ -49,7 +49,7 @@ def oodracesetup():
         #print(request.form["racelen"],request.form["cutofftime"])
         mycursor = mydb.cursor()
 
-        mycursor.execute("UPDATE oodSetup SET CutOffTime=?, RaceLen=? WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"],0))
+        mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"],0))
         mydb.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
@@ -71,7 +71,7 @@ def updateentry(id):
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  Racers SET name=?,Crew=?,SailNum=?,Boat=? WHERE ID=?",(formData[0],formData[1],formData[2],formData[3],id))
+        mycursor.execute("UPDATE  Racers SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
 
         # Save (commit) the changes
         mydb.commit()
@@ -104,14 +104,14 @@ def form(id=0):
 @app.route('/deleteentry/<id>')
 def deleteentry(id):
     mycursor = mydb.cursor()
-    mycursor.execute("DELETE FROM Racers WHERE ID=?",(id))
+    mycursor.execute("DELETE FROM Racers WHERE ID=%s",(id))
     mydb.commit()
     return redirect("/oodracesetup")
 
 @app.route('/editentry/<id>')
 def editentry(id):
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM Racers WHERE ID=?",(id))
+    mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id))
     entry = mycursor.fetchone()
     return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
 
@@ -125,7 +125,7 @@ def editpylist():
 @app.route('/pyedit/<id>')
 def editpy(id):
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM pylist WHERE ID=?",(id))
+    mycursor.execute("SELECT * FROM pylist WHERE ID=%s",(id))
     entry = mycursor.fetchone()
     return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
 
@@ -139,7 +139,7 @@ def updatepy(id):
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  pylist SET Class=?,PY=? WHERE ID=?",(formData[0],formData[1],id))
+        mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
         # Save (commit) the changes
         mydb.commit()
@@ -151,7 +151,7 @@ def updatepy(id):
 def deletepy(id):
     #print(id)
     mycursor = mydb.cursor()
-    mycursor.execute("DELETE FROM pylist WHERE ID=?",(id,))
+    mycursor.execute("DELETE FROM pylist WHERE ID=%s",(id,))
     mydb.commit()
     return redirect("/pylist")
 
@@ -164,7 +164,7 @@ def addpy():
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("INSERT INTO pylist (Class,PY) values (?,?)",(formData[0],formData[1]))
+        mycursor.execute("INSERT INTO pylist (Class,PY) values (%s,%s)",(formData[0],formData[1]))
         
         # Save (commit) the changes
         mydb.commit()
