@@ -9,6 +9,10 @@ import math
 
 import requests
 
+import mysql.connector
+
+mydb = mysql.connector.connect(host="127.0.0.1",user="Dorchester",password="hQR36hW8U24RA8Hw")
+
 dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
 baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
 
@@ -20,10 +24,9 @@ def entrylist():
     return data
 
 def startTimeList(racelen = 40):
-    conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute("SELECT DISTINCT Racers.Boat, pylist.PY FROM Racers INNER JOIN pylist ON racers.Boat=pylist.Class ORDER BY pylist.py DESC")
-    data = c.fetchall()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT DISTINCT Racers.Boat, pylist.PY FROM Racers INNER JOIN pylist ON racers.Boat=pylist.Class ORDER BY pylist.py DESC")
+    data = mycursor.fetchall()
     print(data)
     empty = True
     #print(data[0][1])
