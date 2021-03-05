@@ -70,7 +70,7 @@ def boats():
 
 def outOftimeSignUp():
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT cutofftime FROM oodSetup")
+    mycursor.execute("SELECT RaceLen FROM oodSetup")
     timeNow = datetime.now()
     print(mycursor.fetchall())
     print(mycursor.fetchone())
