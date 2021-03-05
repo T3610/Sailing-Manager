@@ -11,7 +11,7 @@ import requests
 
 import mysql.connector
 
-mydb = mysql.connector.connect(host="127.0.0.1",user="Dorchester",password="hQR36hW8U24RA8Hw")
+mydb = mysql.connector.connect(host="127.0.0.1",user="Dorchester",password="hQR36hW8U24RA8Hw",database="dorchester")
 
 dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
 baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
