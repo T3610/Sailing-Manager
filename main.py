@@ -94,7 +94,7 @@ def form(id=0):
         conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        c.execute("INSERT INTO racers (name,Crew,Sail,Boat,CurrentLap) values (?,?,?,?,?)",(formData[0],formData[1],formData[2],formData[3],0))
+        c.execute("INSERT INTO racers (name,Crew,Sail,Boat,Data) values (?,?,?,?,?)",(formData[0],formData[1],formData[2],formData[3],0))
 
         # Save (commit) the changes
         conn.commit()
