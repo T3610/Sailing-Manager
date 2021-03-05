@@ -17,6 +17,6 @@ Short term:
 
 long term:
 1. DONE add boat to py list gui
-2. way of adding results
+2. way of adding results - in work
 3. offical notice board - SI's?? Racecourse??
 4. DONE link to dutyman
