@@ -28,8 +28,8 @@ def startTimeList(racelen = 40):
     data = mycursor.fetchall()
     print(data)
     empty = True
-    #print(data[0][1])
-    #print(racelen)
+    print(data[0][1])
+    print(racelen)
     if len(data) > 0:
         correctedTime = (racelen/data[0][1])*1000
         #print(correctedTime)
