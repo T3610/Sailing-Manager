@@ -17,10 +17,9 @@ dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
 baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
 
 def entrylist():
-    conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute("SELECT * FROM racers")
-    data = c.fetchall()
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM Racers")
+    data = mycursor.fetchall()
     return data
 
 def startTimeList(racelen = 40):
@@ -71,9 +70,8 @@ def boats():
     return boatList
 
 def outOftimeSignUp():
-    conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute("SELECT cutofftime FROM oodsetup")
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT cutofftime FROM oodSetup")
     timeNow = datetime.now()
     print(timeNow)
     cutofftime = datetime.combine(date.today(),datetime.strptime(c.fetchone()[0],"%H:%M").time())

@@ -11,9 +11,8 @@ def send_static(path):
 
 @app.route('/startingorder')
 def startingorder():
-    conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute("SELECT racelen FROM oodSetup")
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT RaceLen FROM oodSetup")
     data = c.fetchall()
     print(data[0][0])
     return render_template('startingorder.html',data = startTimeList(data[0][0])[0])
@@ -52,13 +51,12 @@ def oodracesetup():
         conn = sqlite3.connect(dbPath)
         c = conn.cursor()
 
-        c.execute("UPDATE oodSetup SET cutofftime=?, RaceLen=?, laps=? WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"],0))
+        c.execute("UPDATE oodSetup SET CutOffTime=?, RaceLen=? WHERE RaceLen IS NOT NULL",(request.form["CutOffTime"],request.form["RaceLen"],0))
         conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
-        conn = sqlite3.connect(dbPath)
-        c = conn.cursor()
-        c.execute("SELECT * FROM oodSetup")
+        mycursor = mydb.cursor()
+        mycursor.execute("SELECT * FROM oodSetup")
         
         data = c.fetchone()
         #print(data)
