@@ -26,7 +26,7 @@ def startTimeList(racelen = 40):
     mycursor = mydb.cursor()
     mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class ORDER BY PyList.py DESC")
     data = mycursor.fetchall()
-    #print(data)
+    print(data)
     empty = True
     #print(data[0][1])
     #print(racelen)
