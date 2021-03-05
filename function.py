@@ -4,7 +4,7 @@ from flask import json
 from flask import jsonify, make_response
 from flask import Response, render_template, redirect
 from datetime import datetime,date
-import sqlite3
+
 import math
 
 import requests
@@ -72,7 +72,6 @@ def outOftimeSignUp():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT RaceLen FROM oodSetup")
     timeNow = datetime.now()
-    mydb.commit()
     print(mycursor.fetchall())
     cutofftime = mycursor.fetchone()
     print(cutofftime)
