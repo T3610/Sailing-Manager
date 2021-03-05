@@ -49,7 +49,7 @@ def oodracesetup():
         #print(request.form["racelen"],request.form["cutofftime"])
         mycursor = mydb.cursor()
 
-        mycursor.execute("UPDATE oodSetup SET CutOffTime=?, RaceLen=? WHERE RaceLen IS NOT NULL",(request.form["CutOffTime"],request.form["RaceLen"],0))
+        mycursor.execute("UPDATE oodSetup SET CutOffTime=?, RaceLen=? WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["RaceLen"],0))
         mydb.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
