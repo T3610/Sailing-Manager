@@ -57,11 +57,10 @@ def startTimeList(racelen = 40):
 
 def boats():
     boatList = []
-    conn = sqlite3.connect(dbPath)
-    c = conn.cursor()
-    c.execute("SELECT Class,PY FROM PyList")
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT Class,PY FROM PyList")
     
-    rawboatList = c.fetchall()
+    rawboatList = mycursor.fetchall()
     #print(rawboatList)
     for items in rawboatList:
         boatList.append(items[0])   
@@ -74,7 +73,7 @@ def outOftimeSignUp():
     mycursor.execute("SELECT cutofftime FROM oodSetup")
     timeNow = datetime.now()
     print(timeNow)
-    cutofftime = datetime.combine(date.today(),datetime.strptime(c.fetchone()[0],"%H:%M").time())
+    cutofftime = datetime.combine(date.today(),datetime.strptime(mycursor.fetchone()[0],"%H:%M").time())
     
     
     if cutofftime > timeNow:
