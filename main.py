@@ -54,7 +54,7 @@ def oodracesetup():
         return redirect('/oodracesetup')
     elif request.method == 'GET':
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen FROM oodSetup")
+        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), DATE_FORMAT(RaceLen, '%i') FROM oodSetup")
         
         data = mycursor.fetchone()
         #print(data)
