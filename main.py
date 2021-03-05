@@ -13,7 +13,7 @@ def send_static(path):
 def startingorder():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT RaceLen FROM oodSetup")
-    data = c.fetchall()
+    data = mycursor.fetchall()
     print(data[0][0])
     return render_template('startingorder.html',data = startTimeList(data[0][0])[0])
 
