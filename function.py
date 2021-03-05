@@ -72,9 +72,10 @@ def outOftimeSignUp():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT RaceLen FROM oodSetup")
     timeNow = datetime.now()
+    mydb.commit()
     print(mycursor.fetchall())
-    print(mycursor.fetchone())
-    cutofftime = datetime.combine(date.today(),datetime.strptime(mycursor.fetchall()[0],"%H:%M").time())
+    cutofftime = mycursor.fetchone()
+    print(cutofftime)
     
     
     if cutofftime > timeNow:
