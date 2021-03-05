@@ -71,7 +71,7 @@ def updateentry(id):
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  racers SET name=?,Crew=?,Sail=?,Boat=? WHERE ID=?",(formData[0],formData[1],formData[2],formData[3],id))
+        mycursor.execute("UPDATE  Racers SET name=?,Crew=?,Sail=?,Boat=? WHERE ID=?",(formData[0],formData[1],formData[2],formData[3],id))
 
         # Save (commit) the changes
         mydb.commit()
@@ -88,7 +88,7 @@ def form(id=0):
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("INSERT INTO racers (name,Crew,Sail,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
+        mycursor.execute("INSERT INTO Racers (name,Crew,Sail,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
 
         # Save (commit) the changes
         mydb.commit()
