@@ -1,0 +1,77 @@
+
+body {
+    background-color: #e4e4e4;
+}
+
+.formInput {
+    width: 50%;
+}
+
+#ood {
+    background-image: url("/static/img/settings.svg");
+    background-color: #0693e3;
+}
+
+#entrylist {
+    background-image: url("/static/img/list.svg");
+    background-color: #0693e3;
+}
+
+#startorder {
+    background-image: url("/static/img/clock.svg");
+    background-color: #0693e3;
+}
+
+#signup {
+    background-image: url("/static/img/register.svg");
+    background-color: #0693e3;
+}
+
+a.homepageGridBtn {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    color: white;
+}
+
+.vh-25 {
+    height: 25vh;
+}
+
+.row>* {
+    padding: 0px;
+}
+
+.colbg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    padding: 40px;
+    background-origin: content-box;
+    z-index: -1;
+    opacity: 0.2;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.griditemcol {
+    border: #e4e4e4 solid 5px;
+    position: relative;
+    align-items: center;
+    display: flex;
+    z-index: 1;
+}
+
+.griditem {
+    width: 100%;
+}
+.title{
+    font-size: xx-large;
+}
+

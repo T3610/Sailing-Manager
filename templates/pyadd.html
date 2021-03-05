@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="static/preventWhiteSpace.js"></script>
+    <link rel="stylesheet" href="static/RaceHome.css">
+</head>
+
+<body>
+
+    <form action="http://localhost:3000/addpy" method="post">
+        <div class="form-group container">
+            <h1>Add Boat to PY List</h1>
+            <hr>
+            <label for="Bname"><b>Boat Name</b></label>
+            <input class="form-control " onkeypress="return AvoidSpace(event)" type="text" placeholder="Enter Boat Class" name="Bname" id="Bname" required>
+
+            <label for="PY"><b>PY</b></label>
+            <input class="form-control" type="number" placeholder="Enter PY number" name="PY" id="PY" required>
+            <hr>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</body>
+
+</html>

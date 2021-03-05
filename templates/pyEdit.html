@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="static/preventWhiteSpace.js"></script>
+
+    <link rel="stylesheet" href="static/RaceHome.css">
+</head>
+
+<body>
+
+    <form action="http://localhost:3000/editpy/{{id}}" method="post">
+        <div class="form-group container">
+            <h1>Sign In Sheet</h1>
+            <p>Please fill in this form to participate in the race</p>
+            <hr>
+            <script src="static/preventWhiteSpace.js"></script>
+            <label for="Bname"><b>Boat Name</b></label>
+            <input class="form-control" onkeypress="return AvoidSpace(event)" type="text" placeholder="Enter Boat Class" name="Bname" id="Bname" value="{{boat}}" required>
+
+            <label for="PY"><b>PY</b></label>
+            <input class="form-control" type="number" placeholder="Enter PY number" name="PY" id="PY" value="{{py}}">
+
+            <hr>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</body>
+
+</html>

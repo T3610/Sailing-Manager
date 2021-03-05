@@ -1,0 +1,84 @@
+from flask import Flask
+from flask import request
+from flask import json
+from flask import jsonify, make_response
+from flask import Response, render_template, redirect
+from datetime import datetime,date
+import sqlite3
+import math
+
+import requests
+
+def entrylist():
+    conn = sqlite3.connect('DSC.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM racers")
+    data = c.fetchall()
+    return data
+
+def startTimeList(racelen = 40):
+    conn = sqlite3.connect('DSC.db')
+    c = conn.cursor()
+    c.execute("SELECT DISTINCT Racers.Boat, pylist.PY FROM Racers INNER JOIN pylist ON racers.Boat=pylist.Class ORDER BY pylist.py DESC")
+    data = c.fetchall()
+    print(data)
+    empty = True
+    #print(data[0][1])
+    #print(racelen)
+    if len(data) > 0:
+        correctedTime = (racelen/data[0][1])*1000
+        print(correctedTime)
+        data[0] = list(data[0])
+        data[0].append(0) # adds time from start colum
+        
+        #print(data)
+        #print(correctedTime)
+
+        for i in range(1,len(data)):
+            
+            elapsedTime = (correctedTime*data[i][1])/1000
+            #print(elapsedTime)
+            timeFromStart = racelen - round(elapsedTime)
+            #print(timeFromStart)
+            data[i] = list(data[i])
+            data[i].append(timeFromStart)
+        empty = False
+        #print(empty)
+        return data,empty
+    else:
+        empty = True
+        #print(empty)
+        return data,empty
+
+def boats():
+    boatList = []
+    conn = sqlite3.connect('DSC.db')
+    c = conn.cursor()
+    c.execute("SELECT Class,PY FROM pylist")
+    
+    rawboatList = c.fetchall()
+    #print(rawboatList)
+    for items in rawboatList:
+        boatList.append(items[0])   
+    #print(boatList)
+    
+    return boatList
+
+def outOftimeSignUp():
+    conn = sqlite3.connect('DSC.db')
+    c = conn.cursor()
+    c.execute("SELECT cutofftime FROM oodsetup")
+    timeNow = datetime.now()
+    print(timeNow)
+    cutofftime = datetime.combine(date.today(),datetime.strptime(c.fetchone()[0],"%H:%M").time())
+    
+    
+    if cutofftime > timeNow:
+        print(True)
+        return True
+    else:
+
+        print(False)
+        return False
+    
+    

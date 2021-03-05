@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    </head>
+<body>
+
+    <table class="table table-striped">
+        {{entries}}
+        <thead>
+          <tr>
+              <th scope="col">id</th>
+              <th scope="col">Name</th>
+              <th scope="col">Crew name</th>
+              <th scope="col">Sail Number</th>              
+              <th scope="col">Class</th>
+              <th scope="col">current laps</th>
+              <th scope="col">Add Lap</th>
+              <th scope="col">Finish</th>
+              <th scope="col"></th>
+
+          </tr>
+          </thead>    
+          <tbody>
+            {% for row in entries%}    
+                  <tr>
+                      <td>{{row[0]}}</td>
+                      <td>{{row[1]}}</td>
+                      <td>{{row[2]}}</td>
+                      <td>{{row[3]}}</td>
+                      <td>{{row[4]}}</td>
+                      <td></td>
+                      <td><a>ADD LAP</a></td>
+                      <td><a>FINISH</a></td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+
+</body>
+</html>
