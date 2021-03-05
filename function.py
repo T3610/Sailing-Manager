@@ -72,7 +72,7 @@ def outOftimeSignUp():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT cutofftime FROM oodSetup")
     timeNow = datetime.now()
-    print(timeNow)
+    print(mycursor.fetchall())
     cutofftime = datetime.combine(date.today(),datetime.strptime(mycursor.fetchone()[0],"%H:%M").time())
     
     
