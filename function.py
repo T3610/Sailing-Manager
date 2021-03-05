@@ -10,6 +10,7 @@ import math
 import requests
 
 dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
+baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
 
 def entrylist():
     conn = sqlite3.connect(dbPath)
