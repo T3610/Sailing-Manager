@@ -25,7 +25,7 @@ def entrylist():
 
 def startTimeList(racelen = 40):
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT DISTINCT Racers.Boat, pylist.PY FROM Racers INNER JOIN pylist ON racers.Boat=pylist.Class ORDER BY pylist.py DESC")
+    mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON racers.Boat=PyList.Class ORDER BY PyList.py DESC")
     data = mycursor.fetchall()
     print(data)
     empty = True
@@ -60,7 +60,7 @@ def boats():
     boatList = []
     conn = sqlite3.connect(dbPath)
     c = conn.cursor()
-    c.execute("SELECT Class,PY FROM pylist")
+    c.execute("SELECT Class,PY FROM PyList")
     
     rawboatList = c.fetchall()
     #print(rawboatList)
