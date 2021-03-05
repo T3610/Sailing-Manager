@@ -73,7 +73,8 @@ def outOftimeSignUp():
     mycursor.execute("SELECT cutofftime FROM oodSetup")
     timeNow = datetime.now()
     print(mycursor.fetchall())
-    cutofftime = datetime.combine(date.today(),datetime.strptime(mycursor.fetchone()[0],"%H:%M").time())
+    print(mycursor.fetchone())
+    cutofftime = datetime.combine(date.today(),datetime.strptime(mycursor.fetchall()[0],"%H:%M").time())
     
     
     if cutofftime > timeNow:
