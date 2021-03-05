@@ -11,7 +11,7 @@ def send_static(path):
 
 @app.route('/startingorder')
 def startingorder():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT racelen FROM oodSetup")
     data = c.fetchall()
@@ -35,7 +35,7 @@ def index():
 
 @app.route('/startTime')
 def starttime():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT cutofftime FROM oodSetup")
     
@@ -49,14 +49,14 @@ def oodracesetup():
     if request.method == 'POST':
         print(request.form)
         #print(request.form["racelen"],request.form["cutofftime"])
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
 
         c.execute("UPDATE oodSetup SET cutofftime=?, RaceLen=?, laps=? WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"],0))
         conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         c.execute("SELECT * FROM oodSetup")
         
@@ -73,7 +73,7 @@ def updateentry(id):
         #print(request.form)
         formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
         #print(formData[0])
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
         c.execute("UPDATE  racers SET name=?,Crew=?,Sail=?,Boat=? WHERE ID=?",(formData[0],formData[1],formData[2],formData[3],id))
@@ -91,7 +91,7 @@ def form(id=0):
         #print(request.form)
         formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
         #print(formData[0])
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
         c.execute("INSERT INTO racers (name,Crew,Sail,Boat,CurrentLap) values (?,?,?,?,?)",(formData[0],formData[1],formData[2],formData[3],0))
@@ -109,7 +109,7 @@ def form(id=0):
 
 @app.route('/deleteentry/<id>')
 def deleteentry(id):
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("DELETE FROM Racers WHERE ID=?",(id))
     conn.commit()
@@ -117,7 +117,7 @@ def deleteentry(id):
 
 @app.route('/editentry/<id>')
 def editentry(id):
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT * FROM Racers WHERE ID=?",(id))
     entry = c.fetchone()
@@ -125,7 +125,7 @@ def editentry(id):
 
 @app.route('/pylist')
 def editpylist():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT * FROM pylist")
     pylist = c.fetchall()
@@ -133,7 +133,7 @@ def editpylist():
 
 @app.route('/pyedit/<id>')
 def editpy(id):
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT * FROM pylist WHERE ID=?",(id))
     entry = c.fetchone()
@@ -147,7 +147,7 @@ def updatepy(id):
         #print(request.form)
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
         c.execute("UPDATE  pylist SET Class=?,PY=? WHERE ID=?",(formData[0],formData[1],id))
@@ -161,7 +161,7 @@ def updatepy(id):
 @app.route('/deletepy/<id>')
 def deletepy(id):
     print(id)
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("DELETE FROM pylist WHERE ID=?",(id,))
     conn.commit()
@@ -174,7 +174,7 @@ def addpy():
         #print(request.form)
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
-        conn = sqlite3.connect('DSC.db')
+        conn = sqlite3.connect(dbPath)
         c = conn.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
         c.execute("INSERT INTO pylist (Class,PY) values (?,?)",(formData[0],formData[1]))
@@ -187,12 +187,12 @@ def addpy():
 
 @app.route('/enterresults')
 def enterresults():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT * FROM Racers")
     entries = c.fetchall() #id, Helm, Crewname, Sail Num, Class
     print(entries)
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT laps FROM oodSetup")
     laps = c.fetchone()

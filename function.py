@@ -9,15 +9,17 @@ import math
 
 import requests
 
+dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
+
 def entrylist():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT * FROM racers")
     data = c.fetchall()
     return data
 
 def startTimeList(racelen = 40):
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT DISTINCT Racers.Boat, pylist.PY FROM Racers INNER JOIN pylist ON racers.Boat=pylist.Class ORDER BY pylist.py DESC")
     data = c.fetchall()
@@ -52,7 +54,7 @@ def startTimeList(racelen = 40):
 
 def boats():
     boatList = []
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT Class,PY FROM pylist")
     
@@ -65,7 +67,7 @@ def boats():
     return boatList
 
 def outOftimeSignUp():
-    conn = sqlite3.connect('DSC.db')
+    conn = sqlite3.connect(dbPath)
     c = conn.cursor()
     c.execute("SELECT cutofftime FROM oodsetup")
     timeNow = datetime.now()
