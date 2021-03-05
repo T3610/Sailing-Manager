@@ -26,13 +26,13 @@ def startTimeList(racelen = 40):
     mycursor = mydb.cursor()
     mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class ORDER BY PyList.py DESC")
     data = mycursor.fetchall()
-    print(data)
+    #print(data)
     empty = True
     #print(data[0][1])
     #print(racelen)
     if len(data) > 0:
         correctedTime = (racelen/data[0][1])*1000
-        print(correctedTime)
+        #print(correctedTime)
         data[0] = list(data[0])
         data[0].append(0) # adds time from start colum
         
@@ -74,17 +74,17 @@ def outOftimeSignUp():
     timeNow = datetime.now()
     
     cutofftime = mycursor.fetchone()
-    print(cutofftime)
+    #print(cutofftime)
     cutofftime = cutofftime[0]
-    print(cutofftime)
+    #print(cutofftime)
     
     
     if cutofftime > timeNow:
-        print(True)
+        #print(True)
         return True
     else:
 
-        print(False)
+        #print(False)
         return False
     
     

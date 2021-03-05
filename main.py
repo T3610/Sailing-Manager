@@ -45,7 +45,7 @@ def starttime():
 @app.route('/oodracesetup', methods=["GET","POST"])
 def oodracesetup():
     if request.method == 'POST':
-        print(request.form)
+        #print(request.form)
         #print(request.form["racelen"],request.form["cutofftime"])
         mycursor = mydb.cursor()
 
@@ -149,7 +149,7 @@ def updatepy(id):
 
 @app.route('/deletepy/<id>')
 def deletepy(id):
-    print(id)
+    #print(id)
     mycursor = mydb.cursor()
     mycursor.execute("DELETE FROM pylist WHERE ID=?",(id,))
     mydb.commit()
@@ -177,7 +177,7 @@ def enterresults():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM Racers")
     entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class
-    print(entries)
+    #print(entries)
 
     mycursor.execute("SELECT laps FROM oodSetup")
     data = mycursor.fetchone()
@@ -189,6 +189,6 @@ def enterresults():
 
 #MAKE SURE AT END
 if __name__ == '__main__':
-    print("hi")
+
     app.run(host="0.0.0.0", port=3000)
  
