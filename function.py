@@ -68,6 +68,11 @@ def boats():
     
     return boatList
 
+def get_sec(time_str):
+    """Get Seconds from time."""
+    h, m, s = time_str.split(':')
+    return int(h) * 3600 + int(m) * 60 + int(s)
+
 def outOftimeSignUp():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT CutOffTime FROM oodSetup")
@@ -78,9 +83,9 @@ def outOftimeSignUp():
     
     cutofftime = mycursor.fetchone()
     cutofftime = cutofftime[0]
-    cutofftime = cutofftime.strftime("%H:%M:%S")
+    cutofftimeseconds = get_sec(cutofftime)
     print(timeNow)
-    print(cutofftime)
+    print(cutofftimeseconds)
     if cutofftime > timeNow:
         #print(True)
         return True
