@@ -75,7 +75,7 @@ def outOftimeSignUp():
     now = datetime.now()
 
     timeNow = now.strftime("%H:%M:%S")
-    print(timeNow)
+     
 
 
     
@@ -83,7 +83,7 @@ def outOftimeSignUp():
     cutofftime = cutofftime[0]
     print(cutofftime)
     inttimeNow = str(timeNow)
-
+    print(inttimeNow)
     
     if cutofftime > inttimeNow:
         #print(True)
