@@ -71,7 +71,7 @@ def boats():
 def outOftimeSignUp():
     mycursor = mydb.cursor()
     mycursor.execute("SELECT CutOffTime FROM oodSetup")
-    timeNow = datetime.time()
+    timeNow = time()
     
     cutofftime = mycursor.fetchone()
     cutofftime = cutofftime[0]
