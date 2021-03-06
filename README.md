@@ -27,3 +27,6 @@ OOD Page
 
 Start Time Page
     Not working for all classes as in OOD page
+
+Entries
+    Not displaying full boat name (laser not laser Standar)
