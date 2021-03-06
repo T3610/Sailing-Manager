@@ -82,7 +82,7 @@ def outOftimeSignUp():
     cutofftime = mycursor.fetchone()
     cutofftime = cutofftime[0]
     print(cutofftime)
-    inttimeNow = int(timeNow)
+    inttimeNow = str(timeNow)
 
     
     if cutofftime > inttimeNow:
