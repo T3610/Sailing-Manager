@@ -84,7 +84,7 @@ def outOftimeSignUp():
     cutofftime = mycursor.fetchone()
     cutofftime = str(cutofftime[0]) # date time
     cutofftimeseconds = get_sec(cutofftime)
-    timeNowSeconds = get_sec(timeNowSeconds)
+    timeNowSeconds = get_sec(timeNow)
     print(cutofftimeseconds)
     
     if cutofftime > timeNow:
