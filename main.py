@@ -84,7 +84,7 @@ def form(id=0):
     if request.method == 'POST':
         formData = []
         #print(request.form)
-        formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
+        formData = [request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]]
         #print(formData[0])
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])

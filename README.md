@@ -20,6 +20,8 @@ Jobs:
 16. OOD sign in page
 
 Things to Fix
+Home screen
+    Stop it being cached
 OOD Page
     form not prepopulating
     not all classes in start time as in Start time page
