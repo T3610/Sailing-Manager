@@ -40,7 +40,7 @@ def starttime():
     data = mycursor.fetchone()
     print(data)
 
-    return data[0]
+    return str(data[0])
 
 @app.route('/oodracesetup', methods=["GET","POST"])
 def oodracesetup():
