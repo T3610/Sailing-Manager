@@ -85,8 +85,8 @@ def outOftimeSignUp():
     cutofftime = str(cutofftime[0]) # date time
     cutofftimeseconds = get_sec(cutofftime)
     timeNowSeconds = get_sec(timeNow)
-    print(cutofftimeseconds)
-    print(timeNowSeconds)
+    print("cutoff",cutofftimeseconds)
+    print("timenow",timeNowSeconds)
     if cutofftime > timeNow:
         #print(True)
         return True
