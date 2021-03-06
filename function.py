@@ -87,7 +87,7 @@ def outOftimeSignUp():
     timeNowSeconds = get_sec(timeNow)
     print("cutoff",cutofftimeseconds)
     print("timenow",timeNowSeconds)
-    if cutofftime > timeNowSeconds:
+    if cutofftimeseconds > timeNowSeconds:
         #print(True)
         return True
     else:
