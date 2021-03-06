@@ -81,6 +81,7 @@ def outOftimeSignUp():
     
     cutofftime = mycursor.fetchone()
     cutofftime = cutofftime[0]
+    cutofftime = datetime. strptime(cutofftime,'%H:%M:%S')
     print(cutofftime)
     inttimeNow = str(timeNow)
     print(inttimeNow)
