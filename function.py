@@ -74,8 +74,8 @@ def outOftimeSignUp():
     
     now = datetime.now()
 
-    t = now.strftime("%H:%M:%S")
-    print(t)
+    timeNow = now.strftime("%H:%M:%S")
+    print(timeNow)
 
 
     
