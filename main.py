@@ -83,9 +83,9 @@ def updateentry(id):
 def form(id=0):
     if request.method == 'POST':
         formData = []
-        #print(request.form)
+        print(request.form)
         formData = [request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]]
-        #print(formData[0])
+        print(formData)
         mycursor = mydb.cursor()
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("INSERT INTO Racers (Name,Crew,SailNum,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
