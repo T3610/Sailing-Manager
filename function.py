@@ -73,7 +73,7 @@ def outOftimeSignUp():
     mycursor.execute("SELECT CutOffTime FROM oodSetup")
     
     dateTimeNow = datetime.now()
-    TimeNow = dateTimeNow.minute
+    TimeNow = dateTimeNow.hour,dateTimeNow.minute,dateTimeNow.second
     print(TimeNow)
 
 
