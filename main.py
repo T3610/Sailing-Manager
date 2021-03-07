@@ -11,7 +11,9 @@ def send_static(path):
 
 @app.route('/startingorder')
 def startingorder():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT RaceLen FROM oodSetup")
     data = mycursor.fetchall()
     print(data[0][0])
@@ -34,7 +36,9 @@ def index():
 
 @app.route('/startTime')
 def starttime():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT cutofftime FROM oodSetup")
     
     data = mycursor.fetchone()
@@ -47,13 +51,17 @@ def oodracesetup():
     if request.method == 'POST':
         #print(request.form)
         #print(request.form["racelen"],request.form["cutofftime"])
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
 
         mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
         mydb.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
         mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen FROM oodSetup")
         
         data = mycursor.fetchone()
@@ -69,7 +77,9 @@ def updateentry(id):
         #print(request.form)
         formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
         #print(formData[0])
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE  Racers SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
 
@@ -86,7 +96,9 @@ def form(id=0):
         print(request.form)
         formData = [request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]]
         print(formData)
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("INSERT INTO Racers (Name,Crew,SailNum,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
 
@@ -103,28 +115,36 @@ def form(id=0):
 
 @app.route('/deleteentry/<id>')
 def deleteentry(id):
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("DELETE FROM Racers WHERE ID=%s",(id,))
     mydb.commit()
     return redirect("/oodracesetup")
 
 @app.route('/editentry/<id>')
 def editentry(id):
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id,))
     entry = mycursor.fetchone()
     return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
 
 @app.route('/pylist')
 def editpylist():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT * FROM pylist")
     pylist = mycursor.fetchall()
     return render_template('pylist.html',pylist=pylist)     
 
 @app.route('/pyedit/<id>')
 def editpy(id):
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT * FROM pylist WHERE ID=%s",(id))
     entry = mycursor.fetchone()
     return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
@@ -137,7 +157,9 @@ def updatepy(id):
         #print(request.form)
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
@@ -150,7 +172,9 @@ def updatepy(id):
 @app.route('/deletepy/<id>')
 def deletepy(id):
     #print(id)
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("DELETE FROM pylist WHERE ID=%s",(id,))
     mydb.commit()
     return redirect("/pylist")
@@ -162,7 +186,9 @@ def addpy():
         #print(request.form)
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
-        mycursor = mydb.cursor()
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("INSERT INTO pylist (Class,PY) values (%s,%s)",(formData[0],formData[1]))
         
@@ -174,7 +200,9 @@ def addpy():
 
 @app.route('/enterresults')
 def enterresults():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
     mycursor.execute("SELECT * FROM Racers")
     entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class
     #print(entries)

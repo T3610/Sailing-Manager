@@ -29,13 +29,17 @@ mysql = MySQL()
 baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
 
 def entrylist():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+mycursor = conn.cursor()
+
     mycursor.execute("SELECT * FROM Racers")
     data = mycursor.fetchall()
     return data
 
 def startTimeList(racelen = 40):
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+mycursor = conn.cursor()
+
     mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class ORDER BY PyList.py DESC")
     data = mycursor.fetchall()
     print(data)
@@ -69,7 +73,9 @@ def startTimeList(racelen = 40):
 
 def boats():
     boatList = []
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+mycursor = conn.cursor()
+
     mycursor.execute("SELECT Class,PY FROM PyList")
     
     rawboatList = mycursor.fetchall()
@@ -86,7 +92,9 @@ def get_sec(time_str):
     return int(h) * 3600 + int(m) * 60 + int(s)
 
 def outOftimeSignUp():
-    mycursor = mydb.cursor()
+    conn = mysql.connection
+mycursor = conn.cursor()
+
     mycursor.execute("SELECT CutOffTime FROM oodSetup")
     
     now = datetime.now()
