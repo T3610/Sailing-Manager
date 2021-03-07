@@ -72,61 +72,7 @@
         </div>
     </form>
 
-    <div class="container">
-        <div class="py-5 text-center">
-          <img class="d-block mx-auto mb-4" src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSCpennant.png" alt=""  height="72">
-          <h2>Sign Up Page</h2>
-          <p class="lead">Below is the form to sign up for the race. Remember to press Submit</p>
-        </div>
-  
-        <div class="row">
-          <div class="col-md-12 order-md-1">
-            <h4 class="mb-3"></h4>
-            <form class="needs-validation" novalidate>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="firstName">Helms Name</label>
-                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-  
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="lastName">Crew Name</label>
-                  <input type="text" class="form-control" id="lastName" placeholder="" value="" >
-                  
-                </div>
-              </div>
-  
-              <div class="mb-3">
-                <label for="username">Sail Number</label>
-                <div class="input-group">
-  
-                  <input type="text" class="form-control" id="SailNum" placeholder="SailNum" required>
-                  <div class="invalid-feedback" style="width: 100%;">
-                    Your username is required.
-                  </div>
-                </div>
-              </div>
-  
-  
-  
-              <div class="mb-3 test">
-                  <label for="class"><b>Boat Class</b></label>
-                  <select class="form-control" id="class" name="class">
-                      {% for class in boat %}
-                          <option value="{{class}}">{{class}}</option>
-                      {% endfor %}                
-                  </select>
-                  </div>
-  
-              <hr class="mb-4">
-              
-              <div class="row">
-              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-            </form>
-          </div>
-        </div>
-      </div>
-
+    
 </body>
 
 </html>
