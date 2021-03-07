@@ -32,7 +32,7 @@ function updateTime(){
             var minDiff = timeDiff / 60 / 1000 %60; //in minutes
             var hDiff = timeDiff / 3600 / 1000; //in hours  
             //console.log(Math.floor(hDiff)+":"+Math.floor(minDiff)+":"+secDiff)
-            $("#raceCountdown").text("0"+(Math.floor(hDiff)).slice(-2)+":"+("0"+(Math.floor(minDiff)).slice(-2)+":"+("0"+(Math.floor(secDiff)).slice(-2))));
+            $("#raceCountdown").text(("0"+Math.floor(hDiff)).slice(-2)+":"+("0"+Math.floor(minDiff)).slice(-2)+":"+("0"+Math.floor(secDiff)).slice(-2));
         }else{
             $("#raceCountdown").text("OUT OF TIME");
         }
