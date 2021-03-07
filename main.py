@@ -1,7 +1,6 @@
 from function import *
 
 DEBUG = True
-app = Flask(__name__)
 
 #app.run(host='0.0.0.0')
 
