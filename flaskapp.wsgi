@@ -2,7 +2,7 @@
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,"/home/ubuntu/sailingFlask/SailingFlask/")
+sys.path.insert(0,"/home/ubuntu/Sailing-Manager/")
 
 
 from main import app as application

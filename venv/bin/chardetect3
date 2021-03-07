@@ -1,4 +1,4 @@
-#!/home/ubuntu/sailingFlask/SailingFlask/venv/bin/python
+#!/home/ubuntu/Sailing-Manager/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
