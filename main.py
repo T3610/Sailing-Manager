@@ -111,7 +111,7 @@ def deleteentry(id):
 @app.route('/editentry/<id>')
 def editentry(id):
     mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id.))
+    mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id,))
     entry = mycursor.fetchone()
     return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
 
