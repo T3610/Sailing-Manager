@@ -3,7 +3,7 @@
 
 <head>
     <!-- Latest compiled and minified CSS -->
-    
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,20 +16,22 @@
 </head>
 
 <body>
+    <div class="container">
+        <form action="http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/addpy" method="post">
+            <div class="form-group container">
+                <h1>Add Boat to PY List</h1>
+                <hr>
+                <label for="Bname"><b>Boat Name</b></label>
+                <input class="form-control " onkeypress="return AvoidSpace(event)" type="text"
+                    placeholder="Enter Boat Class" name="Bname" id="Bname" required>
 
-    <form action="http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/addpy" method="post">
-        <div class="form-group container">
-            <h1>Add Boat to PY List</h1>
-            <hr>
-            <label for="Bname"><b>Boat Name</b></label>
-            <input class="form-control " onkeypress="return AvoidSpace(event)" type="text" placeholder="Enter Boat Class" name="Bname" id="Bname" required>
-
-            <label for="PY"><b>PY</b></label>
-            <input class="form-control" type="number" placeholder="Enter PY number" name="PY" id="PY" required>
-            <hr>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+                <label for="PY"><b>PY</b></label>
+                <input class="form-control" type="number" placeholder="Enter PY number" name="PY" id="PY" required>
+                <hr>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

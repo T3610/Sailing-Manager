@@ -3,7 +3,7 @@
 
 <head>
     <!-- Latest compiled and minified CSS -->
-    
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,39 +16,43 @@
 </head>
 
 <body>
+    <div class="container">
+        <form action="http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/editentry/{{id}}" method="post">
+            <div class="form-group container">
+                <h1>Sign In Sheet</h1>
+                <p>Please fill in this form to participate in the race</p>
+                <hr>
 
-    <form action="http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/editentry/{{id}}" method="post">
-        <div class="form-group container">
-            <h1>Sign In Sheet</h1>
-            <p>Please fill in this form to participate in the race</p>
-            <hr>
+                <label for="name"><b>Name</b></label>
+                <input class="form-control" type="text" placeholder="Enter Full Name" name="name" id="name"
+                    value="{{name}}" required>
 
-            <label for="name"><b>Name</b></label>
-            <input class="form-control" type="text" placeholder="Enter Full Name" name="name" id="name" value="{{name}}" required>
+                <label for="Cname"><b>Crew Name</b></label>
+                <input class="form-control" type="text" placeholder="Enter Full Name" name="Cname" id="Cname"
+                    value="{{cName}}">
 
-            <label for="Cname"><b>Crew Name</b></label>
-            <input class="form-control" type="text" placeholder="Enter Full Name" name="Cname" id="Cname" value="{{cName}}">
+                <label for="sailNum"><b>Sail Number</b></label>
+                <input class="form-control" type="number" placeholder="Enter Sail Number" name="sailNum" id="sailNum"
+                    value="{{sailNo}}" required>
 
-            <label for="sailNum"><b>Sail Number</b></label>
-            <input class="form-control" type="number" placeholder="Enter Sail Number" name="sailNum" id="sailNum" value="{{sailNo}}" required>
-
-            <label for="class"><b>Boat Class</b></label>
-            <select class="form-control" id="class" name="class">
-                {% for class in boat %}
+                <label for="class"><b>Boat Class</b></label>
+                <select class="form-control" id="class" name="class">
+                    {% for class in boat %}
                     {% if class==currentBoat %}
-                        <option value={{class}} selected>{{class}}</option>
+                    <option value={{class}} selected>{{class}}</option>
                     {%else%}
-                        <option value={{class}}>{{class}}</option>
+                    <option value={{class}}>{{class}}</option>
                     {%endif%}
-                {% endfor %}
+                    {% endfor %}
 
-            </select>
+                </select>
 
-            <hr>
+                <hr>
 
-            <button type="submit" class="btn btn-primary">Register</button>
-        </div>
-    </form>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>
