@@ -1,112 +1,111 @@
-
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>Sign Up Page</title>
+    <title>Album example for Bootstrap</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  </head>
+    <link href="album.css" rel="stylesheet">
+</head>
 
-  <body class="bg-light">
+<body>
 
-    <div class="container">
-      <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSCpennant.png" alt=""  height="72">
-        <h2>Sign Up Page</h2>
-        <p class="lead">Below is the form to sign up for the race. Remember to press Submit</p>
-      </div>
 
-      <div class="row">
-        <div class="col-md-12 order-md-1">
-          <h4 class="mb-3"></h4>
-          <form class="needs-validation" novalidate>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="firstName">Helms Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
 
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="lastName">Crew Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="" value="" >
-                
-              </div>
+    <main role="main">
+
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Dorchester Sailing Club</h1>
+                <p class="lead text-muted">Dorchester Online Sailing Manager</p>
+
             </div>
+        </section>
 
-            <div class="mb-3">
-              <label for="username">Sail Number</label>
-              <div class="input-group">
+        <div class="album py-5 bg-light">
+            <div class="container">
 
-                <input type="text" class="form-control" id="SailNum" placeholder="SailNum" required>
-                <div class="invalid-feedback" style="width: 100%;">
-                  Your username is required.
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top"
+                                src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSC-Race-3-scaled.jpg"
+                                alt="Card image cap">
+                            <div class="card-body mx-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary btn-lg">Sign Up For Race</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top"
+                                src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSC-Race-3-scaled.jpg"
+                                alt="Card image cap">
+                            <div class="card-body mx-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a class="btn btn-primary btn-lg">View Race Entries</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top"
+                                    src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSC-Race-3-scaled.jpg"
+                                    alt="Card image cap">
+                                <div class="card-body mx-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="btn btn-primary btn-lg">View Start Timings</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                <img class="card-img-top"
+                                    src="C:\Users\tobyh\OneDrive\Documents\Coding\Python\Sailing-Manager\static\img\DSC-Race-3-scaled.jpg"
+                                    alt="Card image cap">
+                                <div class="card-body mx-auto">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a class="btn btn-primary btn-lg">OOD Page</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
                 </div>
-              </div>
             </div>
-
-
-
-            <div class="mb-3 test">
-                <label for="class"><b>Boat Class</b></label>
-                <select class="form-control" id="class" name="class">
-                    {% for class in boat %}
-                        <option value="{{class}}">{{class}}</option>
-                    {% endfor %}                
-                </select>
-                </div>
-
-            <hr class="mb-4">
-            
-            <div class="row">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
-          </form>
         </div>
-      </div>
-    </div>
 
+    </main>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="../../assets/js/vendor/holder.min.js"></script>
-    <script>
-      // Example starter JavaScript for disabling form submissions if there are invalid fields
-      (function() {
-        'use strict';
+</body>
 
-        window.addEventListener('load', function() {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName('needs-validation');
-
-          // Loop over them and prevent submission
-          var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-              if (form.checkValidity() === false) {
-                event.preventDefault();
-                event.stopPropagation();
-              }
-              form.classList.add('was-validated');
-            }, false);
-          });
-        }, false);
-      })();
-    </script>
-  </body>
 </html>
