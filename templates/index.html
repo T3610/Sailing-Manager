@@ -139,7 +139,10 @@
                                 alt="Card image cap">
                             <div class="card-body mx-auto">
                                 <div class="d-flex justify-content-between align-items-center">
+                                    {%if onTime%}
                                     <a class="btn btn-primary btn-lg">Sign Up For Race</a>
+                                    {%else%}
+                                    <a class="btn btn-primary btn-lg">Sign Up Closed</a>
                                 </div>
                             </div>
                         </div>
