@@ -23,7 +23,7 @@ def signup():
     if outOftimeSignUp(): #if end of signup period has not passed
         return render_template('entryForm.html',boat =boats())
     else:
-        return "Last Sign up Time Has Passed, Please Speak to the OOD"+outOftimeSignUp,400
+        return "Last Sign up Time Has Passed, Please Speak to the OOD",400
 
 @app.route('/oodsignup')
 def oodsignup():
