@@ -55,7 +55,7 @@ def oodracesetup():
 
 
         mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
-        mydb.commit()
+        conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
         conn = mysql.connection
@@ -102,7 +102,7 @@ def form(id=0):
         mycursor.execute("INSERT INTO Racers (Name,Crew,SailNum,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
 
         # Save (commit) the changes
-        mydb.commit()
+        conn.commit()
         #print(request.form)
     
         return redirect("/entries")
@@ -118,7 +118,7 @@ def deleteentry(id):
     mycursor = conn.cursor()
 
     mycursor.execute("DELETE FROM Racers WHERE ID=%s",(id,))
-    mydb.commit()
+    conn.commit()
     return redirect("/oodracesetup")
 
 @app.route('/editentry/<id>')
@@ -163,7 +163,7 @@ def updatepy(id):
         mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
         # Save (commit) the changes
-        mydb.commit()
+        conn.commit()
         #print(request.form)
     
         return redirect("/pylist")
@@ -175,7 +175,7 @@ def deletepy(id):
     mycursor = conn.cursor()
 
     mycursor.execute("DELETE FROM pylist WHERE ID=%s",(id,))
-    mydb.commit()
+    conn.commit()
     return redirect("/pylist")
 
 @app.route('/addpy', methods=["GET","POST"])
@@ -192,7 +192,7 @@ def addpy():
         mycursor.execute("INSERT INTO pylist (Class,PY) values (%s,%s)",(formData[0],formData[1]))
         
         # Save (commit) the changes
-        mydb.commit()
+        conn.commit()
         return redirect("/pylist")
     elif request.method == 'GET':
         return render_template("pyadd.html")
@@ -222,7 +222,7 @@ def updatepy(id):
         mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
         # Save (commit) the changes
-        mydb.commit()
+        conn.commit()
         #print(request.form)
     
         return redirect("/pylist")
