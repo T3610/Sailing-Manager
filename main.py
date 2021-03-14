@@ -214,7 +214,7 @@ def addlap(id):
         formData = []
         #print(request.form)
         formData = request.form["id"],request.form[""]
-        #print(formData[0])
+        print(formData)
         conn = mysql.connection
         mycursor = conn.cursor()
 
