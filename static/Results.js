@@ -17,8 +17,10 @@ function handleAddLap(id){
 function handleFinish(id){
     console.log(id)
 
+    var currentTime = Math.round(Date.now() / 1000);
+
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/finish/"+id,
+        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/finish/"+id+"?finishTime="+currentTime,
         "method": "PATCH",
         "timeout": 0,
       };
