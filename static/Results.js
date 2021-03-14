@@ -9,5 +9,6 @@ function handleAddLap(id){
       
       $.ajax(settings).done(function (response) {
         console.log(response);
+        location.reload();
       });
 }
