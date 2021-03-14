@@ -135,7 +135,7 @@ def editpylist():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT * FROM pylist")
+    mycursor.execute("SELECT * FROM PyList")
     pylist = mycursor.fetchall()
     return render_template('pylist.html',pylist=pylist)     
 
