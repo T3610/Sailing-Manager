@@ -35,12 +35,13 @@ function updateTable(){
       };
       
       $.ajax(settings).done(function (response) {
+        response = $.parseJSON(response);
         console.log(response);
         $.each(response, function(i, item) {
             var $tr = $('<tr>').append(
-                $('<td>').text(item.rank),
-                $('<td>').text(item.content),
-                $('<td>').text(item.UID)
+                $('<td>').text(item[0]),
+                $('<td>').text(item[1]),
+                $('<td>').text(item[2])
             );
             console.log($tr.wrap('<p>').html());
         });
