@@ -203,7 +203,7 @@ def enterresults():
     mycursor = conn.cursor()
 
     mycursor.execute("SELECT * FROM Racers")
-    entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class
+    entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class, JSON
     #print(entries)
 
     return render_template("enterresults.html", entries=entries) 
