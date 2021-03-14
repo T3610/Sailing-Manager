@@ -38,9 +38,10 @@ function updateTable(){
       $.ajax(settings).done(function (response) {
         response = $.parseJSON(response);
         console.log(response);
+        $("#resultsTable").empty();
         $.each(response, function(i, item) {
-            const lapBtn = '<button class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>ADD LAP</button>'
-            const finishBtn = '<button class="btn btn-outline-secondary" onclick=handleFinish(item[0])>FINISH</button>'
+            const lapBtn = '<button class="btn btn-outline-secondary" onclick=handleAddLap('+item[0]+')>ADD LAP</button>';
+            const finishBtn = '<button class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button>';
 
             var $tr = $('<tr>').append(
                 $('<td>').text(item[0]), //ID
@@ -50,8 +51,8 @@ function updateTable(){
                 $('<td>').text(item[4]), //Class
                 $('<td>').text(item[5]), //Laps
                 $('<td>').text(item[6]), //Finished
-                $('<td>').text(lapBtn), //LapBTN
-                $('<td>').text(finishBtn), //finishBTN
+                $('<td>').append(lapBtn), //LapBTN
+                $('<td>').append(finishBtn), //finishBTN
             );
             console.log($tr)
             $("#resultsTable").append($tr);
