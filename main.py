@@ -144,7 +144,7 @@ def editpy(id):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT * FROM pylist WHERE ID=%s",(id))
+    mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id))
     entry = mycursor.fetchone()
     return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
 
@@ -160,7 +160,7 @@ def updatepy(id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
+        mycursor.execute("UPDATE  PyList SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
         # Save (commit) the changes
         conn.commit()
@@ -174,7 +174,7 @@ def deletepy(id):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("DELETE FROM pylist WHERE ID=%s",(id,))
+    mycursor.execute("DELETE FROM PyList WHERE ID=%s",(id,))
     conn.commit()
     return redirect("/pylist")
 
@@ -189,7 +189,7 @@ def addpy():
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("INSERT INTO pylist (Class,PY) values (%s,%s)",(formData[0],formData[1]))
+        mycursor.execute("INSERT INTO PyList (Class,PY) values (%s,%s)",(formData[0],formData[1]))
         
         # Save (commit) the changes
         conn.commit()
