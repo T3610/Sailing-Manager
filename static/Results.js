@@ -43,7 +43,8 @@ function updateTable(){
                 $('<td>').text(item[1]),
                 $('<td>').text(item[2])
             );
-            $("#resultsTable").html($tr);
+            console.log($tr)
+            $("#resultsTable").append($tr);
             console.log($tr.wrap('<p>').html());
         });
       });
