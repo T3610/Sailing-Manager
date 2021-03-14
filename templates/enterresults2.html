@@ -39,19 +39,8 @@
           </tr>
           </thead> 
           {{entries}}   
-          <tbody>
-            {% for row in entries%}    
-                  <tr>
-                      <td>{{row[0]}}</td>
-                      <td>{{row[1]}}</td>
-                      <td>{{row[2]}}</td>
-                      <td>{{row[3]}}</td>
-                      <td>{{row[4]}}</td>
-                      <td>{{row[5]['laps']}} {{row[5]['finishTime']}} {{row[5]}}</td>
-                      <td><button class="btn btn-outline-secondary" onclick=handleAddLap({{row[0]}}) >ADD LAP</button></td>
-                      <td><button class="btn btn-outline-secondary" onclick=handleFinish({{row[0]}}) >FINISH</button></td>
-                  </tr>
-            {% endfor %}
+          <tbody id="resultsTable">
+            
           </tbody>
       </table>
     </div>
