@@ -208,6 +208,23 @@ def enterresults():
 
     return render_template("enterresults.html", entries=entries) 
 
+@app.route('/enterresults2')
+def enterresults2():
+    return render_template("enterresults2.html") 
+
+@app.route('/api/results', methods=["GET"])
+def addlap():
+    if request.method == 'GET':
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("SELECT * FROM Racers")
+        entries = mycursor.fetchall()
+        entriesJSON = json.dumps(entries)
+    
+        return entriesJSON
+        
 @app.route('/addlap/<id>', methods=["PATCH"])
 def addlap(id):
     if request.method == 'PATCH':
