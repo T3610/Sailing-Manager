@@ -208,24 +208,20 @@ def enterresults():
 
     return render_template("enterresults.html", entries=entries) 
 
-@app.route('/addlap/<id>', methods=["POST"])
+@app.route('/addlap/<id>', methods=["PATCH"])
 def addlap(id):
-    if request.method == 'POST':
-        formData = []
-        #print(request.form)
-        formData = request.form["id"],request.form[""]
-        print(formData)
+    if request.method == 'PATCH':
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  Racers SET Laps%s WHERE ID=%s",(formData[0],formData[1],id))
+        mycursor.execute("UPDATE Racers SET Laps = Laps + 1 WHERE ID=%s",(id,))
 
         # Save (commit) the changes
         conn.commit()
         #print(request.form)
     
-        return redirect("/pylist")
+        return "success",204
 
 
 
