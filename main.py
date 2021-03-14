@@ -219,7 +219,7 @@ def resultsAPI():
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("SELECT * FROM Racers")
+        mycursor.execute("SELECT * FROM Racers ORDER BY Finished,Laps ASC")
         entries = mycursor.fetchall()
         entriesJSON = json.dumps(entries)
     
