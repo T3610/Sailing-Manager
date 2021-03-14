@@ -144,7 +144,7 @@ def editpy(id):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id))
+    mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id,))
     entry = mycursor.fetchone()
     return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
 
