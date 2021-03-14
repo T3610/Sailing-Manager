@@ -42,7 +42,8 @@ function updateTable(){
         console.log(response);
         $("#resultsTable").empty();
         $.each(response, function(i, item) {
-            const lapBtn = '<button class="btn btn-outline-secondary" onclick=handleAddLap('+item[0]+')>ADD LAP</button>';
+
+            const lapBtn = '<div class="btn-group"></div><button class="btn btn-outline-secondary" onclick=handleAddLap('+item[0]+')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" href="#">Remove lap</a></div></div>';
             const finishBtn = '<button class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button>';
             const finishBtnDisabled = '<button disabled class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button>';
 
