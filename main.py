@@ -207,8 +207,26 @@ def enterresults():
     #print(entries)
 
     return render_template("enterresults.html", entries=entries) 
+"""
+@app.route('/addlap/<id>', methods=["POST"])
+def updatepy(id):
+    if request.method == 'POST':
+        formData = []
+        #print(request.form)
+        formData = request.form["id"],request.form[""]
+        #print(formData[0])
+        conn = mysql.connection
+        mycursor = conn.cursor()
 
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
 
+        # Save (commit) the changes
+        mydb.commit()
+        #print(request.form)
+    
+        return redirect("/pylist")
+"""
 
 
 #MAKE SURE AT END
