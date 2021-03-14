@@ -153,7 +153,7 @@ def editpy(id):
 def updatepy(id):
     if request.method == 'POST':
         formData = []
-        #print(request.form)
+        print(request.form)
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
         conn = mysql.connection
