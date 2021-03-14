@@ -1,3 +1,5 @@
+document.onload = updateTable()
+
 function handleAddLap(id){
     console.log(id)
 
@@ -9,7 +11,7 @@ function handleAddLap(id){
       
       $.ajax(settings).done(function (response) {
         console.log(response);
-        location.reload();
+        updateTable()
       });
 }
 function handleFinish(id){
@@ -23,7 +25,7 @@ function handleFinish(id){
       
       $.ajax(settings).done(function (response) {
         console.log(response);
-        location.reload();
+        updateTable()
       });
 }
 
