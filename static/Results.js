@@ -45,7 +45,6 @@ function updateTable(){
             );
             console.log($tr)
             $("#resultsTable").append($tr);
-            console.log($tr.wrap('<p>').html());
         });
       });
 }
