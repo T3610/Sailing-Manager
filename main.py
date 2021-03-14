@@ -247,7 +247,7 @@ def removelap(id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Laps = Laps - 1 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET Laps = Laps - 1 WHERE ID=%s AND Laps >0",(id,))
 
         # Save (commit) the changes
         conn.commit()
