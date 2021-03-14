@@ -83,7 +83,7 @@ def updateentry(id):
         mycursor.execute("UPDATE  Racers SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
 
         # Save (commit) the changes
-        mydb.commit()
+        mysql.commit()
         #print(request.form)
     
         return redirect("/oodracesetup")
