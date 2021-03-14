@@ -17,6 +17,7 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="/static/Results.js"></script>
     </head>
 <body>
     {{entries}} 
@@ -47,7 +48,7 @@
                       <td>{{row[3]}}</td>
                       <td>{{row[4]}}</td>
                       <td>{{row[5]['laps']}} {{row[5]['finishTime']}} {{row[5]}}</td>
-                      <td><a href="/addlap/{{row[0]}}">ADD LAP</a></td>
+                      <td><button onPress="handleAddLap({{row[0]}})">ADD LAP</button></td>
                       <td><a>FINISH</a></td>
                   </tr>
             {% endfor %}
