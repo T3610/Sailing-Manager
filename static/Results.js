@@ -16,7 +16,7 @@ function handleFinish(id){
     console.log(id)
 
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/addlap/"+id,
+        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/finish/"+id,
         "method": "PATCH",
         "timeout": 0,
       };
