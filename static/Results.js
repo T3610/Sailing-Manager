@@ -33,15 +33,25 @@ function updateTable(){
         "method": "GET",
         "timeout": 0,
       };
+
       
       $.ajax(settings).done(function (response) {
         response = $.parseJSON(response);
         console.log(response);
         $.each(response, function(i, item) {
+            const lapBtn = '<button class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>ADD LAP</button>'
+            const finishBtn = '<button class="btn btn-outline-secondary" onclick=handleFinish(item[0])>FINISH</button>'
+
             var $tr = $('<tr>').append(
-                $('<td>').text(item[0]),
-                $('<td>').text(item[1]),
-                $('<td>').text(item[2])
+                $('<td>').text(item[0]), //ID
+                $('<td>').text(item[1]), //Helm
+                $('<td>').text(item[2]), //Crew
+                $('<td>').text(item[3]), //Sail No
+                $('<td>').text(item[4]), //Class
+                $('<td>').text(item[5]), //Laps
+                $('<td>').text(item[6]), //Finished
+                $('<td>').text(lapBtn), //LapBTN
+                $('<td>').text(finishBtn), //finishBTN
             );
             console.log($tr)
             $("#resultsTable").append($tr);
