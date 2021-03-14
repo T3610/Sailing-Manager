@@ -209,7 +209,7 @@ def enterresults():
     return render_template("enterresults.html", entries=entries) 
 
 @app.route('/addlap/<id>', methods=["POST"])
-def updatepy(id):
+def addlap(id):
     if request.method == 'POST':
         formData = []
         #print(request.form)
