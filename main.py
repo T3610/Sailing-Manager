@@ -279,7 +279,7 @@ def unfinish(id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Finished = 0 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET Finished = 0, TimeFinished = 0 WHERE ID=%s",(id,))
 
         # Save (commit) the changes
         conn.commit()
