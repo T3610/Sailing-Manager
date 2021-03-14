@@ -223,6 +223,21 @@ def addlap(id):
     
         return "success",204
 
+@app.route('/finish/<id>', methods=["PATCH"])
+def finish(id):
+    if request.method == 'PATCH':
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE Racers SET Finished = 1 WHERE ID=%s",(id,))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
+
 
 
 #MAKE SURE AT END

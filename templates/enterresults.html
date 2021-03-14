@@ -49,7 +49,7 @@
                       <td>{{row[4]}}</td>
                       <td>{{row[5]['laps']}} {{row[5]['finishTime']}} {{row[5]}}</td>
                       <td><button class="btn btn-outline-secondary" onclick=handleAddLap({{row[0]}}) >ADD LAP</button></td>
-                      <td><a>FINISH</a></td>
+                      <td><button class="btn btn-outline-secondary" onclick=handleFinish({{row[0]}}) >FINISH</button></td>
                   </tr>
             {% endfor %}
           </tbody>
