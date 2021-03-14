@@ -29,6 +29,14 @@ function handleFinish(id){
       });
 }
 
+function handleRemoveLap(id){
+    console.log(id);
+}
+
+function handleUnfinish(id){
+    console.log(id);
+}
+
 function updateTable(){
     var settings = {
         "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/api/results",
@@ -43,9 +51,9 @@ function updateTable(){
         $("#resultsTable").empty();
         $.each(response, function(i, item) {
 
-            const lapBtn = '<div class="btn-group"><button class="btn btn-outline-secondary" onclick=handleAddLap('+item[0]+')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap()">Remove lap</a></div></div>';
+            const lapBtn = '<div class="btn-group"><button class="btn btn-outline-secondary" onclick=handleAddLap('+item[0]+')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap('+item[0]+')">Remove lap</a></div></div>';
             const finishBtn = '<button class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button>';
-            const finishBtnDisabled = '<button disabled class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button>';
+            const finishBtnDisabled = '<div class="btn-group"><button disabled class="btn btn-outline-secondary" onclick=handleFinish('+item[0]+')>FINISH</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleUnfinish('+item[0]+')">Remove lap</a></div></div>';
 
             var $tr = $('<tr>').append(
                 $('<td>').text(item[0]), //ID
