@@ -207,7 +207,7 @@ def enterresults():
     #print(entries)
 
     return render_template("enterresults.html", entries=entries) 
-"""
+
 @app.route('/addlap/<id>', methods=["POST"])
 def updatepy(id):
     if request.method == 'POST':
@@ -219,14 +219,14 @@ def updatepy(id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  pylist SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
+        mycursor.execute("UPDATE  Racers SET Laps%s WHERE ID=%s",(formData[0],formData[1],id))
 
         # Save (commit) the changes
         conn.commit()
         #print(request.form)
     
         return redirect("/pylist")
-"""
+
 
 
 #MAKE SURE AT END
