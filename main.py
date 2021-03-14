@@ -213,7 +213,7 @@ def enterresults2():
     return render_template("enterresults2.html") 
 
 @app.route('/api/results', methods=["GET"])
-def addlap():
+def resultsAPI():
     if request.method == 'GET':
         conn = mysql.connection
         mycursor = conn.cursor()
@@ -224,7 +224,7 @@ def addlap():
         entriesJSON = json.dumps(entries)
     
         return entriesJSON
-        
+
 @app.route('/addlap/<id>', methods=["PATCH"])
 def addlap(id):
     if request.method == 'PATCH':
