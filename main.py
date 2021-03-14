@@ -206,7 +206,6 @@ def enterresults():
     entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class
     #print(entries)
 
-    mycursor.execute("SELECT laps FROM oodSetup")
     data = mycursor.fetchone()
     
     return render_template("enterresults.html", entries=data) 
