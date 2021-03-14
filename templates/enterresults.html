@@ -48,7 +48,7 @@
                       <td>{{row[3]}}</td>
                       <td>{{row[4]}}</td>
                       <td>{{row[5]['laps']}} {{row[5]['finishTime']}} {{row[5]}}</td>
-                      <td><button onPress="handleAddLap({{row[0]}})">ADD LAP</button></td>
+                      <td><button onclick=handleAddLap({{row[0]}}) >ADD LAP</button></td>
                       <td><a>FINISH</a></td>
                   </tr>
             {% endfor %}
