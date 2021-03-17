@@ -24,68 +24,6 @@
 </head>
    </head>
 
-<body onload="updateTime()">
-    <div class="container-fluid text-center align-middle">
-       <div class="row">
-         <div class="col-sm-5"></div>
-         <div class="col-sm-2">
-            <img src="/static/img/DSCpennant.png" width="100%">
-         </div>            
-         <div class="col-sm-5"></div>
-       </div>
-        <div class="row">
-            <h1 class="title">  Sailing Club</h1><br>
-        </div>
-        <div class="row">
-            <h3> Time remaining to sign up for the race
-                <span id="raceCountdown">
-                    </span>
-            </h3>
-        </div>
-        
-        <div class="row vh-25">
-            <div class="col-sm-6 griditemcol">
-                {%if onTime%}
-                    <div id="signup" class="colbg signupbtn"></div>
-                    <div class="griditem signupbtn">
-                        <h1>Sign Up For Race</h1>
-                    </div>
-                {%else%}
-                    <div id="signup" class="colbg signupclosedbtn"></div>
-                    <div class="griditem signupclosedbtn" >
-                        <h1>Sign Up Closed</h1>
-                    </div>
-                {%endif%}
-            </div>
-            <div class="col-sm-6 griditemcol">
-                <div id="entrylist" class="colbg entrylist btn"></div>
-                <div class="griditem entrylistbtn">
-                    <h1>View Race Entries</h1>
-                    <p>Use this button to access the digital sign up sheet that lists all competitors</p>
-                </div>
-            </div>
-        </div>
-        <div class="row vh-25">
-            <div class="col-sm-6 griditemcol">
-                <div id="startorder" class="colbg startorderbtn"></div>
-                <div class="griditem startorderbtn">
-                    <h1>View Start Timings</h1>
-                </div>
-            </div>
-            <div class="col-sm-6 griditemcol">
-                <div id="ood" class="colbg oodbtn"></div>
-                <div class="griditem oodbtn">
-                    <h1>OOD page</h1>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-           <h3>Dutyman</h3>
-         <iframe src="http://www.dutyman.biz/dmembed.aspx?id=D0001862&amp;mode=3&amp;gridlines=None&amp;maxrows=7&amp;datsep=No" width="500" height="150" frameborder="0"></iframe>
-        </div>
-    </div>
-</body>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
