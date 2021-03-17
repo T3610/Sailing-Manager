@@ -4,7 +4,7 @@ function handleAddLap(id){
     console.log(id)
 
     var settings = {
-        "url": "http://racing.dorchestersailingclub.org.uk//addlap/"+id,
+        "url": "https://racing.dorchestersailingclub.org.uk//addlap/"+id,
         "method": "PATCH",
         "timeout": 0,
       };
