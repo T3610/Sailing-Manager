@@ -197,19 +197,9 @@ def addpy():
     elif request.method == 'GET':
         return render_template("pyadd.html")
 
+
 @app.route('/enterresults')
 def enterresults():
-    conn = mysql.connection
-    mycursor = conn.cursor()
-
-    mycursor.execute("SELECT * FROM Racers")
-    entries = mycursor.fetchall() #id, Helm, Crewname, Sail Num, Class, JSON
-    #print(entries)
-
-    return render_template("enterresults.html", entries=entries) 
-
-@app.route('/enterresults2')
-def enterresults2():
     return render_template("enterresults2.html") 
 
 @app.route('/api/results', methods=["GET"])
