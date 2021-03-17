@@ -4,7 +4,7 @@ function handleAddLap(id){
     console.log(id)
 
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/addlap/"+id,
+        "url": "http://racing.dorchestersailingclub.org.uk//addlap/"+id,
         "method": "PATCH",
         "timeout": 0,
       };
@@ -20,7 +20,7 @@ function handleFinish(id){
     var currentTime = Math.round(Date.now() / 1000);
 
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/finish/"+id+"?finishTime="+currentTime,
+        "url": "https://racing.dorchestersailingclub.org.uk/finish/"+id+"?finishTime="+currentTime,
         "method": "PATCH",
         "timeout": 0,
       };
@@ -34,7 +34,7 @@ function handleFinish(id){
 function handleRemoveLap(id){
     console.log(id);
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/removelap/"+id,
+        "url": "https://racing.dorchestersailingclub.org.uk/removelap/"+id,
         "method": "PATCH",
         "timeout": 0,
       };
@@ -48,7 +48,7 @@ function handleRemoveLap(id){
 function handleUnfinish(id){
     console.log(id);
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/unfinish/"+id,
+        "url": "https://racing.dorchestersailingclub.org.uk/unfinish/"+id,
         "method": "PATCH",
         "timeout": 0,
       };
@@ -61,7 +61,7 @@ function handleUnfinish(id){
 
 function updateTable(){
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/api/results",
+        "url": "https://racing.dorchestersailingclub.org.uk/api/results",
         "method": "GET",
         "timeout": 0,
       };

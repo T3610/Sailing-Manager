@@ -21,7 +21,7 @@ app.config['MYSQL_HOST'] = '127.0.0.1'
 mysql = MySQL()
 
 #dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
-baseUrl = "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/"
+baseUrl = "https://racing.dorchestersailingclub.org.uk/"
 
 def entrylist():
     conn = mysql.connection

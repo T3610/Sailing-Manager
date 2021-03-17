@@ -4,7 +4,7 @@ var intervalId = window.setInterval(function(){
 
 function updateTime(){
     var settings = {
-        "url": "http://ec2-35-178-146-200.eu-west-2.compute.amazonaws.com/startTime",
+        "url": "https://racing.dorchestersailingclub.org.uk/startTime",
         "method": "GET",
         "timeout": 0,
       };
