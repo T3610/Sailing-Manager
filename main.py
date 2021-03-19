@@ -139,6 +139,16 @@ def editpylist():
     pylist = mycursor.fetchall()
     return render_template('pylist.html',pylist=pylist)     
 
+@app.route('/results')
+def results():
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
+    mycursor.execute("SELECT * FROM Racers ORDER BY TimeFinished,Laps DESC")
+    results = mycursor.fetchall()
+    return render_template('pylist.html',results=results)     
+
+
 @app.route('/pyedit/<id>')
 def editpy(id):
     conn = mysql.connection
