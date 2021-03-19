@@ -3,140 +3,131 @@
 
 <head>
     <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="/static/Results.js"></script>
 </head>
 
 <body>
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/oodracesetup">Race Setup</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+            <a class="navbar-brand" href="/">Home</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/oodracesetup">Race Setup</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/pylist">PY List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="/enterresults">Enter Results</a>
+                        <a class="nav-link" href="/enterresults">Enter Results</a>
                     </li>
                 </ul>
             </div>
         </nav>
 
-        <div class="container">
-            <table class="table table-striped ">
-                <thead>
-                    <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Crew name</th>
-                        <th scope="col">Sail Number</th>
-                        <th scope="col">Class</th>
-                        <th scope="col">current laps</th>
-                        <th scope="col">Add Lap</th>
-                        <th scope="col">Finish</th>
-                        <th scope="col"></th>
-
-                    </tr>
-                </thead>
-                <tbody id="resultsTable">
-
-                </tbody>
-            </table>
-        </div>
-</body>
-
-</html> <button type="submit" class="btn btn-primary">Update Race Configuration</button>
-
-</div>
 
 
-</form>
+        <form action="https://racing.dorchestersailingclub.org.uk//oodracesetup" method="post">
+            <div class="form-group">
+
+                <label for="racelen"><b>Race Length (minutes)</b></label>
+                <input class="form-control" type="number" placeholder="Enter Race Length" name="racelen" id="racelen" required="" min="10" value={{racelen}}>
+
+                <label for="lastsignup"><b>Last Sign Up Time</b></label>
+                <input class="form-control" type="time" placeholder="Enter Time For Last Sign Up" name="cutofftime" id="lastsignup" required="" value={{lastentry}}>
+
+                <!-- <label for="racelen"><b>Max Laps</b></label>
+                <input class="form-control" type="number" placeholder="Enter Maxium Laps" name="racedistance" id="racedistance"
+                    required="" min="1" value={{laps}}> NOT NEEDED FOR PURSUIT RACE
+ -->
+                <hr>
+
+                <button type="submit" class="btn btn-primary">Update Race Configuration</button>
+
+            </div>
+
+
+        </form>
 
 
 
 
-<div class="form-group">
+        <div class="form-group">
 
-    <body>
-        current settings: Race length: {{racelen}} Last entry: {{lastentry}}
-        <!-- Laps: {{laps}} -->
-        <hr> {% if not empty %}
-        <h2>Start times (provisional based on current entries)</h2>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Boat Class</th>
-                    <th scope="col">PY number</th>
-                    <th scope="col">Time From Start (0 mins)</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in timings %}
-                <tr>
-                    <td>{{row[0]}}</td>
-                    <td>{{row[1]}}</td>
-                    <td>{{row[2]}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {%endif%}
+            <body>
+                current settings: Race length: {{racelen}} Last entry: {{lastentry}}
+                <!-- Laps: {{laps}} -->
+                <hr> {% if not empty %}
+                <h2>Start times (provisional based on current entries)</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Boat Class</th>
+                            <th scope="col">PY number</th>
+                            <th scope="col">Time From Start (0 mins)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in timings %}
+                        <tr>
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {%endif%}
 
-        <h2>Current Entries</h2>
-        <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
+                <h2>Current Entries</h2>
+                <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Crew name</th>
-                    <th scope="col">Sail Number</th>
-                    <th scope="col">Class</th>
-                    <th scope="col">Options</th>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Crew name</th>
+                            <th scope="col">Sail Number</th>
+                            <th scope="col">Class</th>
+                            <th scope="col">Options</th>
 
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in entries %}
-                <tr>
-                    <td>{{row[0]}}</td>
-                    <td>{{row[1]}}</td>
-                    <td>{{row[2]}}</td>
-                    <td>{{row[3]}}</td>
-                    <td>{{row[4]}}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in entries %}
+                        <tr>
+                            <td>{{row[0]}}</td>
+                            <td>{{row[1]}}</td>
+                            <td>{{row[2]}}</td>
+                            <td>{{row[3]}}</td>
+                            <td>{{row[4]}}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
-                                <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <p>No Boats Currently Entered</p>
-        {% endif %}
-    </body>
-</div>
-</div>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
+                                        <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No Boats Currently Entered</p>
+                {% endif %}
+            </body>
+        </div>
+    </div>
 </body>
