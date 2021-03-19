@@ -81,10 +81,10 @@ function updateTable() {
                 ')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
                 item[0] +
                 ')">Remove lap</a></div></div>';
-            const lapBtnDisables =
+            const lapBtnDisabled =
                 '<div class="btn-group"><button disabled class="btn btn-outline-secondary" onclick=handleAddLap(' +
                 item[0] +
-                ')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
+                ')>ADD LAP</button><button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
                 item[0] +
                 ')">Remove lap</a></div></div>';
             const finishBtn =
@@ -105,7 +105,7 @@ function updateTable() {
                 $("<td>").text(item[3]), //Sail No
                 $("<td>").text(item[4]), //Class
                 $("<td>").text(item[5]), //Laps
-                item[6] ? $("<td>").append(lapBtnDisables) : $("<td>").append(lapBtn), //finishBTN
+                item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //finishBTN
                 item[6] ?
                 $("<td>").append(finishBtnDisabled) :
                 $("<td>").append(finishBtn) //finishBTN
