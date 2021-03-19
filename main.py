@@ -146,7 +146,7 @@ def results():
 
     mycursor.execute("SELECT * FROM Racers ORDER BY TimeFinished,Laps DESC")
     results = mycursor.fetchall()
-    return render_template('pylist.html',results=results)     
+    return render_template('results.html',results=results)     
 
 
 @app.route('/pyedit/<id>')
