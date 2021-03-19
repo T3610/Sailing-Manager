@@ -144,7 +144,7 @@ def results():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT * FROM Racers ORDER BY TimeFinished,Laps DESC")
+    mycursor.execute("SELECT * FROM Racers WHERE TimeFinished != 0 ORDER BY TimeFinished,Laps DESC")
     results = mycursor.fetchall()
     return render_template('results.html',results=results)     
 
