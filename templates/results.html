@@ -20,6 +20,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th scope="col">Position</th>
                 <th scope="col">Helm Name</th>
                 <th scope="col">Crew Name</th>
                 <th scope="col">Sail Number</th>
@@ -29,6 +30,7 @@
         <tbody>
             {% for row in results %}
             <tr>
+                <td>{{loop.index}}</td>
                 <td>{{row[0]}}</td>
                 <td>{{row[1]}}</td>
                 <td>{{row[2]}}</td>
