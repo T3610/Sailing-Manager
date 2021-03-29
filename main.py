@@ -42,7 +42,7 @@ def pw():
     if request.form.get('pw') == users[username]['pw']:
       user = User()
       user.id = username
-      login_user(user)
+      flask_login.login_user(user)
       return redirect(url_for('protect'))
   return render_template('login.html')
 
