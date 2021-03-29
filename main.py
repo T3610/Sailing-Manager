@@ -49,7 +49,7 @@ def pw():
 @app.route('/protect')
 @flask_login.login_required
 def protect():
-  return render_template('protected.html')
+  return render_template('oodracesetup.html')
 
 @app.route('/logout')
 def logout():
