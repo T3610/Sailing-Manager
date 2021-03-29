@@ -7,6 +7,10 @@ from datetime import datetime,date,time
 import json
 import math
 
+from flask import Flask, render_template, redirect, request, url_for
+import flask.ext.login as flask_login
+from flask.ext.login import LoginManager, UserMixin # for the login system
+
 import requests
 
 
