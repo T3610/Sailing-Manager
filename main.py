@@ -94,8 +94,8 @@ def starttime():
 
     return str(data[0])
 
-@flask_login.login_required
 @app.route('/oodracesetup', methods=["GET","POST"])
+@flask_login.login_required
 def oodracesetup():
     if request.method == 'POST':
         #print(request.form)
