@@ -35,8 +35,8 @@ def request_loader(request):
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/pw', methods=['GET', 'POST'])
+def pw():
   if request.method == 'POST':
     username = request.form.get('username')
     if request.form.get('pw') == users[username]['pw']:
