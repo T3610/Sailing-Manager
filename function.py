@@ -17,6 +17,8 @@ import requests
 from flask_mysql_connector import MySQL
 
 app = Flask(__name__)
+app.secret_key = '7sqTmHwNwDDRt2savrym'
+
 
 app.config['MYSQL_USER'] = 'Dorchester'
 app.config['MYSQL_PASSWORD'] = 'hQR36hW8U24RA8Hw'
