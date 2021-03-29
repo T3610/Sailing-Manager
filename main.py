@@ -3,6 +3,7 @@ from function import *
 DEBUG = True
 
 login_manager = LoginManager()
+login_manager.init_app(app)
 
 users = {'user1':{'pw':'pass1'}, 
          'user2':{'pw':'pass2'}, 
