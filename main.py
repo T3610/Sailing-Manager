@@ -5,9 +5,9 @@ DEBUG = True
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-users = {'user1':{'pw':'pass1'}, 
-         'user2':{'pw':'pass2'}, 
-         'user3':{'pw':'pass3'}}
+username = 'DSC-OOD'
+
+users = {username:{'pw':'laser'}}
 
 class User(UserMixin):
   pass
@@ -36,21 +36,15 @@ def request_loader(request):
 
 
 
-@app.route('/pw', methods=['GET', 'POST'])
-def pw():
+@app.route('/login', methods=['GET', 'POST'])
+def login():
   if request.method == 'POST':
-    username = request.form.get('username')
     if request.form.get('pw') == users[username]['pw']:
       user = User()
       user.id = username
       flask_login.login_user(user)
-      return redirect(url_for('protect'))
+      return redirect(url_for('oodracesetup'))
   return render_template('login.html')
-
-@app.route('/protect')
-@flask_login.login_required
-def protect():
-  return render_template('oodracesetup.html')
 
 @app.route('/logout')
 def logout():
@@ -100,6 +94,7 @@ def starttime():
 
     return str(data[0])
 
+@flask_login.login_required
 @app.route('/oodracesetup', methods=["GET","POST"])
 def oodracesetup():
     if request.method == 'POST':
