@@ -7,7 +7,7 @@ from datetime import datetime,date,time
 import json
 import math
 
-from flask import Flask, render_template, redirect, request, url_forit
+from flask import Flask, render_template, redirect, request, url_for
 import flask_login
 from flask_login import LoginManager, UserMixin # for the login system
 
