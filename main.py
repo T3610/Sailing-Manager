@@ -44,7 +44,7 @@ def pw():
       user.id = username
       flask_login.login_user(user)
       return redirect(url_for('protect'))
-  return render_template('index.html')
+  return render_template('login.html')
 
 @app.route('/protect')
 @flask_login.login_required
