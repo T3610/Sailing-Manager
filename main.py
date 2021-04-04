@@ -183,6 +183,7 @@ def editentry(id):
     return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
 
 @app.route('/pylist')
+@flask_login.login_required
 def editpylist():
     conn = mysql.connection
     mycursor = conn.cursor()
@@ -261,6 +262,7 @@ def addpy():
 
 
 @app.route('/enterresults')
+@flask_login.login_required
 def enterresults():
     return render_template("enterresults2.html") 
 
