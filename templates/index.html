@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
-   <head>
+
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="theme-color" content="#ffffff">
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <!-- jQuery library -->
@@ -9,7 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
     <script src="static/starttime.js"></script>
     <link rel="stylesheet" href="static/RaceHome.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">      
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -17,8 +25,7 @@
     <title>Dorchester Racing</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
 </head>
@@ -35,15 +42,15 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="album.css" rel="stylesheet">
 </head>
+
 <body onload="updateTime()">
     <main role="main">
-        
+
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Dorchester Sailing Club</h1>
@@ -61,16 +68,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top"
-                                src="\static\img\Schools-Picture.jpg"
-                                alt="Card image cap">
+                            <img class="card-img-top" src="\static\img\Schools-Picture.jpg" alt="Card image cap">
                             <div class="card-body mx-auto">
                                 <div class="d-flex justify-content-between align-items-center">
                                     {%if onTime%}
-                                    <a href="/signup" class="btn btn-primary btn-lg">Sign Up For Race</a>
-                                    {%else%}
-                                    <a class="btn btn-primary btn-lg">Sign Up Closed</a>
-                                    {%endif%}
+                                    <a href="/signup" class="btn btn-primary btn-lg">Sign Up For Race</a> {%else%}
+                                    <a class="btn btn-primary btn-lg">Sign Up Closed</a> {%endif%}
                                 </div>
                             </div>
                         </div>
@@ -78,9 +81,7 @@
 
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top"
-                                src="/static/img/DSC-Race-3-scaled.jpg"
-                                alt="Card image cap">
+                            <img class="card-img-top" src="/static/img/DSC-Race-3-scaled.jpg" alt="Card image cap">
                             <div class="card-body mx-auto">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <a href="/entries" class="btn btn-primary btn-lg">View Race Entries</a>
@@ -88,55 +89,50 @@
                             </div>
                         </div>
                     </div>
-                    
-                        <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top"
-                                    src="/static\img\racingpicture.jpg"
-                                    alt="Card image cap">
-                                <div class="card-body mx-auto">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="/startingorder" class="btn btn-primary btn-lg">View Start Timings</a>
-                                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="/static\img\racingpicture.jpg" alt="Card image cap">
+                            <div class="card-body mx-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="/startingorder" class="btn btn-primary btn-lg">View Start Timings</a>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top"
-                                    src="/static\img\overhead.jpg"
-                                    alt="Card image cap">
-                                <div class="card-body mx-auto">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="/results" class="btn btn-primary btn-lg">Race Results</a>
-                                    </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="/static\img\overhead.jpg" alt="Card image cap">
+                            <div class="card-body mx-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="/results" class="btn btn-primary btn-lg">Race Results</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card mb-4 box-shadow">
-                                <img class="card-img-top"
-                                    src="\static\img\New-Club-House-Large.jpg"
-                                    alt="Card image cap">
-                                <div class="card-body mx-auto">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="/oodracesetup" class="btn btn-primary btn-lg">OOD Page</a>
-                                    </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" src="\static\img\New-Club-House-Large.jpg" alt="Card image cap">
+                            <div class="card-body mx-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="/oodracesetup" class="btn btn-primary btn-lg">OOD Page</a>
                                 </div>
                             </div>
-                    
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </main>
 </body>
-    <!-- Bootstrap core JavaScript
+<!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/vendor/holder.min.js"></script>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<script src="../../assets/js/vendor/holder.min.js"></script>
 </body>
+
 </html>
