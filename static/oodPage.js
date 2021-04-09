@@ -1,3 +1,7 @@
 function handlePersuitRace() {
-  window.alert("Pressed");
+  window.alert("pers race");
+}
+
+function handleHandicapRace() {
+  window.alert("Hcap race");
 }
