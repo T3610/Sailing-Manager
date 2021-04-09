@@ -204,7 +204,7 @@ def results(raceid):
 
         mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
         results = mycursor.fetchall()
-        return render_template('results'+raceid+'.html',results=results)  
+        return render_template('resultsPurs'+raceid+'.html',results=results)  
     else:
         conn = mysql.connection
         mycursor = conn.cursor()
@@ -227,7 +227,7 @@ def results(raceid):
 
         newData.sort(key=operator.itemgetter('correctedAverageLapTime'))
 
-        return str(newData)
+        return render_template('resultsHcap'+raceid+'.html',results=newData)  
 
 @app.route('/results')
 def resultsRedirect():
