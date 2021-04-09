@@ -51,9 +51,9 @@
                 <select class="form-control" id="class" name="class">
                     {% for class in boat %}
                     {% if class==currentBoat %}
-                    <option value={{class}} selected>{{class}}</option>
+                    <option value="{{class}}" selected>{{class}}</option>
                     {%else%}
-                    <option value={{class}}>{{class}}</option>
+                    <option value="{{class}}">{{class}}</option>
                     {%endif%}
                     {% endfor %}
 
