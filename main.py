@@ -1,5 +1,6 @@
 from function import *
 
+
 DEBUG = True
 
 login_manager = LoginManager()
