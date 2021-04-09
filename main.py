@@ -221,8 +221,8 @@ def results(raceid):
                 'name':racer[1],
                 'crewName':racer[2],
                 'sailNo':racer[3],
-                'laps':racer[5],
-                'elapsedTime':racer[6]-raceStart
+                'laps':racer[4],
+                'elapsedTime':racer[5]-raceStart
             })
 
         print(newData)
