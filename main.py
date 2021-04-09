@@ -261,25 +261,30 @@ def addpy():
         return render_template("pyadd.html")
 
 
-@app.route('/enterresults')
+@app.route('/enterresults/1')
 @flask_login.login_required
 def enterresults():
-    return render_template("enterresults2.html") 
+    return render_template("enterresults1.html") 
 
-@app.route('/api/results', methods=["GET"])
+@app.route('/enterresults/2')
+@flask_login.login_required
+def enterresults():
+    return render_template("enterresults2.html")
+
+@app.route('/api/results/<raceid>', methods=["GET"])
 def resultsAPI():
     if request.method == 'GET':
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("SELECT * FROM Racers ORDER BY Finished,Laps ASC")
+        mycursor.execute("SELECT * FROM Racers ORDER BY FinishedR"+raceid+" ,LapsR"+raceid+" ASC")
         entries = mycursor.fetchall()
         entriesJSON = json.dumps(entries)
     
         return entriesJSON
 
-@app.route('/addlap/<id>', methods=["PATCH"])
+@app.route('/addlap/<raceid>/<id>', methods=["PATCH"])
 def addlap(id):
     if request.method == 'PATCH':
         conn = mysql.connection
@@ -294,7 +299,7 @@ def addlap(id):
     
         return "success",204
 
-@app.route('/removelap/<id>', methods=["PATCH"])
+@app.route('/removelap/<raceid>/<id>', methods=["PATCH"])
 def removelap(id):
     if request.method == 'PATCH':
         conn = mysql.connection
@@ -309,7 +314,7 @@ def removelap(id):
     
         return "success",204
 
-@app.route('/finish/<id>', methods=["PATCH"])
+@app.route('/finish/<raceid>/<id>', methods=["PATCH"])
 def finish(id):
     if request.method == 'PATCH':
         finishTime = request.args.get('finishTime')
@@ -326,7 +331,7 @@ def finish(id):
     
         return "success",204
 
-@app.route('/unfinish/<id>', methods=["PATCH"])
+@app.route('/unfinish/<raceid>/<id>', methods=["PATCH"])
 def unfinish(id):
     if request.method == 'PATCH':
         conn = mysql.connection
