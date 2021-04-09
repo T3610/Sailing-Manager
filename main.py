@@ -198,12 +198,35 @@ def editpylist():
 
 @app.route('/results/<raceid>')
 def results(raceid):
-    conn = mysql.connection
-    mycursor = conn.cursor()
+    if getRaceType():
+        conn = mysql.connection
+        mycursor = conn.cursor()
 
-    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
-    results = mycursor.fetchall()
-    return render_template('results'+raceid+'.html',results=results)     
+        mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
+        results = mycursor.fetchall()
+        return render_template('results'+raceid+'.html',results=results)  
+    else:
+        conn = mysql.connection
+        mycursor = conn.cursor()
+        mycursor.execute("SELECT race%sstart from oodSetup", (raceid,))
+
+        raceStart = mycursor.fetchone()[0]
+
+        mycursor.execute("SELECT `ID`, `Name`, `Crew`, `SailNum`, `LapsR"+raceid+"`, `TimeFinishedR"+raceid+"` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ")
+        results = mycursor.fetchall()
+        newData = []
+        for racer in results:
+            newData.append({
+                'id':racer[0],
+                'name':racer[1],
+                'crewName':racer[2],
+                'sailNo':racer[3],
+                'laps':racer[5],
+                'elapsedTime':racer[6]-raceStart
+            })
+
+        print(newData)
+        return str(newData)
 
 @app.route('/results')
 def resultsRedirect():
