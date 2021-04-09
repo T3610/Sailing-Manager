@@ -29,6 +29,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
+    <script src="/static/oodPage.js"></script>
+
 </head>
 
 <body class="bg-light">
@@ -59,19 +61,32 @@
         <form action="https://racing.dorchestersailingclub.org.uk//oodracesetup" method="post">
             <div class="form-group">
 
-                <label for="racelen"><b>Race Length (minutes)</b></label>
-                <input class="form-control" type="number" placeholder="Enter Race Length" name="racelen" id="racelen" required="" min="10" value={{racelen}}>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Handicap race
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" onClick="handlePersuitRace()" checked>
+                    <label class=" form-check-label " for="flexRadioDefault2 ">
+                      Persuit race
+                    </label>
+                </div>
 
-                <label for="lastsignup"><b>Last Sign Up Time</b></label>
-                <input class="form-control" type="time" placeholder="Enter Time For Last Sign Up" name="cutofftime" id="lastsignup" required="" value={{lastentry}}>
+                <label for="racelen "><b>Race Length (minutes)</b></label>
+                <input class="form-control " type="number " placeholder="Enter Race Length " name="racelen " id="racelen " required=" " min="10 " value={{racelen}}>
 
-                <!-- <label for="racelen"><b>Max Laps</b></label>
-                <input class="form-control" type="number" placeholder="Enter Maxium Laps" name="racedistance" id="racedistance"
-                    required="" min="1" value={{laps}}> NOT NEEDED FOR PURSUIT RACE
+                <label for="lastsignup "><b>Last Sign Up Time</b></label>
+                <input class="form-control " type="time " placeholder="Enter Time For Last Sign Up " name="cutofftime " id="lastsignup " required=" " value={{lastentry}}>
+
+                <!-- <label for="racelen "><b>Max Laps</b></label>
+                <input class="form-control " type="number " placeholder="Enter Maxium Laps " name="racedistance " id="racedistance "
+                    required=" " min="1 " value={{laps}}> NOT NEEDED FOR PURSUIT RACE
  -->
                 <hr>
 
-                <button type="submit" class="btn btn-primary">Update Race Configuration</button>
+                <button type="submit " class="btn btn-primary ">Update Race Configuration</button>
 
             </div>
 
@@ -81,19 +96,19 @@
 
 
 
-        <div class="form-group">
+        <div class="form-group ">
 
             <body>
                 current settings: Race length: {{racelen}} Last entry: {{lastentry}}
                 <!-- Laps: {{laps}} -->
                 <hr> {% if not empty %}
                 <h2>Start times (provisional based on current entries)</h2>
-                <table class="table table-striped">
+                <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th scope="col">Boat Class</th>
-                            <th scope="col">PY number</th>
-                            <th scope="col">Time From Start (0 mins)</th>
+                            <th scope="col ">Boat Class</th>
+                            <th scope="col ">PY number</th>
+                            <th scope="col ">Time From Start (0 mins)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,17 +124,17 @@
                 {%endif%}
 
                 <h2>Current Entries</h2>
-                <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
+                <a class="btn btn-primary " href="/oodsignup " role="button ">Add New Entry</a> {% if not empty %}
 
-                <table class="table table-striped">
+                <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Crew name</th>
-                            <th scope="col">Sail Number</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">Options</th>
+                            <th scope="col ">ID</th>
+                            <th scope="col ">Name</th>
+                            <th scope="col ">Crew name</th>
+                            <th scope="col ">Sail Number</th>
+                            <th scope="col ">Class</th>
+                            <th scope="col ">Options</th>
 
                         </tr>
                     </thead>
@@ -132,13 +147,13 @@
                             <td>{{row[3]}}</td>
                             <td>{{row[4]}}</td>
                             <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="dropdown ">
+                                    <button class="btn btn-secondary dropdown-toggle " type="button " id="dropdownMenuButton " data-bs-toggle="dropdown " aria-haspopup="true " aria-expanded="false ">
 
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
-                                        <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
+                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton ">
+                                        <a class="dropdown-item " href="/editentry/{{row[0]}} ">Edit</a>
+                                        <a class="dropdown-item " href="/deleteentry/{{row[0]}} ">Delete</a>
                                     </div>
                                 </div>
                             </td>
