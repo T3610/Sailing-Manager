@@ -212,7 +212,7 @@ def results(raceid):
 
         raceStart = mycursor.fetchone()[0]
 
-        mycursor.execute("SELECT `ID`, `Name`, `Crew`, `SailNum`, `LapsR"+raceid+"`, `TimeFinishedR"+raceid+"` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ")
+        mycursor.execute("SELECT `ID`, `Name`, `Crew`, `SailNum`, `LapsR%s`, `TimeFinishedR%s` FROM `Racers` WHERE `FinishedR%s` != 0 ",(raceid,raceid,raceid))
         results = mycursor.fetchall()
         newData = []
         for racer in results:
