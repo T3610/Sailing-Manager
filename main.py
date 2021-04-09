@@ -272,7 +272,7 @@ def enterresultsR2():
     return render_template("enterresults2.html")
 
 @app.route('/api/results/<raceid>', methods=["GET"])
-def resultsAPI():
+def resultsAPI(raceid):
     if request.method == 'GET':
         conn = mysql.connection
         mycursor = conn.cursor()
