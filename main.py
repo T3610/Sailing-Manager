@@ -262,7 +262,7 @@ def addpy():
 
 @app.route('/enterresults')
 @flask_login.login_required
-def enterresultsR1():
+def enterresults():
     return redirect("/enterresults/1") 
 
 @app.route('/enterresults/1')
