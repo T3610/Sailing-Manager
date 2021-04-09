@@ -225,6 +225,8 @@ def results(raceid):
                 'py': racer[6],
             })
 
+        newData.sort(key=operator.itemgetter('correctedAverageLapTime'))
+
         return str(newData)
 
 @app.route('/results')

@@ -6,6 +6,7 @@ from flask import Response, render_template, redirect
 from datetime import datetime,date,time
 import json
 import math
+import operator
 
 from flask import Flask, render_template, redirect, request, url_for
 import flask_login
