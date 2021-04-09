@@ -119,4 +119,12 @@ def outOftimeSignUp():
     else:
         return True
     
+def getRaceType():
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
+    mycursor.execute("SELECT RaceType FROM oodSetup")
     
+    data = mycursor.fetchone()
+
+    return data

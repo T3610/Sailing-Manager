@@ -62,13 +62,16 @@ def send_static(path):
 
 @app.route('/startingorder')
 def startingorder():
-    conn = mysql.connection
-    mycursor = conn.cursor()
+    if getRaceType():
+        conn = mysql.connection
+        mycursor = conn.cursor()
 
-    mycursor.execute("SELECT RaceLen FROM oodSetup")
-    data = mycursor.fetchall()
-    print(data[0][0])
-    return render_template('startingorder.html',data = startTimeList(data[0][0])[0])
+        mycursor.execute("SELECT RaceLen FROM oodSetup")
+        data = mycursor.fetchall()
+        print(data[0][0])
+        return render_template('startingorder.html',data = startTimeList(data[0][0])[0])
+    else:
+        return redirect("/") 
 
 @app.route('/signup')
 def signup():
@@ -83,7 +86,7 @@ def oodsignup():
 
 @app.route('/')
 def index():
-    return render_template('index.html',onTime = outOftimeSignUp())
+    return render_template('index.html',onTime = outOftimeSignUp(), raceType=getRaceType())
 
 @app.route('/startTime')
 def starttime():
