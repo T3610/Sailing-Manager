@@ -107,19 +107,19 @@ def oodracesetup():
         mycursor = conn.cursor()
 
 
-        mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
+        mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s, RaceType=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"],request.form["racetype"]))
         conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
         conn = mysql.connection
         mycursor = conn.cursor()
 
-        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen FROM oodSetup")
+        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen, RaceType FROM oodSetup")
         
         data = mycursor.fetchone()
         #print(data)
 
-        return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0],  entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1])
+        return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0], racetype = data[2],  entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1])
 
 
 @app.route('/editentry/<id>', methods=["POST"])

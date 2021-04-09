@@ -60,7 +60,20 @@
 
         <form action="https://racing.dorchestersailingclub.org.uk//oodracesetup" method="post">
             <div class="form-group">
-
+                {% if racetype %}
+                <div class="form-check">
+                    <input value="0" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault1" onClick="handleHandicapRace()">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Handicap race
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input value="1" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault2" onClick="handlePersuitRace()" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Persuit race
+                    </label>
+                </div>
+                {%else%}
                 <div class="form-check">
                     <input value="0" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault1" onClick="handleHandicapRace()" checked>
                     <label class="form-check-label" for="flexRadioDefault1">
@@ -72,7 +85,7 @@
                     <label class="form-check-label" for="flexRadioDefault2">
                       Persuit race
                     </label>
-                </div>
+                </div>{%endif%}
 
                 <div id="raceLength" style="display: none;">
                     <label for="racelen"><b>Race Length (minutes)</b></label>
