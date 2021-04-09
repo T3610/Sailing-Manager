@@ -30,63 +30,66 @@
 
 </head>
 
-
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Home</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#oodNavBar" aria-controls="oodNavBar" aria-expanded="false" aria-label="Toggle navigation">
+<body class="bg-light">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#oodNavBar" aria-controls="oodNavBar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        <div class="collapse navbar-collapse" id="oodNavBar">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/oodracesetup">Race Setup</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/pylist">PY List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/enterresults">Enter Results</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+            <div class="collapse navbar-collapse" id="oodNavBar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/oodracesetup">Race Setup</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pylist">PY List</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/enterresults">Enter Results</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-    <h2 style="text-align:center;">Current Entries</h2>
-    <div class="row">
-        <a class="btn btn-primary col-sm-3" href="/addpy" role="button">Add New Entry</a>
-        <div class="col-sm-6"></div>
-        <a class="btn btn-primary col-sm-3" href="/oodracesetup" role="button">Back</a>
-    </div>
-    <br>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Boat</th>
-                <th scope="col">PY</th>
-                <th scope="col">Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in pylist %}
-            <tr>
-                <td>{{row[0]}}</td>
-                <td>{{row[1]}}</td>
-                <td>{{row[2]}}</td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <h2 style="text-align:center;">Current Entries</h2>
+        <div class="row">
+            <a class="btn btn-primary col-sm-3" href="/addpy" role="button">Add New Entry</a>
+            <div class="col-sm-6"></div>
+            <a class="btn btn-primary col-sm-3" href="/oodracesetup" role="button">Back</a>
+        </div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Boat</th>
+                    <th scope="col">PY</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in pylist %}
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/pyedit/{{row[0]}}">Edit</a>
-                            <a class="dropdown-item" href="/deletepy/{{row[0]}}">Delete</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/pyedit/{{row[0]}}">Edit</a>
+                                <a class="dropdown-item" href="/deletepy/{{row[0]}}">Delete</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
