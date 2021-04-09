@@ -112,8 +112,9 @@
 
 
         <p>current settings: Race length: {{racelen}} Last entry: {{lastentry}}</p>
-        <div id="startTimes">
-            <hr> {% if not empty %}
+        <hr> {% if racetype %}
+        <div>
+            {% if not empty %}
             <h2>Start times (provisional based on current entries)</h2>
             <table class="table table-striped">
                 <thead>
@@ -135,6 +136,7 @@
             </table>
             {%endif%}
         </div>
+        {%endif%}
         <h2>Current Entries</h2>
         <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
 
