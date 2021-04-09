@@ -99,21 +99,24 @@ def outOftimeSignUp():
     
     now = datetime.now()
 
-    timeNow = now.strftime("%H:%M:%S")
-    
-    cutofftime = mycursor.fetchone()
-    cutofftime = str(cutofftime[0]) # date time
-    cutofftimeseconds = int(get_sec(cutofftime))
-    timeNowSeconds = get_sec(timeNow)
-    print("cutoff",cutofftimeseconds)
-    print("timenow",timeNowSeconds)
-    if cutofftimeseconds > timeNowSeconds:
-        #print(True)
-        return True
+    if now.weekday() == 6:
+
+        timeNow = now.strftime("%H:%M:%S")
+        
+        cutofftime = mycursor.fetchone()
+        cutofftime = str(cutofftime[0]) # date time
+        cutofftimeseconds = int(get_sec(cutofftime))
+        timeNowSeconds = get_sec(timeNow)
+        print("cutoff",cutofftimeseconds)
+        print("timenow",timeNowSeconds)
+        if cutofftimeseconds > timeNowSeconds:
+            #print(True)
+            return True
+        else:
+
+            #print(False)
+            return False
     else:
-
-        #print(False)
-        return False
-
+        return True
     
     
