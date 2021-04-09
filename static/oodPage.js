@@ -24,7 +24,7 @@ function handleRaceBegin(raceNum) {
     url:
       "https://development.dorchestersailingclub.org.uk/beginrace/" +
       raceNum +
-      "?begintimeTime=" +
+      "?beginTime=" +
       currentTime,
     method: "PATCH",
     timeout: 0,
