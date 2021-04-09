@@ -62,27 +62,27 @@
             <div class="form-group">
                 {% if racetype %}
                 <div class="form-check">
-                    <input value="0" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault1" onClick="handleHandicapRace()">
-                    <label class="form-check-label" for="flexRadioDefault1">
+                    <input value="0" class="form-check-input" type="radio" name="racetype" id="radioBoxHcap" onClick="handleHandicapRace()">
+                    <label class="form-check-label" for="radioBoxHcap">
                       Handicap race
                     </label>
                 </div>
                 <div class="form-check">
-                    <input value="1" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault2" onClick="handlePersuitRace()" checked>
-                    <label class="form-check-label" for="flexRadioDefault2">
+                    <input value="1" class="form-check-input" type="radio" name="racetype" id="radioBoxPers" onClick="handlePersuitRace()" checked>
+                    <label class="form-check-label" for="radioBoxPers">
                       Persuit race
                     </label>
                 </div>
                 {%else%}
                 <div class="form-check">
-                    <input value="0" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault1" onClick="handleHandicapRace()" checked>
-                    <label class="form-check-label" for="flexRadioDefault1">
+                    <input value="0" class="form-check-input" type="radio" name="racetype" id="radioBoxHcap" onClick="handleHandicapRace()" checked>
+                    <label class="form-check-label" for="radioBoxHcap">
                       Handicap race
                     </label>
                 </div>
                 <div class="form-check">
-                    <input value="1" class="form-check-input" type="radio" name="racetype" id="flexRadioDefault2" onClick="handlePersuitRace()">
-                    <label class="form-check-label" for="flexRadioDefault2">
+                    <input value="1" class="form-check-input" type="radio" name="racetype" id="radioBoxPers" onClick="handlePersuitRace()">
+                    <label class="form-check-label" for="radioBoxPers">
                       Persuit race
                     </label>
                 </div>{%endif%}
