@@ -76,7 +76,7 @@ def boats():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT Class,PY FROM PyList")
+    mycursor.execute("SELECT Class,PY FROM PyList ORDER BY Class")
     
     rawboatList = mycursor.fetchall()
     #print(rawboatList)
