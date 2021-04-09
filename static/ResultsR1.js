@@ -100,21 +100,13 @@ function updateTable() {
       </div>
     `;
       const finishBtn = `        
-      <div class="btn-group">
         <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
-        <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="visually-hidden">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onclick="handleUnfinish(${item[0]})">Unfinish</a></li>
-        </ul>
-    </div>
     `;
 
       const finishBtnDisabled = `        
     <div class="btn-group">
       <button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
-      <button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
