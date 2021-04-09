@@ -121,9 +121,9 @@ function updateTable() {
         $("<td>").text(item[2]), //Crew
         $("<td>").text(item[3]), //Sail No
         $("<td>").text(item[4]), //Class
-        $("<td>").text(item[5]), //Laps
-        item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
-        item[6]
+        $("<td>").text(item[8]), //Laps
+        item[9] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+        item[9]
           ? $("<td>").append(finishBtnDisabled)
           : $("<td>").append(finishBtn) //finishBTN
       );
