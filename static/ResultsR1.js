@@ -83,6 +83,7 @@ function updateTable() {
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><a class="dropdown-item" onclick="handleRemoveLap(${item[0]})>Remove lap</a></li>
                 <li>Test</li>
             </ul>
