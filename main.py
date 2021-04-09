@@ -201,6 +201,9 @@ def results(raceid):
     results = mycursor.fetchall()
     return render_template('results'+raceid+'.html',results=results)     
 
+@app.route('/results')
+def resultsRedirect():
+    return redirect("/results/1")
 
 @app.route('/pyedit/<id>')
 def editpy(id):
