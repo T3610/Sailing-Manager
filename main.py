@@ -208,7 +208,7 @@ def results(raceid):
     else:
         conn = mysql.connection
         mycursor = conn.cursor()
-        mycursor.execute("SELECT race%sstart from oodSetup", (raceid,))
+        mycursor.execute("SELECT race"+raceid+"start from oodSetup")
 
         raceStart = mycursor.fetchone()[0]
 
