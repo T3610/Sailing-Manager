@@ -199,7 +199,7 @@ def results(raceid):
 
     mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
     results = mycursor.fetchall()
-    return render_template('results.html',results=results)     
+    return render_template('results'+raceid+'.html',results=results)     
 
 
 @app.route('/pyedit/<id>')
