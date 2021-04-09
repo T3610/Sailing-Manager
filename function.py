@@ -92,14 +92,14 @@ def get_sec(time_str):
     return int(h) * 3600 + int(m) * 60 + int(s)
 
 def outOftimeSignUp():
-    conn = mysql.connection
-    mycursor = conn.cursor()
-
-    mycursor.execute("SELECT CutOffTime FROM oodSetup")
     
     now = datetime.now()
 
     if now.weekday() == 6:
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        mycursor.execute("SELECT CutOffTime FROM oodSetup")
 
         timeNow = now.strftime("%H:%M:%S")
         
