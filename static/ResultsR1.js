@@ -83,6 +83,7 @@ function updateTable() {
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
+                <li>Test</li>
                 <li><a class="dropdown-item" onclick="handleRemoveLap(item[0])>Remove lap</a></li>
             </ul>
         </div>
@@ -106,7 +107,7 @@ function updateTable() {
             <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onclick="handleUnfinosh(item[0])>Unfinish</a></li>
+            <li><a class="dropdown-item" onclick="handleUnfinish(item[0])>Unfinish</a></li>
         </ul>
     </div>
     `;
@@ -118,7 +119,7 @@ function updateTable() {
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-          <li><a class="dropdown-item" onclick="handleUnfinosh(item[0])>Unfinish</a></li>
+          <li><a class="dropdown-item" onclick="handleUnfinish(item[0])>Unfinish</a></li>
       </ul>
   </div>
   `;
