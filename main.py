@@ -260,6 +260,10 @@ def addpy():
     elif request.method == 'GET':
         return render_template("pyadd.html")
 
+@app.route('/enterresults')
+@flask_login.login_required
+def enterresultsR1():
+    return redirect("/enterresults/1") 
 
 @app.route('/enterresults/1')
 @flask_login.login_required
