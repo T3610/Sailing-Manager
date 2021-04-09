@@ -1,14 +1,3 @@
-var d = new Date();
-var n = d.getDay();
-
-if (n == 0) {
-  var intervalId = window.setInterval(function () {
-    updateTime();
-  }, 1000);
-} else {
-  $("#countdownDesc").remove();
-}
-
 function updateTime() {
   var settings = {
     url: "https://racing.dorchestersailingclub.org.uk/startTime",
@@ -53,6 +42,17 @@ function updateTime() {
 }
 
 $(document).ready(function () {
+  var d = new Date();
+  var n = d.getDay();
+
+  if (n == 0) {
+    var intervalId = window.setInterval(function () {
+      updateTime();
+    }, 1000);
+  } else {
+    $("#countdownDesc").remove();
+  }
+
   $(".signupbtn").click(function (e) {
     window.location = "signup";
   });
