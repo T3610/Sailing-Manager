@@ -212,17 +212,22 @@ def results(raceid):
 
         raceStart = mycursor.fetchone()[0]
 
-        mycursor.execute("SELECT Racers.ID, Racers.Name, Racers.Crew, Racers.SailNum, Racers.LapsR"+raceid+", Racers.TimeFinishedR"+raceid+", PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class WHERE Racers.FinishedR"+raceid+" != 0")
+        mycursor.execute("SELECT Racers.ID, Racers.Name, Racers.Crew, Racers.SailNum, Racers.LapsR"+raceid+", Racers.TimeFinishedR"+raceid+", PyList.PY, Racers.Boat FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class WHERE Racers.FinishedR"+raceid+" != 0")
         results = mycursor.fetchall()
         newData = []
         for racer in results:
+            elapsedTime = racer[5]-raceStart
+            laps = racer[4]
             newData.append({
                 'id':racer[0],
                 'name':racer[1],
                 'crewName':racer[2],
                 'sailNo':racer[3],
-                'correctedAverageLapTime':(racer[5]-raceStart)*1000/(racer[4]*racer[6]),
+                'elapsedTime': elapsedTime,
+                'laps':laps,
+                'correctedAverageLapTime':(elapsedTime)*1000/(laps*racer[6]),
                 'py': racer[6],
+                'class': racer[7]
             })
 
         newData.sort(key=operator.itemgetter('correctedAverageLapTime'))

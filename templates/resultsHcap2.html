@@ -71,6 +71,11 @@
                     <th scope="col">Helm Name</th>
                     <th scope="col">Crew Name</th>
                     <th scope="col">Sail Number</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Elapsed time</th>
+                    <th scope="col">Laps</th>
+                    <th scope="col">PY</th>
+                    <th scope="col">Corrected average lap time</th>
                 </tr>
             </thead>
             <tbody>
@@ -80,6 +85,11 @@
                     <td>{{row['name']}}</td>
                     <td>{{row['crewName']}}</td>
                     <td>{{row['sailNo']}}</td>
+                    <td>{{row['class']}}</td>
+                    <td>{{row['elapsedTime']}}</td>
+                    <td>{{row['laps']}}</td>
+                    <td>{{row['py']}}</td>
+                    <td>{{row['correctedAverageLapTime']}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
