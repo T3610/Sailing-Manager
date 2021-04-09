@@ -1,6 +1,6 @@
 function updateTime() {
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/startTime",
+    url: "https://development.dorchestersailingclub.org.uk/startTime",
     method: "GET",
     timeout: 0,
   };
