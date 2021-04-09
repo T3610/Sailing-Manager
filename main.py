@@ -1,7 +1,7 @@
 from function import *
 
-
 DEBUG = True
+#This is a test comment
 
 login_manager = LoginManager()
 login_manager.init_app(app)
