@@ -127,4 +127,4 @@ def getRaceType():
     
     data = mycursor.fetchone()
 
-    return data
+    return data[0]
