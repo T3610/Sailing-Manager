@@ -89,7 +89,7 @@
                     <td>{{row['elapsedTime']}}</td>
                     <td>{{row['laps']}}</td>
                     <td>{{row['py']}}</td>
-                    <td>{{'%0.2f'|format(row['correctedAverageLapTime'])}}</td>
+                    <td>{{row['correctedAverageLapTime']|round(2)}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
