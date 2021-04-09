@@ -212,7 +212,7 @@ def results(raceid):
 
         raceStart = mycursor.fetchone()[0]
 
-        mycursor.execute("SELECT ID, Name, Crew, SailNum, LapsR"+raceid+", TimeFinishedR"+raceid+" FROM Racers WHERE FinishedR"+raceid+" != 0 ")
+        mycursor.execute("SELECT Racers.ID, Racers.Name, Racers.Crew, Racers.SailNum, Racers.LapsR"+raceid+", Racers.TimeFinishedR"+raceid+", PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class WHERE Racers.FinishedR"+raceid+" != 0")
         results = mycursor.fetchall()
         newData = []
         for racer in results:
@@ -221,11 +221,10 @@ def results(raceid):
                 'name':racer[1],
                 'crewName':racer[2],
                 'sailNo':racer[3],
-                'laps':racer[4],
-                'elapsedTime':racer[5]-raceStart
+                'averageLapTime':(racer[5]-raceStart)/racer[4],
+                'py': racer[6],
             })
 
-        print(newData)
         return str(newData)
 
 @app.route('/results')
