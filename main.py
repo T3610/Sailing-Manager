@@ -285,13 +285,13 @@ def resultsAPI(raceid):
         return entriesJSON
 
 @app.route('/addlap/<raceid>/<id>', methods=["PATCH"])
-def addlap(id):
+def addlap(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Laps = Laps + 1 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1 WHERE ID=%s",(id,))
 
         # Save (commit) the changes
         conn.commit()
@@ -300,13 +300,13 @@ def addlap(id):
         return "success",204
 
 @app.route('/removelap/<raceid>/<id>', methods=["PATCH"])
-def removelap(id):
+def removelap(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Laps = Laps - 1 WHERE ID=%s AND Laps >0",(id,))
+        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" - 1 WHERE ID=%s AND LapsR"+raceid+" >0",(id,))
 
         # Save (commit) the changes
         conn.commit()
@@ -315,7 +315,7 @@ def removelap(id):
         return "success",204
 
 @app.route('/finish/<raceid>/<id>', methods=["PATCH"])
-def finish(id):
+def finish(raceid,id):
     if request.method == 'PATCH':
         finishTime = request.args.get('finishTime')
 
@@ -323,7 +323,7 @@ def finish(id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Finished = 1, TimeFinished = %s WHERE ID=%s",(finishTime, id))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = %s WHERE ID=%s",(finishTime, id))
 
         # Save (commit) the changes
         conn.commit()
@@ -332,13 +332,13 @@ def finish(id):
         return "success",204
 
 @app.route('/unfinish/<raceid>/<id>', methods=["PATCH"])
-def unfinish(id):
+def unfinish(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET Finished = 0, TimeFinished = 0 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0 WHERE ID=%s",(id,))
 
         # Save (commit) the changes
         conn.commit()
