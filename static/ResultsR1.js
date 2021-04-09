@@ -79,13 +79,13 @@ function updateTable() {
       const lapBtn =
         '<div class="btn-group"><button class="btn btn-outline-secondary" onclick=handleAddLap(' +
         item[0] +
-        ')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
+        ')>ADD LAP</button><button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
         item[0] +
         ')">Remove lap</a></div></div>';
       const lapBtnDisabled =
         '<div class="btn-group"><button disabled class="btn btn-outline-secondary" onclick=handleAddLap(' +
         item[0] +
-        ')>ADD LAP</button><button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
+        ')>ADD LAP</button><button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><div class="dropdown-menu"><a class="dropdown-item" onclick="handleRemoveLap(' +
         item[0] +
         ')">Remove lap</a></div></div>';
       const finishBtn =
