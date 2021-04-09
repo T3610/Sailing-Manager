@@ -53,17 +53,17 @@
             </div>
         </nav>
 
-        <h2 style="text-align:center;">Current Entries</h2>
-        <div class="row">
-            <a class="btn btn-primary col-sm-3" href="/addpy" role="button">Add New Entry</a>
-            <div class="col-sm-6"></div>
-            <a class="btn btn-primary col-sm-3" href="/oodracesetup" role="button">Back</a>
+        <div class="row pb-3">
+            <div class="col text-center">
+                <h1>Boat list</h1>
+                <a class="btn btn-primary" href="/enterresults/2" role="button">Add new boat</a>
+
+            </div>
         </div>
-        <br>
+
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Boat</th>
                     <th scope="col">PY</th>
                     <th scope="col">Edit</th>
@@ -72,7 +72,6 @@
             <tbody>
                 {% for row in pylist %}
                 <tr>
-                    <td>{{row[0]}}</td>
                     <td>{{row[1]}}</td>
                     <td>{{row[2]}}</td>
                     <td>
