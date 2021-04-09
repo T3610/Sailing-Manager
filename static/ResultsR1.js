@@ -90,35 +90,35 @@ function updateTable() {
 
       const lapBtnDisabled = `
       <div class="btn-group">
-          <button disabled class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>ADD LAP</button>
+          <button disabled class="btn btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
           <button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" onclick="handleRemoveLap(item[0])>Remove lap</a></li>
+              <li><a class="dropdown-item" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
           </ul>
       </div>
     `;
       const finishBtn = `        
       <div class="btn-group">
-        <button class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>FINISH</button>
+        <button class="btn btn-outline-secondary" onclick=handleAddLap(${item[0]})>FINISH</button>
         <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="visually-hidden">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onclick="handleUnfinish(item[0])>Unfinish</a></li>
+            <li><a class="dropdown-item" onclick="handleUnfinish(${item[0]})">Unfinish</a></li>
         </ul>
     </div>
     `;
 
       const finishBtnDisabled = `        
     <div class="btn-group">
-      <button disabled class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>FINISH</button>
+      <button disabled class="btn btn-outline-secondary" onclick=handleAddLap(${item[0]})>FINISH</button>
       <button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-          <li><a class="dropdown-item" onclick="handleUnfinish(item[0])>Unfinish</a></li>
+          <li><a class="dropdown-item" onclick="handleUnfinish(${item[0]})>Unfinish</a></li>
       </ul>
   </div>
   `;
@@ -130,7 +130,7 @@ function updateTable() {
         $("<td>").text(item[3]), //Sail No
         $("<td>").text(item[4]), //Class
         $("<td>").text(item[5]), //Laps
-        item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //finishBTN
+        item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
         item[6]
           ? $("<td>").append(finishBtnDisabled)
           : $("<td>").append(finishBtn) //finishBTN
