@@ -371,6 +371,22 @@ def updateracetype(racetype):
 
     return "success",204
 
+@app.route('/beginrace/<raceid>/', methods=["PATCH"])
+def beginrace(raceid):
+    if request.method == 'PATCH':
+        finishTime = request.args.get('beginTime')
+
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE oodSetup SET race"+raceid+"start = %s",(finishTime,))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
 
 #MAKE SURE AT END
 if __name__ == '__main__':
