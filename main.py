@@ -355,7 +355,7 @@ def unfinish(raceid,id):
         return "success",204
 
 @app.route('/api/updateracetype/<racetype>')
-def unfinish(racetype):
+def updateracetype(racetype):
     conn = mysql.connection
     mycursor = conn.cursor()
 
