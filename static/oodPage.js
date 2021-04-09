@@ -9,8 +9,10 @@ $(document).ready(function () {
 
 function handleHandicapRace() {
   $("#raceLength").hide();
+  $("#startTimes").hide();
 }
 
 function handlePersuitRace() {
+  $("#startTimes").show();
   $("#raceLength").show();
 }

@@ -111,75 +111,72 @@
 
 
 
-        <div class="form-group">
+        <p>current settings: Race length: {{racelen}} Last entry: {{lastentry}}</p>
+        <div id="startTimes">
+            <hr> {% if not empty %}
+            <h2>Start times (provisional based on current entries)</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Boat Class</th>
+                        <th scope="col">PY number</th>
+                        <th scope="col">Time From Start (0 mins)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in timings %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {%endif%}
+        </div>
+        <h2>Current Entries</h2>
+        <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
 
-            <body>
-                current settings: Race length: {{racelen}} Last entry: {{lastentry}}
-                <!-- Laps: {{laps}} -->
-                <hr> {% if not empty %}
-                <h2>Start times (provisional based on current entries)</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Boat Class</th>
-                            <th scope="col">PY number</th>
-                            <th scope="col">Time From Start (0 mins)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in timings %}
-                        <tr>
-                            <td>{{row[0]}}</td>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {%endif%}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Crew name</th>
+                    <th scope="col">Sail Number</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Options</th>
 
-                <h2>Current Entries</h2>
-                <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
-
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Crew name</th>
-                            <th scope="col">Sail Number</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">Options</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in entries %}
-                        <tr>
-                            <td>{{row[0]}}</td>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                            <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in entries %}
+                <tr>
+                    <td>{{row[0]}}</td>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{row[3]}}</td>
+                    <td>{{row[4]}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
-                                        <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <p>No Boats Currently Entered</p>
-                {% endif %}
-            </body>
-        </div>
-    </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
+                                <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No Boats Currently Entered</p>
+        {% endif %}
+</body>
+</div>
+</div>
 </body>
