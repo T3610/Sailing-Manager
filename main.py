@@ -221,7 +221,7 @@ def results(raceid):
                 'name':racer[1],
                 'crewName':racer[2],
                 'sailNo':racer[3],
-                'averageLapTime':(racer[5]-raceStart)/racer[4],
+                'correctedAverageLapTime':(racer[5]-raceStart)*1000/(racer[4]*racer[6]),
                 'py': racer[6],
             })
 
