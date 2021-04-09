@@ -76,15 +76,19 @@ function updateTable() {
     console.log(response);
     $("#resultsTable").empty();
     $.each(response, function (i, item) {
-      const lapBtn = `
+      const lapBtn =
+        `
         <div class="btn-group">
-            <button class="btn btn-outline-secondary" onclick=handleAddLap(item[0])>ADD LAP</button>
+            <button class="btn btn-outline-secondary" onclick=handleAddLap(` +
+        item[0]`+)>ADD LAP</button>
             <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="handleRemoveLap(` +
+        item[0] +
+        `)>Remove lap</a></li>
                 <li>Test</li>
-                <li><a class="dropdown-item" onclick="handleRemoveLap(item[0])>Remove lap</a></li>
             </ul>
         </div>
       `;
