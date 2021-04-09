@@ -192,12 +192,12 @@ def editpylist():
     pylist = mycursor.fetchall()
     return render_template('pylist.html',pylist=pylist)     
 
-@app.route('/results')
-def results():
+@app.route('/results/<raceid>')
+def results(raceid):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinished` != 0 ORDER BY `Laps` DESC,`TimeFinished` ASC")
+    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
     results = mycursor.fetchall()
     return render_template('results.html',results=results)     
 
