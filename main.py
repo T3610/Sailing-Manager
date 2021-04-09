@@ -263,12 +263,12 @@ def addpy():
 
 @app.route('/enterresults/1')
 @flask_login.login_required
-def enterresults():
+def enterresultsR1():
     return render_template("enterresults1.html") 
 
 @app.route('/enterresults/2')
 @flask_login.login_required
-def enterresults():
+def enterresultsR2():
     return render_template("enterresults2.html")
 
 @app.route('/api/results/<raceid>', methods=["GET"])
