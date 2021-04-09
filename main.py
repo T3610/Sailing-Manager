@@ -354,6 +354,20 @@ def unfinish(raceid,id):
     
         return "success",204
 
+@app.route('/api/updateracetype/<racetype>')
+def unfinish(racetype):
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
+    #print(formData[0],formData[1],formData[2],formData[3])
+    mycursor.execute("UPDATE oodSetup SET raceType = %s",(racetype,))
+
+    # Save (commit) the changes
+    conn.commit()
+    #print(request.form)
+
+    return "success",204
+
 
 #MAKE SURE AT END
 if __name__ == '__main__':
