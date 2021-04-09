@@ -22,7 +22,7 @@ function handleRaceBegin(raceNum) {
 
   var settings = {
     url:
-      "https://development.dorchestersailingclub.org.uk/beginrace/1/" +
+      "https://development.dorchestersailingclub.org.uk/beginrace/" +
       raceNum +
       "?begintimeTime=" +
       currentTime,
