@@ -167,9 +167,7 @@ function updateTable() {
 `;
 
       var $tr = $("<tr>").append(
-        $("<td>").text(item[0]), //ID
         $("<td>").text(item[1]), //Helm
-        $("<td>").text(item[2]), //Crew
         $("<td>").text(item[3]), //Sail No
         $("<td>").text(item[4]), //Class
         $("<td>").text(item[5]), //Laps
