@@ -150,11 +150,11 @@ function updateTable() {
   </div>
   `;
 
-  const finishAfterLappingBtn = `        
+      const finishAfterLappingBtn = `        
   <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
-const finishAfterLappingBtnBtnDisabled = `        
+      const finishAfterLappingBtnBtnDisabled = `        
 <div class="btn-group">
 <button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,8 +178,8 @@ const finishAfterLappingBtnBtnDisabled = `
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
           : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
         item[6]
-          ? $("<td>").append(finishBtnDisabled)
-          : $("<td>").append(finishBtn) //finishBTN
+          ? $("<td>").append(finishBtnAfterLappingDisabled)
+          : $("<td>").append(finishAfterLappingBtn) //finishBTN
       );
       console.log($tr);
       $("#resultsTable").append($tr);
