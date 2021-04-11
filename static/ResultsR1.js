@@ -176,11 +176,11 @@ function updateTable() {
         $("<td>").text(item[3]), //Sail No
         $("<td>").text(item[4]), //Class
         $("<td>").text(item[5]), //Laps
-        item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
-        item[6]
+        item[7] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+        item[7]
           ? $("<td>").append(finishAfterLappingBtnDisabled)
           : $("<td>").append(finishAfterLappingBtn), //finishBTN
-        item[6]
+        item[7]
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
           : $("<td>").append(finishBeforeLappingBtn) //finishBTNitem[6]
       );
