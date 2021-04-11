@@ -135,17 +135,17 @@ function updateTable() {
       </div>
     `;
       const finishBeforeLappingBtn = `        
-        <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+        <button class="btn btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
     `;
 
       const finishBeforeLappingBtnDisabled = `        
     <div class="btn-group">
-      <button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+      <button disabled class="btn btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
       <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-          <li><a class="dropdown-item" onclick="handleUnfinish(${item[0]})">Unfinish</a></li>
+          <li><a class="dropdown-item" onclick="handleBeforeLappingUnfinish(${item[0]})">Unfinish</a></li>
       </ul>
   </div>
   `;
