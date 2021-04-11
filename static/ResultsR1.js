@@ -138,7 +138,7 @@ function updateTable() {
         <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
     `;
 
-      const finishBtnAfterLappingDisabled = `        
+      const finishBeforeLappingBtnDisabled = `        
     <div class="btn-group">
       <button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
       <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -154,7 +154,7 @@ function updateTable() {
   <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
-      const finishAfterLappingBtnBtnDisabled = `        
+      const finishAfterLappingBtnDisabled = `        
 <div class="btn-group">
 <button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,7 +178,7 @@ function updateTable() {
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
           : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
         item[6]
-          ? $("<td>").append(finishBtnAfterLappingDisabled)
+          ? $("<td>").append(finishAfterLappingBtnDisabled)
           : $("<td>").append(finishAfterLappingBtn) //finishBTN
       );
       console.log($tr);
