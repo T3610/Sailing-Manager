@@ -175,11 +175,11 @@ function updateTable() {
         $("<td>").text(item[5]), //Laps
         item[6] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
         item[6]
-          ? $("<td>").append(finishBeforeLappingBtnDisabled)
-          : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
-        item[6]
           ? $("<td>").append(finishAfterLappingBtnDisabled)
-          : $("<td>").append(finishAfterLappingBtn) //finishBTN
+          : $("<td>").append(finishAfterLappingBtn), //finishBTN
+        item[6]
+          ? $("<td>").append(finishBeforeLappingBtnDisabled)
+          : $("<td>").append(finishBeforeLappingBtn) //finishBTNitem[6]
       );
       console.log($tr);
       $("#resultsTable").append($tr);
