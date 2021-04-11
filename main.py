@@ -294,11 +294,12 @@ def resultsAPI(raceid):
 @app.route('/addlap/<raceid>/<id>', methods=["PATCH"])
 def addlap(raceid,id):
     if request.method == 'PATCH':
+        lapTime = request.args.get('lapTime')
         conn = mysql.connection
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1, LatestLapRoundingR"+raceid+" = %s WHERE ID=%s",(lapTime, id,))
 
         # Save (commit) the changes
         conn.commit()

@@ -2,9 +2,14 @@ document.onload = updateTable();
 
 function handleAddLap(id) {
   console.log(id);
+  var currentTime = Math.round(Date.now() / 1000);
 
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/addlap/1/" + id,
+    url:
+      "https://racing.dorchestersailingclub.org.uk/addlap/1/" +
+      id +
+      "?lapTime=" +
+      currentTime,
     method: "PATCH",
     timeout: 0,
   };
