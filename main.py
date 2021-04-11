@@ -353,6 +353,39 @@ def unfinish(raceid,id):
     
         return "success",204
 
+@app.route('/finishbefore/<raceid>/<id>', methods=["PATCH"])
+def finishbefore(raceid,id):
+    if request.method == 'PATCH':
+        finishTime = request.args.get('finishTime')
+
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, LapsR"+raceid+" = LapsR"+raceid+" + 1,  TimeFinishedR"+raceid+" = %s WHERE ID=%s",(finishTime, id))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
+
+@app.route('/unfinishbefore/<raceid>/<id>', methods=["PATCH"])
+def unfinishbefore(raceid,id):
+    if request.method == 'PATCH':
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0 , LapsR"+raceid+" = LapsR"+raceid+" - 1, TimeFinishedR"+raceid+" = 0 WHERE ID=%s",(id,))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
+
+
 
 #MAKE SURE AT END
 if __name__ == '__main__':
