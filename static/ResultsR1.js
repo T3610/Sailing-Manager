@@ -1,6 +1,7 @@
+const raceID = 1;
+
 document.onload = updateTable();
 
-const raceID = 1;
 
 function handleAddLap(id) {
   console.log(id);
