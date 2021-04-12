@@ -78,12 +78,12 @@
             <tbody>
                 {% for row in results %}
                 <tr>
-                    <td>{{loop.index}}</td>
                     {% if row[4]=="RET"%}
-                    <td>{{row[0]}} (RETIRED)</td>
+                    <td>{{loop.index}} (RETIRED)</td>
                     {%else%}
-                    <td>{{row[0]}}</td>
+                    <td>{{loop.index}}</td>
                     {%endif%}
+                    <td>{{row[0]}}</td>
                     <td>{{row[1]}}</td>
                     <td>{{row[2]}}</td>
                     <td>{{row[3]}}</td>
