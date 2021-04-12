@@ -1,12 +1,16 @@
 document.onload = updateTable();
 
+const raceID = 1;
+
 function handleAddLap(id) {
   console.log(id);
   var currentTime = Math.round(Date.now() / 1000);
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/addlap/1/" +
+      "https://racing.dorchestersailingclub.org.uk/addlap/" +
+      raceID +
+      "/" +
       id +
       "?lapTime=" +
       currentTime,
@@ -23,7 +27,11 @@ function handleAddLap(id) {
 function handleRemoveLap(id) {
   console.log(id);
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/removelap/1/" + id,
+    url:
+      "https://racing.dorchestersailingclub.org.uk/removelap/" +
+      raceID +
+      "/" +
+      id,
     method: "PATCH",
     timeout: 0,
   };
@@ -41,7 +49,9 @@ function handleFinish(id) {
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/finish/1/" +
+      "https://racing.dorchestersailingclub.org.uk/finish/" +
+      raceID +
+      "/" +
       id +
       "?finishTime=" +
       currentTime,
@@ -58,7 +68,11 @@ function handleFinish(id) {
 function handleUnfinish(id) {
   console.log(id);
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/unfinish/1/" + id,
+    url:
+      "https://racing.dorchestersailingclub.org.uk/unfinish/" +
+      raceID +
+      "/" +
+      id,
     method: "PATCH",
     timeout: 0,
   };
@@ -76,7 +90,9 @@ function handleBeforeLappingFinish(id) {
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/finishbefore/1/" +
+      "https://racing.dorchestersailingclub.org.uk/finishbefore/" +
+      raceID +
+      "/" +
       id +
       "?finishTime=" +
       currentTime,
@@ -93,7 +109,11 @@ function handleBeforeLappingFinish(id) {
 function handleBeforeLappingUnfinish(id) {
   console.log(id);
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/unfinishbefore/1/" + id,
+    url:
+      "https://racing.dorchestersailingclub.org.uk/unfinishbefore/" +
+      raceID +
+      "/" +
+      id,
     method: "PATCH",
     timeout: 0,
   };
@@ -104,9 +124,37 @@ function handleBeforeLappingUnfinish(id) {
   });
 }
 
+function handleRetire(id) {
+  console.log(id);
+  var settings = {
+    url:
+      "https://racing.dorchestersailingclub.org.uk/retire/" + raceID + "/" + id,
+    method: "PATCH",
+    timeout: 0,
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    updateTable();
+  });
+}
+
+function handleDNS(id) {
+  console.log(id);
+  var settings = {
+    url: "https://racing.dorchestersailingclub.org.uk/DNS/1/" + id,
+    method: "PATCH",
+    timeout: 0,
+  };
+
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    updateTable();
+  });
+}
 function updateTable() {
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/api/results/1",
+    url: "https://racing.dorchestersailingclub.org.uk/api/results/" + raceID,
     method: "GET",
     timeout: 0,
   };
@@ -171,6 +219,16 @@ function updateTable() {
 </div>
 `;
 
+      const optionsBtn = `<div class="dropdown">
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  Options
+</button>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item" href="#">Retire</a></li>
+    <li><a class="dropdown-item" href="#">Did not start</a></li>
+</ul>
+</div>`;
+
       var $tr = $("<tr>").append(
         $("<td>").text(item[1]), //Helm
         $("<td>").text(item[3]), //Sail No
@@ -182,7 +240,8 @@ function updateTable() {
           : $("<td>").append(finishAfterLappingBtn), //finishBTN
         item[7]
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
-          : $("<td>").append(finishBeforeLappingBtn) //finishBTNitem[6]
+          : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
+        $("<td>").text(optionsBtn) //Laps
       );
       console.log($tr);
       $("#resultsTable").append($tr);
