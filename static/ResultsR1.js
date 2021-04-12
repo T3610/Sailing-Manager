@@ -176,8 +176,8 @@ function updateTable() {
     $.each(response, function (i, item) {
       const lapBtn = `
         <div class="btn-group">
-            <button class="btn btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
-            <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-lg btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
+            <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
@@ -188,8 +188,8 @@ function updateTable() {
 
       const lapBtnDisabled = `
       <div class="btn-group">
-          <button disabled class="btn btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
-          <button disabled type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button disabled class="btn btn-lg btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
+          <button disabled type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
@@ -198,13 +198,13 @@ function updateTable() {
       </div>
     `;
       const finishBeforeLappingBtn = `        
-        <button class="btn btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
+        <button class="btn btn-lg btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
     `;
 
       const finishBeforeLappingBtnDisabled = `        
     <div class="btn-group">
-      <button disabled class="btn btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
-      <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button disabled class="btn btn-lg btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
+      <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
@@ -214,13 +214,13 @@ function updateTable() {
   `;
 
       const finishAfterLappingBtn = `        
-  <button class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+  <button class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
       const finishAfterLappingBtnDisabled = `        
 <div class="btn-group">
-<button disabled class="btn btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
-<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<button disabled class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="visually-hidden">Toggle Dropdown</span>
 </button>
 <ul class="dropdown-menu">
@@ -230,7 +230,7 @@ function updateTable() {
 `;
 
       const optionsBtn = `<div class="dropdown">
-<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
