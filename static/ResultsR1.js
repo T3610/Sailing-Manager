@@ -150,7 +150,8 @@ function handleDNS(id, name) {
   var r = confirm("Confirm you want to DNS " + name);
   if (r == true) {
     var settings = {
-      url: "https://racing.dorchestersailingclub.org.uk/DNS/1/" + id,
+      url:
+        "https://racing.dorchestersailingclub.org.uk/DNS/" + raceID + "/" + id,
       method: "PATCH",
       timeout: 0,
     };
