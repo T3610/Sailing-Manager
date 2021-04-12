@@ -142,7 +142,7 @@ function handleRetire(id, name) {
       console.log(response);
       updateTable();
     });
-  }
+  };
 }
 
 function handleDNS(id, name) {
@@ -159,7 +159,7 @@ function handleDNS(id, name) {
       console.log(response);
       updateTable();
     });
-  }
+  };
 }
 
 function updateTable() {
