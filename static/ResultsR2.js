@@ -245,11 +245,11 @@ function updateTable() {
         $("<td>").text(item[3]), //Sail No
         $("<td>").text(item[4]), //Class
         $("<td>").text(item[9]), //Laps
-        item[11] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
-        item[11]
+        item[12] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+        item[12]
           ? $("<td>").append(finishAfterLappingBtnDisabled)
           : $("<td>").append(finishAfterLappingBtn), //finishBTN
-        item[11]
+        item[12]
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
           : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
         $("<td>").append(optionsBtn) //Laps
