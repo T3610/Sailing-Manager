@@ -197,7 +197,7 @@ def results(raceid):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `TimeFinishedR"+raceid+"` != 0 ORDER BY `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
+    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
     results = mycursor.fetchall()
     return render_template('results'+raceid+'.html',results=results)     
 
@@ -285,7 +285,7 @@ def resultsAPI(raceid):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("SELECT Racers.* FROM Racers INNER JOIN PyList ON Racers.Boat = PyList.Class ORDER BY FinishedR"+raceid+" ,LapsR"+raceid+" ASC, LatestLapRoundingR"+raceid+", PyList.PY DESC, Name")
+        mycursor.execute("SELECT Racers.* FROM Racers INNER JOIN PyList ON Racers.Boat = PyList.Class WHERE StateR"+raceid+" IN ("0", "FIN") ORDER BY FinishedR"+raceid+" ,LapsR"+raceid+" ASC, LatestLapRoundingR"+raceid+", PyList.PY DESC, Name")
         entries = mycursor.fetchall()
         entriesJSON = json.dumps(entries)
     
