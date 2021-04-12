@@ -331,7 +331,7 @@ def finish(raceid,id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = %s WHERE ID=%s",(finishTime, id))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = %s, StateR"+raceid+" = %s WHERE ID=%s",(finishTime, "FIN", id))
 
         # Save (commit) the changes
         conn.commit()
@@ -346,7 +346,7 @@ def unfinish(raceid,id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("0",id))
 
         # Save (commit) the changes
         conn.commit()
@@ -363,7 +363,7 @@ def finishbefore(raceid,id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, LapsR"+raceid+" = LapsR"+raceid+" + 1,  TimeFinishedR"+raceid+" = %s WHERE ID=%s",(finishTime, id))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, LapsR"+raceid+" = LapsR"+raceid+" + 1,  TimeFinishedR"+raceid+" = %s , StateR"+raceid+" = %s WHERE ID=%s",(finishTime, "FIN" id))
 
         # Save (commit) the changes
         conn.commit()
@@ -378,7 +378,7 @@ def unfinishbefore(raceid,id):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0 , LapsR"+raceid+" = LapsR"+raceid+" - 1, TimeFinishedR"+raceid+" = 0 WHERE ID=%s",(id,))
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0 , LapsR"+raceid+" = LapsR"+raceid+" - 1, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("0", id,))
 
         # Save (commit) the changes
         conn.commit()
@@ -387,6 +387,37 @@ def unfinishbefore(raceid,id):
         return "success",204
 
 
+@app.route('/retire/<raceid>/<id>', methods=["PATCH"])
+def retire(raceid,id):
+    if request.method == 'PATCH':
+
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("RET", id))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
+
+@app.route('/DNS/<raceid>/<id>', methods=["PATCH"])
+def DNS(raceid,id):
+    if request.method == 'PATCH':
+
+        conn = mysql.connection
+        mycursor = conn.cursor()
+
+        #print(formData[0],formData[1],formData[2],formData[3])
+        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("DNS", id))
+
+        # Save (commit) the changes
+        conn.commit()
+        #print(request.form)
+    
+        return "success",204
 
 #MAKE SURE AT END
 if __name__ == '__main__':
