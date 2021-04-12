@@ -2,7 +2,6 @@ const raceID = 1;
 
 document.onload = updateTable();
 
-
 function handleAddLap(id) {
   console.log(id);
   var currentTime = Math.round(Date.now() / 1000);
@@ -242,7 +241,7 @@ function updateTable() {
         item[7]
           ? $("<td>").append(finishBeforeLappingBtnDisabled)
           : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
-        $("<td>").text(optionsBtn) //Laps
+        $("<td>").append(optionsBtn) //Laps
       );
       console.log($tr);
       $("#resultsTable").append($tr);
