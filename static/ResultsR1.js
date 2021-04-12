@@ -142,7 +142,7 @@ function handleRetire(id, name) {
       console.log(response);
       updateTable();
     });
-  };
+  }
 }
 
 function handleDNS(id, name) {
@@ -159,7 +159,7 @@ function handleDNS(id, name) {
       console.log(response);
       updateTable();
     });
-  };
+  }
 }
 
 function updateTable() {
@@ -234,8 +234,8 @@ function updateTable() {
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" onclick="handleRetire(${item[0]},${item[1]})">Retire</a></li>
-    <li><a class="dropdown-item" onclick="handleDNS(${item[0]},${item[1]})">Did not start</a></li>
+    <li><a class="dropdown-item" onclick="handleRetire(${item[0]},'${item[1]}')">Retire</a></li>
+    <li><a class="dropdown-item" onclick="handleDNS(${item[0]},'${item[1]}')">Did not start</a></li>
 </ul>
 </div>`;
 
