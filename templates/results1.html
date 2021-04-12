@@ -79,7 +79,7 @@
                 {% for row in results %}
                 <tr>
                     <td>{{loop.index}}</td>
-                    {% if row[4]=="RET"}
+                    {% if row[4]=="RET"%}
                     <td>{{row[0]}} (RETIRED)</td>
                     {%else%}
                     <td>{{row[0]}}</td>
