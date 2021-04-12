@@ -124,34 +124,44 @@ function handleBeforeLappingUnfinish(id) {
   });
 }
 
-function handleRetire(id) {
+function handleRetire(id, name) {
   console.log(id);
-  var settings = {
-    url:
-      "https://racing.dorchestersailingclub.org.uk/retire/" + raceID + "/" + id,
-    method: "PATCH",
-    timeout: 0,
-  };
+  var r = confirm("Confirm you want to DNS " + name);
+  if (r == true) {
+    var settings = {
+      url:
+        "https://racing.dorchestersailingclub.org.uk/retire/" +
+        raceID +
+        "/" +
+        id,
+      method: "PATCH",
+      timeout: 0,
+    };
 
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    updateTable();
-  });
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      updateTable();
+    });
+  }
 }
 
-function handleDNS(id) {
+function handleDNS(id, name) {
   console.log(id);
-  var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/DNS/1/" + id,
-    method: "PATCH",
-    timeout: 0,
-  };
+  var r = confirm("Confirm you want to DNS " + name);
+  if (r == true) {
+    var settings = {
+      url: "https://racing.dorchestersailingclub.org.uk/DNS/1/" + id,
+      method: "PATCH",
+      timeout: 0,
+    };
 
-  $.ajax(settings).done(function (response) {
-    console.log(response);
-    updateTable();
-  });
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      updateTable();
+    });
+  }
 }
+
 function updateTable() {
   var settings = {
     url: "https://racing.dorchestersailingclub.org.uk/api/results/" + raceID,
@@ -224,8 +234,8 @@ function updateTable() {
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" onclick="handleRetire(${item[0]})">Retire</a></li>
-    <li><a class="dropdown-item" onclick="handleDNS(${item[0]})">Did not start</a></li>
+    <li><a class="dropdown-item" onclick="handleRetire(${item[0]},${item[1]})">Retire</a></li>
+    <li><a class="dropdown-item" onclick="handleDNS(${item[0]},${item[1]})">Did not start</a></li>
 </ul>
 </div>`;
 
