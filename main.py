@@ -197,7 +197,7 @@ def results(raceid):
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat` FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
+    mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat`,StateR"+raceid+" FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
     results = mycursor.fetchall()
     return render_template('results'+raceid+'.html',results=results)     
 
