@@ -126,7 +126,7 @@ function handleBeforeLappingUnfinish(id) {
 
 function handleRetire(id, name) {
   console.log(id);
-  var r = confirm("Confirm you want to DNS " + name);
+  var r = confirm("Confirm you want to retire " + name);
   if (r == true) {
     var settings = {
       url:
