@@ -419,6 +419,16 @@ def DNS(raceid,id):
     
         return "success",204
 
+@app.route('/clearAllEntries')
+def clearAllEntries():
+    conn = mysql.connection
+    mycursor = conn.cursor()
+
+    mycursor.execute("DELETE FROM Racers")
+    conn.commit()
+
+    return redirect("/oodracesetup")
+
 #MAKE SURE AT END
 if __name__ == '__main__':
 
