@@ -176,16 +176,16 @@ function updateTable() {
     $("#resultsTable").empty();
     $.each(response, function (i, item) {
       const lapBtn = `
-        <div class="btn-group">
-            <button class="btn btn-lg btn-outline-primary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
-            <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
-            </ul>
-        </div>
-      `;
+      <div class="btn-group">
+          <button class="btn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[5]})</button>
+          <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
+          </ul>
+      </div>
+    `;
 
       const lapBtnDisabled = `
       <div class="btn-group">
@@ -243,7 +243,6 @@ function updateTable() {
       var $tr = $("<tr>").append(
         $("<td>").text(item[3] + " (" + item[1] + ")"), //Sail No
         $("<td>").text(item[4]), //Class
-        $("<td>").text(item[10]), //Laps
         item[12] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
         item[12]
           ? $("<td>").append(finishAfterLappingBtnDisabled)
