@@ -182,7 +182,7 @@ function updateTable() {
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
+                <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
             </ul>
         </div>
       `;
@@ -194,7 +194,7 @@ function updateTable() {
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
-              <li><a class="dropdown-item" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
+              <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${item[0]})">Remove lap</a></li>
           </ul>
       </div>
     `;
@@ -209,7 +209,7 @@ function updateTable() {
           <span class="visually-hidden">Toggle Dropdown</span>
       </button>
       <ul class="dropdown-menu">
-          <li><a class="dropdown-item" onclick="handleBeforeLappingUnfinish(${item[0]})">Unfinish</a></li>
+          <li><a class="dropdown-item dropdownOption" onclick="handleBeforeLappingUnfinish(${item[0]})">Unfinish</a></li>
       </ul>
   </div>
   `;
@@ -225,7 +225,7 @@ function updateTable() {
     <span class="visually-hidden">Toggle Dropdown</span>
 </button>
 <ul class="dropdown-menu">
-    <li><a class="dropdown-item" onclick="handleUnfinish(${item[0]})">Unfinish</a></li>
+    <li><a class="dropdown-item dropdownOption" onclick="handleUnfinish(${item[0]})">Unfinish</a></li>
 </ul>
 </div>
 `;
@@ -235,8 +235,8 @@ function updateTable() {
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item" onclick="handleRetire(${item[0]},'${item[1]}')">Retire</a></li>
-    <li><a class="dropdown-item" onclick="handleDNS(${item[0]},'${item[1]}')">Did not start</a></li>
+    <li><a class="dropdown-item dropdownOption" onclick="handleRetire(${item[0]},'${item[1]}')">Retire</a></li>
+    <li><a class="dropdown-item dropdownOption" onclick="handleDNS(${item[0]},'${item[1]}')">Did not start</a></li>
 </ul>
 </div>`;
 
