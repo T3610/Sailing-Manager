@@ -177,8 +177,8 @@ function updateTable() {
     $.each(response, function (i, item) {
       const lapBtn = `
         <div class="btn-group">
-            <button class="btn btn-lg btn-outline-secondary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
-            <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-lg btn-outline-primary" onclick=handleAddLap(${item[0]})>ADD LAP</button>
+            <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
@@ -199,7 +199,7 @@ function updateTable() {
       </div>
     `;
       const finishBeforeLappingBtn = `        
-        <button class="btn btn-lg btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
+        <button class="btn btn-lg btn-primary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
     `;
 
       const finishBeforeLappingBtnDisabled = `        
@@ -215,7 +215,7 @@ function updateTable() {
   `;
 
       const finishAfterLappingBtn = `        
-  <button class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+  <button class="btn btn-lg btn-primary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
       const finishAfterLappingBtnDisabled = `        

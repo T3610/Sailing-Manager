@@ -199,7 +199,7 @@ function updateTable() {
       </div>
     `;
       const finishBeforeLappingBtn = `        
-        <button class="btn btn-lg btn-outline-primary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
+        <button class="btn btn-lg btn-primary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
     `;
 
       const finishBeforeLappingBtnDisabled = `        
@@ -215,7 +215,7 @@ function updateTable() {
   `;
 
       const finishAfterLappingBtn = `        
-  <button class="btn btn-lg btn-outline-primary" onclick=handleFinish(${item[0]})>FINISH</button>
+  <button class="btn btn-lg btn-primary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
       const finishAfterLappingBtnDisabled = `        
