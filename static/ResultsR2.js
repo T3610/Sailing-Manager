@@ -241,8 +241,7 @@ function updateTable() {
 </div>`;
 
       var $tr = $("<tr>").append(
-        $("<td>").text(item[1]), //Helm
-        $("<td>").text(item[3]), //Sail No
+        $("<td>").text(item[3] + " (" + item[1] + ")"), //Sail No
         $("<td>").text(item[4]), //Class
         $("<td>").text(item[10]), //Laps
         item[12] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
