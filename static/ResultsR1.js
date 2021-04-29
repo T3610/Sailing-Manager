@@ -247,9 +247,6 @@ function updateTable() {
         item[7]
           ? $("<td>").append(finishAfterLappingBtnDisabled)
           : $("<td>").append(finishAfterLappingBtn), //finishBTN
-        item[7]
-          ? $("<td>").append(finishBeforeLappingBtnDisabled)
-          : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
         $("<td>").append(optionsBtn) //Laps
       );
       console.log($tr);
