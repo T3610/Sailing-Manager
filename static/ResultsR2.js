@@ -178,7 +178,7 @@ function updateTable() {
       const lapBtn = `
       <div class="btn-group">
           <button class="btn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[5]})</button>
-          <button type="button" class="btn btn-lg btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
@@ -198,27 +198,12 @@ function updateTable() {
           </ul>
       </div>
     `;
-      const finishBeforeLappingBtn = `        
-        <button class="btn btn-lg btn-primary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
-    `;
 
-      const finishBeforeLappingBtnDisabled = `        
-    <div class="btn-group">
-      <button disabled class="btn btn-lg btn-outline-secondary" onclick=handleBeforeLappingFinish(${item[0]})>FINISH</button>
-      <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="visually-hidden">Toggle Dropdown</span>
-      </button>
-      <ul class="dropdown-menu">
-          <li><a class="dropdown-item dropdownOption" onclick="handleBeforeLappingUnfinish(${item[0]})">Unfinish</a></li>
-      </ul>
-  </div>
-  `;
-
-      const finishAfterLappingBtn = `        
+      const finishBtn = `        
   <button class="btn btn-lg btn-primary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
-      const finishAfterLappingBtnDisabled = `        
+      const finishBtnDisabled = `        
 <div class="btn-group">
 <button disabled class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
 <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -245,11 +230,8 @@ function updateTable() {
         $("<td>").text(item[4]), //Class
         item[12] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
         item[12]
-          ? $("<td>").append(finishAfterLappingBtnDisabled)
-          : $("<td>").append(finishAfterLappingBtn), //finishBTN
-        item[12]
-          ? $("<td>").append(finishBeforeLappingBtnDisabled)
-          : $("<td>").append(finishBeforeLappingBtn), //finishBTNitem[6]
+          ? $("<td>").append(finishBtnDisabled)
+          : $("<td>").append(finishBtn), //finishBTN
         $("<td>").append(optionsBtn) //Laps
       );
       console.log($tr);
