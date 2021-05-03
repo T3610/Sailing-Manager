@@ -17,6 +17,7 @@ Jobs:
 14. offical notice board - SI's?? Racecourse??
 15. DONE link to dutyman
 16. DONE OOD sign in page
+17. Change enter results to run race
 
 Things to Fix
 Home screen
