@@ -220,7 +220,7 @@ function updateTable() {
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-    <li><a class="dropdown-item dropdownOption" onclick='handleRetire(${item[0]},"${item[1]}")'>Retire</a></li>
+    <li><a class="dropdown-item dropdownOption" onclick="handleRetire(${item[0]},\"${item[1]}\")">Retire</a></li>
     <li><a class="dropdown-item dropdownOption" onclick='handleDNS(${item[0]},"${item[1]}")'>Did not start</a></li>
 </ul>
 </div>`;
