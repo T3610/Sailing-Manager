@@ -1,98 +1,44 @@
-<!DOCTYPE html>
-<html lang="en" class="notranslate" translate="no">
+{% extends 'base.html' %} {% block additional_scripts %}{% endblock additional_scripts %} {% block additional_css %} {% endblock additional_css %} {% block content %}
 
-<head>
-    <title>Dorchester Racing</title>
+<div class="container">
+    {% include 'snippets/nav_bar_ood.html' %}
 
-    <!-- Disable translation -->
-    <meta name="google" content="notranslate" />
 
-    <!-- Favicon config -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/static/favicons/site.webmanifest">
-    <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/static/favicons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
+    <div class="row pb-3">
+        <div class="col text-center">
+            <h1>Boat list</h1>
+            <a class="btn btn-primary" href="/addpy" role="button">Add new boat</a>
 
-    <!-- Bootstrap core meta data -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Bootstrap JS and CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-</head>
-
-<body class="bg-light">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#oodNavBar" aria-controls="oodNavBar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-            <div class="collapse navbar-collapse" id="oodNavBar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/oodracesetup">Race Setup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pylist">PY List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/enterresults">Enter Results</a>
-                    </li>
-                </ul>
-                <a class="btn btn-outline-secondary" href="/logout" role="button">Logout</a>
-            </div>
-        </nav>
-
-        <div class="row pb-3">
-            <div class="col text-center">
-                <h1>Boat list</h1>
-                <a class="btn btn-primary" href="/addpy" role="button">Add new boat</a>
-
-            </div>
         </div>
+    </div>
 
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Boat</th>
-                    <th scope="col">PY</th>
-                    <th scope="col">Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in pylist %}
-                <tr>
-                    <td>{{row[1]}}</td>
-                    <td>{{row[2]}}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Boat</th>
+                <th scope="col">PY</th>
+                <th scope="col">Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in pylist %}
+            <tr>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                         </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/pyedit/{{row[0]}}">Edit</a>
-                                <a class="dropdown-item" href="/deletepy/{{row[0]}}">Delete</a>
-                            </div>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/pyedit/{{row[0]}}">Edit</a>
+                            <a class="dropdown-item" href="/deletepy/{{row[0]}}">Delete</a>
                         </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</body>
-
-</html>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

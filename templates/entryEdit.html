@@ -1,70 +1,49 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %} {% block additional_scripts %}
+<script src="/static/ResultsR1.js"></script>{% endblock additional_scripts %} {% block additional_css %}
+<style>
+    th {
+        position: sticky;
+        top: 0;
+        background: #f8f9fa!important;
+        z-index: 4;
+    }
+    
+    .dropdownOption {
+        font-size: 20px;
+    }
+    
+    td {
+        font-size: 20px;
+    }
+</style> {% endblock additional_css %} {% block content %}
 
-<head>
-    <title>Dorchester Racing</title>
 
-    <!-- Favicon config -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/static/favicons/site.webmanifest">
-    <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/static/favicons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
 
-    <!-- Bootstrap core meta data -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<body class="bg-light">
+    <div class="container-fluid">
+        {% include 'snippets/nav_bar_ood.html' %}
+        <div class="row pb-3">
+            <div class="col text-center">
+                <h1>You are currently completing results for race 1</h1>
+                <a class="btn btn-primary" href="/enterresults/2" role="button">Switch to Race 2</a>
 
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Bootstrap JS and CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-</head>
-
-<body>
-    <div class="container">
-        <form action="https://racing.dorchestersailingclub.org.uk/editentry/{{id}}" method="post">
-            <div class="form-group container">
-                <h1>Sign In Sheet</h1>
-                <p>Please fill in this form to participate in the race</p>
-                <hr>
-
-                <label for="name"><b>Name</b></label>
-                <input class="form-control" type="text" placeholder="Enter Full Name" name="name" id="name" value="{{name}}" required>
-
-                <label for="Cname"><b>Crew Name</b></label>
-                <input class="form-control" type="text" placeholder="Enter Full Name" name="Cname" id="Cname" value="{{cName}}">
-
-                <label for="sailNum"><b>Sail Number</b></label>
-                <input class="form-control" type="number" placeholder="Enter Sail Number" name="sailNum" id="sailNum" value="{{sailNo}}" required>
-
-                <label for="class"><b>Boat Class</b></label>
-                <select class="form-control" id="class" name="class">
-                    {% for class in boat %}
-                    {% if class==currentBoat %}
-                    <option value="{{class}}" selected>{{class}}</option>
-                    {%else%}
-                    <option value="{{class}}">{{class}}</option>
-                    {%endif%}
-                    {% endfor %}
-
-                </select>
-
-                <hr>
-
-                <button type="submit" class="btn btn-primary">Register</button>
             </div>
-        </form>
-    </div>
-</body>
+        </div>
 
-</html>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Sail Number</th>
+                    <th scope="col">Class</th>
+                    <th scope="col">Add Lap (laps completed)</th>
+                    <th scope="col">Finish</th>
+                    <th scope="col">RET/DNS</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTable">
+
+            </tbody>
+        </table>
+    </div>
+    {% endblock content %}

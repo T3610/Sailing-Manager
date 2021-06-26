@@ -1,3 +1,4 @@
 DSC.db
 /venv
-__pycache__/function.cpython-39.pyc
+/__pycache__
+/.vscode
