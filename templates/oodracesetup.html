@@ -1,155 +1,104 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-
-    <title>Dorchester Racing</title>
-
-    <!-- Favicon config -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
-    <link rel="manifest" href="/static/favicons/site.webmanifest">
-    <link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="/static/favicons/favicon.ico">
-    <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="msapplication-config" content="/static/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Bootstrap core meta data -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- Bootstrap JS and CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-
-</head>
-
-<body class="bg-light">
-    <div class="container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#oodNavBar" aria-controls="oodNavBar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            <div class="collapse navbar-collapse" id="oodNavBar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/oodracesetup">Race Setup</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pylist">PY List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/enterresults">Enter Results</a>
-                    </li>
-                </ul>
-                <a class="btn btn-outline-secondary" href="/logout" role="button">Logout</a>
-            </div>
-        </nav>
+{% extends 'base.html' %} {% block additional_scripts %}{% endblock additional_scripts %} {% block additional_css %} {% endblock additional_css %} {% block content %}
+<div class="container">
+    {% include 'snippets/nav_bar_ood.html' %}
 
 
 
-        <form action="https://racing.dorchestersailingclub.org.uk//oodracesetup" method="post">
-            <div class="form-group">
 
-                <label for="racelen"><b>Race Length (minutes)</b></label>
-                <input class="form-control" type="number" placeholder="Enter Race Length" name="racelen" id="racelen" required="" min="10" value={{racelen}}>
+    <form action="/oodracesetup" method="post">
+        <div class="form-group">
 
-                <label for="lastsignup"><b>Last Sign Up Time</b></label>
-                <input class="form-control" type="time" placeholder="Enter Time For Last Sign Up" name="cutofftime" id="lastsignup" required="" value={{lastentry}}>
+            <label for="racelen"><b>Race Length (minutes)</b></label>
+            <input class="form-control" type="number" placeholder="Enter Race Length" name="racelen" id="racelen" required="" min="10" value={{racelen}}>
 
-                <!-- <label for="racelen"><b>Max Laps</b></label>
+            <label for="lastsignup"><b>Last Sign Up Time</b></label>
+            <input class="form-control" type="time" placeholder="Enter Time For Last Sign Up" name="cutofftime" id="lastsignup" required="" value={{lastentry}}>
+
+            <!-- <label for="racelen"><b>Max Laps</b></label>
                 <input class="form-control" type="number" placeholder="Enter Maxium Laps" name="racedistance" id="racedistance"
                     required="" min="1" value={{laps}}> NOT NEEDED FOR PURSUIT RACE
  -->
-                <hr>
+            <hr>
 
-                <button type="submit" class="btn btn-primary">Update Race Configuration</button>
+            <button type="submit" class="btn btn-primary">Update Race Configuration</button>
 
-            </div>
-
-
-        </form>
+        </div>
 
 
+    </form>
 
 
-        <div class="form-group">
 
-            <body>
-                current settings: Race length: {{racelen}} Last entry: {{lastentry}}
-                <!-- Laps: {{laps}} -->
-                <hr> {% if not empty %}
-                <h2>Start times (provisional based on current entries)</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Boat Class</th>
-                            <th scope="col">PY number</th>
-                            <th scope="col">Time From Start (0 mins)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in timings %}
-                        <tr>
-                            <td>{{row[0]}}</td>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {%endif%}
 
-                <h2>Current Entries</h2>
-                <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
-                <a class="btn btn-primary" href="/clearAllEntries" onclick="return confirm('Confirm you want to remove all boats?')" role="button">Remove all entries</a>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Crew name</th>
-                            <th scope="col">Sail Number</th>
-                            <th scope="col">Class</th>
-                            <th scope="col">Options</th>
+    <div class="form-group">
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in entries %}
-                        <tr>
-                            <td>{{row[0]}}</td>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                            <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <body>
+            current settings: Race length: {{racelen}} Last entry: {{lastentry}}
+            <!-- Laps: {{laps}} -->
+            <hr> {% if not empty %}
+            <h2>Start times (provisional based on current entries)</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Boat Class</th>
+                        <th scope="col">PY number</th>
+                        <th scope="col">Time From Start (0 mins)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in timings %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {%endif%}
+
+            <h2>Current Entries</h2>
+            <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> {% if not empty %}
+            <a class="btn btn-primary" href="/clearAllEntries" onclick="return confirm('Confirm you want to remove all boats?')" role="button">Remove all entries</a>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Crew name</th>
+                        <th scope="col">Sail Number</th>
+                        <th scope="col">Class</th>
+                        <th scope="col">Options</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in entries %}
+                    <tr>
+                        <td>{{row[0]}}</td>
+                        <td>{{row[1]}}</td>
+                        <td>{{row[2]}}</td>
+                        <td>{{row[3]}}</td>
+                        <td>{{row[4]}}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
-                                        <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
-                                    </div>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/editentry/{{row[0]}}">Edit</a>
+                                    <a class="dropdown-item" href="/deleteentry/{{row[0]}}">Delete</a>
                                 </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% else %}
-                <p>No Boats Currently Entered</p>
-                {% endif %}
-            </body>
-        </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No Boats Currently Entered</p>
+            {% endif %}
+        </body>
     </div>
-</body>
+</div>
+{% endblock content %}
