@@ -41,7 +41,7 @@ def entrylist():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT * FROM Racers")
+    mycursor.execute("SELECT * FROM competitors INNER JOIN pylist ON competitors.BoatID = pylist.ID")
     data = mycursor.fetchall()
     return data
 
