@@ -29,6 +29,13 @@ mysql = MySQL()
 #dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
 baseUrl = "https://racing.dorchestersailingclub.org.uk/"
 
+def boattoID(boatname):
+    conn = mysql.connection
+    mycursor = conn.cursor()
+    print(boatname)
+    mycursor.execute("SELECT ID FROM pylist where Class=%s",(boatname))
+    data = mycursor.fetchall()
+    return data        
 
 def entrylist():
     conn = mysql.connection
@@ -77,15 +84,15 @@ def boats():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT Class,PY FROM PyList ORDER BY Class")
+    mycursor.execute("SELECT * FROM PyList ORDER BY Class")
     
     rawboatList = mycursor.fetchall()
     #print(rawboatList)
-    for items in rawboatList:
+    """for items in rawboatList:
         boatList.append(items[0])   
-    #print(boatList)
-    
-    return boatList
+    print(boatList)
+    """
+    return rawboatList
 
 def get_sec(time_str):
     """Get Seconds from time."""

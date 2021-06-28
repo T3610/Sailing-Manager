@@ -20,10 +20,11 @@
         <label for="class"><b>Boat Class</b></label>
         <select class="form-control" id="class" name="class">
                     {% for class in boat %}
-                    <option value="{{ID}}">{{ID}}</option>
+                    
+                    <option value="{{class[0]}}">{{class[1]}}</option>
                     {% endfor %}
-
-                </select>
+        </select>
+                
 
         <hr>
 
