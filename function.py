@@ -22,12 +22,13 @@ app.secret_key = '7sqTmHwNwDDRt2savrym'
 
 app.config['MYSQL_USER'] = 'Dorchester'
 app.config['MYSQL_PASSWORD'] = 'hQR36hW8U24RA8Hw'
-app.config['MYSQL_DATABASE'] = 'dorchester'
+app.config['MYSQL_DATABASE'] = 'dorchester_testing'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 mysql = MySQL()
 
 #dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
 baseUrl = "https://racing.dorchestersailingclub.org.uk/"
+
 
 def entrylist():
     conn = mysql.connection

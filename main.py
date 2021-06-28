@@ -151,7 +151,7 @@ def form(id=0):
         mycursor = conn.cursor()
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("INSERT INTO Racers (Name,Crew,SailNum,Boat) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
+        mycursor.execute("INSERT INTO s (Name,Crew,SailNum,BoatID) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
 
         # Save (commit) the changes
         conn.commit()
@@ -428,6 +428,10 @@ def clearAllEntries():
     conn.commit()
 
     return redirect("/oodracesetup")
+
+@app.route('/enterresults/1H')
+def enterresults1H():
+    return render_template("enterresults1H.html")
 
 #MAKE SURE AT END
 if __name__ == '__main__':
