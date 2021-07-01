@@ -64,7 +64,7 @@ def startingorder():
     conn = mysql.connection
     mycursor = conn.cursor()
 
-    mycursor.execute("SELECT RaceLen FROM oodSetup")
+    mycursor.execute("SELECT raceLen FROM racesconfig")
     data = mycursor.fetchall()
     print(data[0][0])
     return render_template('startingorder.html',data = startTimeList(data[0][0])[0])
