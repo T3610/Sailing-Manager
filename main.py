@@ -62,7 +62,7 @@ def send_static(path):
 @app.route('/startingorder')
 def startingorder():
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT raceLen FROM racesconfig")
     data = mycursor.fetchall()
@@ -87,9 +87,9 @@ def index():
 @app.route('/startTime')
 def starttime():
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT cutofftime FROM oodSetup")
+    mycursor.execute("SELECT cutOffTime FROM racersconfig")
     
     data = mycursor.fetchone()
     print(data)
@@ -103,17 +103,17 @@ def oodracesetup():
         #print(request.form)
         #print(request.form["racelen"],request.form["cutofftime"])
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
 
-        mycursor.execute("UPDATE oodSetup SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
+        mycursor.execute("UPDATE racesconfig SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
         conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
-        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen FROM oodSetup")
+        mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), RaceLen FROM racesconfig")
         
         data = mycursor.fetchone()
         #print(data)
@@ -129,10 +129,10 @@ def updateentry(id):
         formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
         #print(formData[0])
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  Racers SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
+        mycursor.execute("UPDATE  competitors SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
 
         # Save (commit) the changes
         conn.commit()
@@ -148,7 +148,7 @@ def form(id=0):
         formData = [request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]]
         print(formData)
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("INSERT INTO competitors (Name,Crew,SailNum,BoatID) values (%s,%s,%s,%s)",(formData[0],formData[1],formData[2],formData[3]))
@@ -167,7 +167,7 @@ def form(id=0):
 @app.route('/deleteentry/<id>')
 def deleteentry(id):
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("DELETE FROM Racers WHERE ID=%s",(id,))
     conn.commit()
@@ -176,7 +176,7 @@ def deleteentry(id):
 @app.route('/editentry/<id>')
 def editentry(id):
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id,))
     entry = mycursor.fetchone()
@@ -186,7 +186,7 @@ def editentry(id):
 @flask_login.login_required
 def editpylist():
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT * FROM PyList")
     pylist = mycursor.fetchall()
@@ -195,7 +195,7 @@ def editpylist():
 @app.route('/results/<raceid>')
 def results(raceid):
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`Boat`,StateR"+raceid+" FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
     results = mycursor.fetchall()
@@ -208,7 +208,7 @@ def resultsRedirect():
 @app.route('/pyedit/<id>')
 def editpy(id):
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id,))
     entry = mycursor.fetchone()
@@ -223,7 +223,7 @@ def updatepy(id):
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE  PyList SET Class=%s,PY=%s WHERE ID=%s",(formData[0],formData[1],id))
@@ -238,7 +238,7 @@ def updatepy(id):
 def deletepy(id):
     #print(id)
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("DELETE FROM PyList WHERE ID=%s",(id,))
     conn.commit()
@@ -252,7 +252,7 @@ def addpy():
         formData = request.form["Bname"],request.form["PY"]
         #print(formData[0])
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("INSERT INTO PyList (Class,PY) values (%s,%s)",(formData[0],formData[1]))
@@ -282,7 +282,7 @@ def enterresultsR2():
 def resultsAPI(raceid):
     if request.method == 'GET':
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("SELECT Racers.* FROM Racers INNER JOIN PyList ON Racers.Boat = PyList.Class WHERE StateR"+raceid+" IN ('0', 'FIN') ORDER BY FinishedR"+raceid+" ,LapsR"+raceid+" ASC, LatestLapRoundingR"+raceid+", PyList.PY DESC, Name")
@@ -296,7 +296,7 @@ def addlap(raceid,id):
     if request.method == 'PATCH':
         lapTime = request.args.get('lapTime')
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1, LatestLapRoundingR"+raceid+" = %s WHERE ID=%s",(lapTime, id,))
@@ -311,7 +311,7 @@ def addlap(raceid,id):
 def removelap(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" - 1 WHERE ID=%s AND LapsR"+raceid+" >0",(id,))
@@ -328,7 +328,7 @@ def finish(raceid,id):
         finishTime = request.args.get('finishTime')
 
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = %s, StateR"+raceid+" = %s WHERE ID=%s",(finishTime, "FIN", id))
@@ -343,7 +343,7 @@ def finish(raceid,id):
 def unfinish(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("0",id))
@@ -360,7 +360,7 @@ def finishbefore(raceid,id):
         finishTime = request.args.get('finishTime')
 
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, LapsR"+raceid+" = LapsR"+raceid+" + 1,  TimeFinishedR"+raceid+" = %s , StateR"+raceid+" = %s WHERE ID=%s",(finishTime, "FIN", id))
@@ -375,7 +375,7 @@ def finishbefore(raceid,id):
 def unfinishbefore(raceid,id):
     if request.method == 'PATCH':
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0 , LapsR"+raceid+" = LapsR"+raceid+" - 1, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("0", id,))
@@ -392,7 +392,7 @@ def retire(raceid,id):
     if request.method == 'PATCH':
 
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("RET", id))
@@ -408,7 +408,7 @@ def DNS(raceid,id):
     if request.method == 'PATCH':
 
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
         mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("DNS", id))
@@ -422,7 +422,7 @@ def DNS(raceid,id):
 @app.route('/clearAllEntries')
 def clearAllEntries():
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("DELETE FROM Racers")
     conn.commit()

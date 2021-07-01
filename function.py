@@ -31,7 +31,7 @@ baseUrl = "https://racing.dorchestersailingclub.org.uk/"
 
 def boattoID(boatname):
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
     print(boatname)
     mycursor.execute("SELECT ID FROM pylist where Class=%s",(boatname))
     data = mycursor.fetchall()
@@ -39,7 +39,7 @@ def boattoID(boatname):
 
 def entrylist():
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT competitors.ID, competitors.Name, competitors.Crew, competitors.SailNum, pylist.Class FROM competitors INNER JOIN pylist ON competitors.BoatID = pylist.ID ") #INNER JOIN pylist ON competitors.ID = pylist.ID
     data = mycursor.fetchall()
@@ -47,9 +47,9 @@ def entrylist():
 
 def startTimeList(racelen = 40): #not needed for handicap racing
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class ORDER BY PyList.py DESC")
+    mycursor.execute("SELECT DISTINCT competitors.BoatID, PyList.PY FROM competitors INNER JOIN PyList ON competitors.BoatID=PyList.Class ORDER BY PyList.py DESC")
     data = mycursor.fetchall()
     print(data)
     empty = True
@@ -82,7 +82,7 @@ def startTimeList(racelen = 40): #not needed for handicap racing
 def boats():
     boatList = []
     conn = mysql.connection
-    mycursor = conn.cursor()
+    mycursor = conn.cursor(buffered=True)
 
     mycursor.execute("SELECT * FROM PyList ORDER BY Class")
     
@@ -105,7 +105,7 @@ def outOftimeSignUp():
 
     if now.weekday() == 6:
         conn = mysql.connection
-        mycursor = conn.cursor()
+        mycursor = conn.cursor(buffered=True)
 
         mycursor.execute("SELECT CutOffTime FROM oodSetup")
 
