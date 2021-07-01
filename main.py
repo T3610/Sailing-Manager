@@ -106,7 +106,7 @@ def oodracesetup():
         mycursor = conn.cursor(buffered=True)
 
 
-        mycursor.execute("UPDATE racesconfig SET CutOffTime=%s, RaceLen=%s WHERE RaceLen IS NOT NULL",(request.form["cutofftime"],request.form["racelen"]))
+        mycursor.execute("UPDATE racesconfig SET CutOffTime=%s, RaceLen=%s ",(request.form["cutofftime"],request.form["racelen"]))
         conn.commit()
         return redirect('/oodracesetup')
     elif request.method == 'GET':
@@ -117,7 +117,6 @@ def oodracesetup():
         
         data = mycursor.fetchone()
         #print(data)
-
         return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0],  entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1])
 
 
