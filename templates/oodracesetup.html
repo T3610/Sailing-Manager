@@ -15,10 +15,14 @@
             <label for="lastsignup"><b>Last Sign Up Time</b></label>
             <input class="form-control" type="time" placeholder="Enter Time For Last Sign Up" name="cutofftime" id="lastsignup" required="" value={{lastentry}}>
 
-            <!-- <label for="racelen"><b>Max Laps</b></label>
-                <input class="form-control" type="number" placeholder="Enter Maxium Laps" name="racedistance" id="racedistance"
-                    required="" min="1" value={{laps}}> NOT NEEDED FOR PURSUIT RACE
- -->
+            <fieldset >
+                <input class="form-check-input" type="radio" name="raceType" id="Handicap" value="Handicap">
+                <label class="form-check-label" for="inlineRadio1">Handicap Race</label>
+              
+            
+                <input class="form-check-input" type="radio" name="raceType" id="Pursuit" value="Pursuit">
+                <label class="form-check-label" for="inlineRadio2">Pursuit Race</label>
+            </fieldset>
             <hr>
 
             <button type="submit" class="btn btn-primary">Update Race Configuration</button>
@@ -34,10 +38,7 @@
     <div class="form-group">
 
         <body>
-            current settings: Race length: {{racelen}} Last entry: {{lastentry}}
-            <!-- Laps: {{laps}} -->
-            {{entries}}
-
+            current settings: Race Type: {{racetype}} Race length: {{racelen}} Last entry: {{lastentry}} 
             <hr> 
             {% if entries|length > 0 %}
                 
