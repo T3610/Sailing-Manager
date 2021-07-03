@@ -168,7 +168,7 @@ def deleteentry(id):
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("DELETE FROM Racers WHERE ID=%s",(id,))
+    mycursor.execute("DELETE FROM competitors WHERE ID=%s",(id,))
     conn.commit()
     return redirect("/oodracesetup")
 
