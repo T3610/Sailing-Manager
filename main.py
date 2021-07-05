@@ -284,8 +284,8 @@ def resultsAPI(raceid):
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
 
-        #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("SELECT Racers.* FROM Racers INNER JOIN PyList ON Racers.Boat = PyList.Class WHERE StateR"+raceid+" IN ('0', 'FIN') ORDER BY FinishedR"+raceid+" ,LapsR"+raceid+" ASC, LatestLapRoundingR"+raceid+", PyList.PY DESC, Name")
+        #print(formData[0],formData[1],formData[2],formData[3])"
+        mycursor.execute("SELECT competitors.* FROM competitors") #INNER JOIN PyList ON competitors.BoatID = pylist.Class 
         entries = mycursor.fetchall()
         entriesJSON = json.dumps(entries)
     
