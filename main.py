@@ -1,5 +1,5 @@
 from function import *
-
+from decorators import *
 DEBUG = True
 
 login_manager = LoginManager()
@@ -140,6 +140,7 @@ def updateentry(id):
         return redirect("/oodracesetup")
 
 @app.route('/entries', methods=["GET","POST"])
+
 def form(id=0):
     if request.method == 'POST':
         formData = []
