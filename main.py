@@ -273,8 +273,11 @@ def enterresults():
 @app.route('/enterresults/1')
 @flask_login.login_required
 def enterresultsR1():
-    return render_template("enterresults1.html") 
-
+    if getRaceType() == "PURSUIT":
+        return render_template("enterresults1.html") 
+    else:
+        return render_template("enterresults1H.html")
+        
 @app.route('/enterresults/2')
 @flask_login.login_required
 def enterresultsR2():
