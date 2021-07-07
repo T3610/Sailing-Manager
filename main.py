@@ -60,6 +60,7 @@ def send_static(path):
     return send_from_directory('static', path)
 
 @app.route('/startingorder')
+@pursuitOnly
 def startingorder():
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
