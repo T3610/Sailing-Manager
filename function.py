@@ -49,7 +49,7 @@ def startTimeList(racelen = 40): #not needed for handicap racing
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT DISTINCT Racers.Boat, PyList.PY FROM Racers INNER JOIN PyList ON Racers.Boat=PyList.Class ORDER BY PyList.py DESC")
+    mycursor.execute("SELECT DISTINCT competitors.BoatID, pylist.PY FROM competitors INNER JOIN pylist ON competitors.BoatID=pylist.ID ORDER BY pylist.PY DESC")
     data = mycursor.fetchall()
     print(data)
     empty = True
@@ -127,4 +127,9 @@ def outOftimeSignUp():
     else:
         return True
     
-    
+def getRaceType():
+    conn = mysql.connection
+    mycursor = conn.cursor(buffered=True)
+    mycursor.execute("SELECT raceType FROM racesconfig")
+    data = mycursor.fetchone()
+    return data 

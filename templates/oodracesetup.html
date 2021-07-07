@@ -41,27 +41,27 @@
             current settings: Race Type: {{racetype}} Race length: {{racelen}} Last entry: {{lastentry}} 
             <hr> 
             {% if entries|length > 0 %}
-                
-                <h2>Start times (provisional based on current entries)</h2>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Boat Class</th>
-                            <th scope="col">PY number</th>
-                            <th scope="col">Time From Start (0 mins)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for row in timings %}
-                        <tr>
-                            <td>{{row[0]}}</td>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                
+                {% if raceType == "PURSUIT" %}    
+                    <h2>Start times (provisional based on current entries)</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Boat Class</th>
+                                <th scope="col">PY number</th>
+                                <th scope="col">Time From Start (0 mins)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in timings %}
+                            <tr>
+                                <td>{{row[0]}}</td>
+                                <td>{{row[1]}}</td>
+                                <td>{{row[2]}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
 
                 <h2>Current Entries</h2>
                 <a class="btn btn-primary" href="/oodsignup" role="button">Add New Entry</a> 
@@ -99,7 +99,6 @@
                             </td>
                         </tr>
                         {% endfor %}
-            {% else %}
             
             {% endif %}
             

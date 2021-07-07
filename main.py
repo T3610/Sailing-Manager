@@ -117,8 +117,9 @@ def oodracesetup():
         mycursor.execute("SELECT DATE_FORMAT(CutOffTime, '%H:%i'), raceLen, raceType FROM racesconfig")
         
         data = mycursor.fetchone()
-        #print(data)
-        return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0], racetype = data[2], entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1])
+        print(getRaceType()[0])
+        
+        return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0], racetype = data[2], entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1], raceType = getRaceType()[0])
 
 
 @app.route('/editentry/<id>', methods=["POST"])
