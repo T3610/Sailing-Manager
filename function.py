@@ -132,4 +132,4 @@ def getRaceType():
     mycursor = conn.cursor(buffered=True)
     mycursor.execute("SELECT raceType FROM racesconfig")
     data = mycursor.fetchone()
-    return data 
+    return data[0] 
