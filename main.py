@@ -90,7 +90,7 @@ def starttime():
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT cutOffTime FROM racersconfig")
+    mycursor.execute("SELECT cutOffTime FROM racesconfig")
     
     data = mycursor.fetchone()
     print(data)
@@ -276,14 +276,17 @@ def enterresults():
 @flask_login.login_required
 def enterresultsR1():
     if getRaceType() == "PURSUIT":
-        return render_template("enterresults1.html") 
+        return render_template("enterresults1.html", raceType="PURSUIT") 
     else:
-        return render_template("enterresults1H.html")
+        return render_template("enterresults1H.html", raceType="HANDICAP")
         
 @app.route('/enterresults/2')
 @flask_login.login_required
 def enterresultsR2():
-    return render_template("enterresults2.html")
+    if getRaceType() == "PURSUIT":
+        return render_template("enterresults2.html", raceType="PURSUIT") 
+    else:
+        return render_template("enterresults2H.html", raceType="HANDICAP")
 
 @app.route('/api/results/<raceid>', methods=["GET"])
 def resultsAPI(raceid):
@@ -319,6 +322,16 @@ def resultsAPI(raceid):
         entriesJSON = json.dumps(display)
     
         return entriesJSON
+
+
+@app.route('/api/setStartTime/<raceid>', methods=["GET"])
+def setStartTime(raceid):
+    if request.method == 'GET':
+        startTime = request.args.get('startTime')
+        conn = mysql.connection
+        mycursor = conn.cursor(buffered=True)
+        mycursor.execute("UPDATE racesconfig SET startTime=%s WHERE raceID=%S",(startTime,raceid))
+
 
 @app.route('/addlap/<raceid>/<id>', methods=["PATCH"])
 def addlap(raceid,id):
@@ -455,10 +468,6 @@ def clearAllEntries():
     conn.commit()
 
     return redirect("/oodracesetup")
-
-@app.route('/enterresults/1H')
-def enterresults1H():
-    return render_template("enterresults1H.html")
 
 #MAKE SURE AT END
 if __name__ == '__main__':

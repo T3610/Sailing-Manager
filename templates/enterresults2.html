@@ -1,10 +1,13 @@
 {% extends 'base.html' %} {% block additional_scripts %}
-<script src="/static/ResultsR2.js"></script>{% endblock additional_scripts %} {% block additional_css %}
+<script type="text/javascript">
+    const raceType = "PURSUIT"
+</script>
+<script src="/static/Results.js"></script>{% endblock additional_scripts %} {% block additional_css %}
 <style>
     th {
         position: sticky;
         top: 0;
-        background: #f8f9fa!important;
+        background: #f8f9fa !important;
         z-index: 4;
     }
     
