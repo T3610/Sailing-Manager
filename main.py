@@ -297,7 +297,7 @@ def resultsAPI(raceid):
         
         PKlist = []
         for entry in signedUpEntries:
-            PKlist.append(entry[0])
+            PKlist.append(str(entry[0])+"-"+str(raceid))
 
         enteredEntriesList = []
         for entries in enteredEntries:
@@ -312,7 +312,7 @@ def resultsAPI(raceid):
                 mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(pk,int(ID[0]),raceid))
                 conn.commit()
 
-        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID WHERE races.status IS NULL OR races.status = 'FIN'")
+        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID WHERE (races.status IS NULL OR races.status = 'FIN') AND races.raceID = %s",(raceid,))
         display = mycursor.fetchall()
         entriesJSON = json.dumps(display)
     
