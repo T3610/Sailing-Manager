@@ -1,10 +1,13 @@
 {% extends 'base.html' %} {% block additional_scripts %}
-<script src="/static/ResultsR1.js"></script>{% endblock additional_scripts %} {% block additional_css %}
+<script type="text/javascript">
+    const raceType = "PURSUIT"
+</script>
+<script src="/static/Results.js"></script>{% endblock additional_scripts %} {% block additional_css %}
 <style>
     th {
         position: sticky;
         top: 0;
-        background: #f8f9fa!important;
+        background: #f8f9fa !important;
         z-index: 4;
     }
     
@@ -15,7 +18,8 @@
     td {
         font-size: 20px;
     }
-</style> {% endblock additional_css %} {% block content %}
+</style>
+{% endblock additional_css %} {% block content %}
 
 
 
@@ -25,7 +29,8 @@
         <div class="row pb-3">
             <div class="col text-center">
                 <h1>You are currently completing results for race 1</h1>
-                <a class="btn btn-primary" href="/enterresults/2" role="button">Switch to Race 2</a>
+                <a class="btn btn-primary" href="/enterresults/2" role="button">Switch
+                    to Race 2</a>
 
             </div>
         </div>
