@@ -45,6 +45,13 @@ def entrylist():
     data = mycursor.fetchall()
     return data
 
+def getStartTime(raceID):
+    conn = mysql.connection
+    mycursor = conn.cursor(buffered=True)
+    mycursor.execute("SELECT startTime FROM racesconfig where raceID = %s", (raceID,)) #INNER JOIN pylist ON competitors.ID = pylist.ID
+    data = mycursor.fetchone()
+    return data[0]
+
 def startTimeList(racelen = 40): #not needed for handicap racing
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)

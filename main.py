@@ -1,3 +1,4 @@
+import re
 from function import *
 from decorators import *
 DEBUG = True
@@ -276,7 +277,11 @@ def enterresultsR1():
     if getRaceType() == "PURSUIT":
         return render_template("enterresults1.html", raceType="PURSUIT") 
     else:
-        return render_template("enterresults1H.html", raceType="HANDICAP")
+        try:
+            startTime=datetime.fromtimestamp(getStartTime(1)).strftime("%d %b %H:%M")
+        except:
+            startTime=False
+        return render_template("enterresults1H.html", raceType="HANDICAP", startTime=startTime)
         
 @app.route('/enterresults/2')
 @flask_login.login_required
@@ -284,7 +289,7 @@ def enterresultsR2():
     if getRaceType() == "PURSUIT":
         return render_template("enterresults2.html", raceType="PURSUIT") 
     else:
-        return render_template("enterresults2H.html", raceType="HANDICAP")
+        return render_template("enterresults2H.html", raceType="HANDICAP",startTime=datetime.fromtimestamp(getStartTime(2)))
 
 @app.route('/api/results/<raceid>', methods=["GET"])
 def resultsAPI(raceid):
@@ -322,14 +327,20 @@ def resultsAPI(raceid):
         return entriesJSON
 
 
-@app.route('/api/setStartTime/<raceid>', methods=["GET"])
+@app.route('/api/startTime/<raceid>', methods=["GET","POST"])
 def setStartTime(raceid):
-    if request.method == 'GET':
+    if request.method == 'POST':
         startTime = request.args.get('startTime')
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
-        mycursor.execute("UPDATE racesconfig SET startTime=%s WHERE raceID=%S",(startTime,raceid))
-
+        if int(startTime) != 0:
+            mycursor.execute("UPDATE racesconfig SET startTime=%d WHERE raceID=%d" % (int(startTime),int(raceid)))
+        else:
+            mycursor.execute("UPDATE racesconfig SET startTime=NULL WHERE raceID=%d" % (int(raceid),))
+        conn.commit()
+        return "Success", 204
+    if request.method == 'GET':
+        return str(getStartTime(raceid))
 
 @app.route('/addlap/<raceid>/<id>', methods=["PATCH"])
 def addlap(raceid,id):

@@ -1,10 +1,43 @@
 {% extends 'base.html' %} {% block additional_scripts %}
-<script src="/static/ResultsR1.js"></script>{% endblock additional_scripts %} {% block additional_css %}
+<script type="text/javascript">
+    const raceType = "HANDICAP"
+</script>
+<script src="/static/Results.js"></script>{% endblock additional_scripts %} {% block additional_css %}
+<script type="text/javascript">
+    function startRace() {
+        var currentTime = Math.round(Date.now() / 1000);
+
+        var settings = {
+            url: "/api/startTime/" + raceID + "?startTime=" + currentTime,
+            method: "POST",
+            timeout: 0,
+        };
+
+        $.ajax(settings).done(function(response) {
+            location.reload();
+        });
+    }
+
+    function resetStartTime() {
+        var settings = {
+            url: "/api/startTime/" + raceID + "?startTime=0",
+            method: "POST",
+            timeout: 0,
+        };
+        var txt;
+        var r = confirm("Confirm you want to clear the race start time");
+        if (r == true) {
+            $.ajax(settings).done(function(response) {
+                location.reload();
+            });
+        }
+    }
+</script>
 <style>
     th {
         position: sticky;
         top: 0;
-        background: #f8f9fa!important;
+        background: #f8f9fa !important;
         z-index: 4;
     }
     
@@ -25,8 +58,12 @@
         <div class="row pb-3">
             <div class="col text-center">
                 <h1>You are currently completing results for race 1 (Handicap)</h1>
-                <a class="btn btn-primary" href="/enterresults/2H" role="button">Switch to Race 2 (Handicap)</a>
-                <a class="btn btn-primary" href="enter start time" role="button">Press to start race</a>
+                <a class="btn btn-primary mb-2" href="/enterresults/2" role="button">Switch to Race 2 (Handicap)</a> {% if startTime%}
+                <h4>Current race began at {{startTime}}
+                    <button type="button" class="btn btn-danger mb-2" onclick="resetStartTime()">Reset start
+                        time</button>
+                </h4>{% else %} <a class="btn btn-primary mb-2" onclick="startRace()" role="button">Press to start
+                    race</a> {% endif %}
             </div>
         </div>
 
