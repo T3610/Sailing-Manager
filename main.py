@@ -290,44 +290,30 @@ def resultsAPI(raceid):
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
 
-        """#print(formData[0],formData[1],formData[2],formData[3])"
-        mycursor.execute("SELECT competitors.*,races.* FROM competitors INNER JOIN races ON competitors.ID=races.competitorID WHERE races.raceID=%s",(raceid,)) #INNER JOIN PyList ON competitors.BoatID = pylist.Class 
-        entriesInRaces = mycursor.fetchall() 
-        mycursor.execute("SELECT * FROM competitors")
-        allEntries = mycursor.fetchall()
-
-        for raceEntry in entriesInRaces:
-            # entry = (14, 'Toby Broadbent', 'doasidosaidoa', '141022', 27)
-            for entry in allEntries:
-                # raceEntry = (14, 'Toby Broadbent', 'doasidosaidoa', '141022', 27, '14-1', 14, 2, 6, None)
-                if entry[0] == raceEntry[0]:
-                    print("hi")
-                    #mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(str(entry[0])+"-"+str(raceid),entry[0],raceid))
-            """
         mycursor.execute("SELECT * FROM competitors")
         signedUpEntries = mycursor.fetchall()
-        mycursor.execute("SELECT competitorID FROM races")
+        mycursor.execute("SELECT pk FROM races")
         enteredEntries = mycursor.fetchall()
         
-        IDlist = []
+        PKlist = []
         for entry in signedUpEntries:
-            IDlist.append(entry[0])
+            PKlist.append(entry[0])
 
         enteredEntriesList = []
         for entries in enteredEntries:
             enteredEntriesList.append(entries[0])
 
-        for ID in IDlist:
-            if not ID in enteredEntriesList:
+        for pk in PKlist:
+            if not pk in enteredEntriesList:
                 #insert the entries as pk, competitorID, raceID, lapsComplete, NULL
+                ID = pk.split("-")
+                print(ID[0])
                 print("NOT HERE YET")   
-                mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(str(ID)+"-"+str(raceid),ID,raceid))
+                mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(pk,int(ID[0]),raceid))
                 conn.commit()
-        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID")
+
+        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID WHERE races.status IS NULL OR races.status = 'FIN'")
         display = mycursor.fetchall()
-        
-
-
         entriesJSON = json.dumps(display)
     
         return entriesJSON
@@ -341,7 +327,7 @@ def addlap(raceid,id):
 
         #print(formData[0],formData[1],formData[2],formData[3])
         #mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1, LatestLapRoundingR"+raceid+" = %s WHERE ID=%s",(lapTime, id,))
-        mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE lapsComplete=lapsComplete+1",(id+"-"+raceid,id,raceid))
+        mycursor.execute("UPDATE races SET lapsComplete = lapsComplete+1 WHERE pk = %s",(id+"-"+raceid,))
         # Save (commit) the changes
         conn.commit()
         #print(request.form)
@@ -355,7 +341,7 @@ def removelap(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" - 1 WHERE ID=%s AND LapsR"+raceid+" >0",(id,))
+        mycursor.execute("UPDATE races SET lapsComplete = lapsComplete-1 WHERE pk = %s AND lapsComplete >= 1",(id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
@@ -370,9 +356,8 @@ def finish(raceid,id):
 
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
-
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = %s, StateR"+raceid+" = %s WHERE ID=%s",(finishTime, "FIN", id))
+        mycursor.execute("UPDATE races SET finTime = %s, status = 'FIN' WHERE pk = %s ",(finishTime,id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
@@ -387,7 +372,7 @@ def unfinish(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("0",id))
+        mycursor.execute("UPDATE races SET finTime = 0, status = NULL WHERE pk = %s ",(id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
@@ -395,7 +380,7 @@ def unfinish(raceid,id):
     
         return "success",204
 
-@app.route('/finishbefore/<raceid>/<id>', methods=["PATCH"])
+"""@app.route('/finishbefore/<raceid>/<id>', methods=["PATCH"])
 def finishbefore(raceid,id):
     if request.method == 'PATCH':
         finishTime = request.args.get('finishTime')
@@ -425,7 +410,7 @@ def unfinishbefore(raceid,id):
         conn.commit()
         #print(request.form)
     
-        return "success",204
+        return "success",204"""
 
 
 @app.route('/retire/<raceid>/<id>', methods=["PATCH"])
@@ -436,7 +421,7 @@ def retire(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 1, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("RET", id))
+        mycursor.execute("UPDATE races SET status = 'RET' WHERE pk = %s ",(id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
@@ -452,8 +437,7 @@ def DNS(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET FinishedR"+raceid+" = 0, TimeFinishedR"+raceid+" = 0, StateR"+raceid+" = %s WHERE ID=%s",("DNS", id))
-
+        mycursor.execute("UPDATE races SET status = 'DNS' WHERE pk = %s ",(id+"-"+raceid,))
         # Save (commit) the changes
         conn.commit()
         #print(request.form)
@@ -465,7 +449,7 @@ def clearAllEntries():
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("DELETE FROM Racers")
+    mycursor.execute("DELETE FROM competitors")
     conn.commit()
 
     return redirect("/oodracesetup")

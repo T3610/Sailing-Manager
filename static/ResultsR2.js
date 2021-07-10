@@ -233,10 +233,11 @@ function updateTable() {
       var $tr = $("<tr>").append(
         $("<td>").text(item[3] + " (" + item[1] + ")"), //Sail No
         $("<td>").text(item[4]), //Class
-        item[12] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
-        item[12]
+        item[10] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+        item[10]
           ? $("<td>").append(finishBtnDisabled)
           : $("<td>").append(finishBtn), //finishBTN
+          
         $("<td>").append(optionsBtn) //Laps
       );
       console.log($tr);
