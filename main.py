@@ -285,14 +285,50 @@ def enterresultsR2():
 
 @app.route('/api/results/<raceid>', methods=["GET"])
 def resultsAPI(raceid):
+    print("hi")
     if request.method == 'GET':
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
 
-        #print(formData[0],formData[1],formData[2],formData[3])"
-        mycursor.execute("SELECT competitors.* FROM competitors") #INNER JOIN PyList ON competitors.BoatID = pylist.Class 
-        entries = mycursor.fetchall()
-        entriesJSON = json.dumps(entries)
+        """#print(formData[0],formData[1],formData[2],formData[3])"
+        mycursor.execute("SELECT competitors.*,races.* FROM competitors INNER JOIN races ON competitors.ID=races.competitorID WHERE races.raceID=%s",(raceid,)) #INNER JOIN PyList ON competitors.BoatID = pylist.Class 
+        entriesInRaces = mycursor.fetchall() 
+        mycursor.execute("SELECT * FROM competitors")
+        allEntries = mycursor.fetchall()
+
+        for raceEntry in entriesInRaces:
+            # entry = (14, 'Toby Broadbent', 'doasidosaidoa', '141022', 27)
+            for entry in allEntries:
+                # raceEntry = (14, 'Toby Broadbent', 'doasidosaidoa', '141022', 27, '14-1', 14, 2, 6, None)
+                if entry[0] == raceEntry[0]:
+                    print("hi")
+                    #mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(str(entry[0])+"-"+str(raceid),entry[0],raceid))
+            """
+        mycursor.execute("SELECT * FROM competitors")
+        signedUpEntries = mycursor.fetchall()
+        mycursor.execute("SELECT competitorID FROM races")
+        enteredEntries = mycursor.fetchall()
+        
+        IDlist = []
+        for entry in signedUpEntries:
+            IDlist.append(entry[0])
+
+        enteredEntriesList = []
+        for entries in enteredEntries:
+            enteredEntriesList.append(entries[0])
+
+        for ID in IDlist:
+            if not ID in enteredEntriesList:
+                #insert the entries as pk, competitorID, raceID, lapsComplete, NULL
+                print("NOT HERE YET")   
+                mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(str(ID)+"-"+str(raceid),ID,raceid))
+                conn.commit()
+        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID")
+        display = mycursor.fetchall()
+        
+
+
+        entriesJSON = json.dumps(display)
     
         return entriesJSON
 
@@ -304,8 +340,8 @@ def addlap(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1, LatestLapRoundingR"+raceid+" = %s WHERE ID=%s",(lapTime, id,))
-
+        #mycursor.execute("UPDATE Racers SET LapsR"+raceid+" = LapsR"+raceid+" + 1, LatestLapRoundingR"+raceid+" = %s WHERE ID=%s",(lapTime, id,))
+        mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s) ON DUPLICATE KEY UPDATE lapsComplete=lapsComplete+1",(id+"-"+raceid,id,raceid))
         # Save (commit) the changes
         conn.commit()
         #print(request.form)

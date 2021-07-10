@@ -8,7 +8,7 @@ function handleAddLap(id) {
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/addlap/" +
+      "/addlap/" +
       raceID +
       "/" +
       id +
@@ -28,7 +28,7 @@ function handleRemoveLap(id) {
   console.log(id);
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/removelap/" +
+      "/removelap/" +
       raceID +
       "/" +
       id,
@@ -49,7 +49,7 @@ function handleFinish(id) {
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/finish/" +
+      "/finish/" +
       raceID +
       "/" +
       id +
@@ -69,7 +69,7 @@ function handleUnfinish(id) {
   console.log(id);
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/unfinish/" +
+      "/unfinish/" +
       raceID +
       "/" +
       id,
@@ -90,7 +90,7 @@ function handleBeforeLappingFinish(id) {
 
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/finishbefore/" +
+      "/finishbefore/" +
       raceID +
       "/" +
       id +
@@ -110,7 +110,7 @@ function handleBeforeLappingUnfinish(id) {
   console.log(id);
   var settings = {
     url:
-      "https://racing.dorchestersailingclub.org.uk/unfinishbefore/" +
+      "/unfinishbefore/" +
       raceID +
       "/" +
       id,
@@ -130,7 +130,7 @@ function handleRetire(id, name) {
   if (r == true) {
     var settings = {
       url:
-        "https://racing.dorchestersailingclub.org.uk/retire/" +
+        "/retire/" +
         raceID +
         "/" +
         id,
@@ -151,7 +151,7 @@ function handleDNS(id, name) {
   if (r == true) {
     var settings = {
       url:
-        "https://racing.dorchestersailingclub.org.uk/DNS/" + raceID + "/" + id,
+        "/DNS/" + raceID + "/" + id,
       method: "PATCH",
       timeout: 0,
     };
@@ -165,7 +165,7 @@ function handleDNS(id, name) {
 
 function updateTable() {
   var settings = {
-    url: "https://racing.dorchestersailingclub.org.uk/api/results/" + raceID,
+    url: "/api/results/" + raceID,
     method: "GET",
     timeout: 0,
   };
@@ -175,9 +175,10 @@ function updateTable() {
     console.log(response);
     $("#resultsTable").empty();
     $.each(response, function (i, item) {
+      console.log(item)
       const lapBtn = `
       <div class="btn-group">
-          <button class="btn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[10]})</button>
+          <button class="btn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[8]})</button>
           <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
