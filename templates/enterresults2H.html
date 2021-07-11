@@ -57,8 +57,8 @@
         {% include 'snippets/nav_bar_ood.html' %}
         <div class="row pb-3">
             <div class="col text-center">
-                <h1>You are currently completing results for race 1 (Handicap)</h1>
-                <a class="btn btn-primary mb-2" href="/enterresults/2" role="button">Switch to Race 2 (Handicap)</a> {% if startTime%}
+                <h1>You are currently completing results for race 2 (Handicap)</h1>
+                <a class="btn btn-primary mb-2" href="/enterresults/1" role="button">Switch to Race 1 (Handicap)</a> {% if startTime%}
                 <h4>Current race began at <span id="startTime">{{startTime}}</span>
                     <button type="button" class="btn btn-danger mb-2" onclick="resetStartTime()">Reset start
                         time</button>

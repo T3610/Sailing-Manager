@@ -84,7 +84,8 @@ def oodsignup():
 
 @app.route('/')
 def index():
-    return render_template('index.html',onTime = outOftimeSignUp())
+    # return render_template('index.html',onTime = outOftimeSignUp())
+    return render_template('index.html')
 
 @app.route('/startTime')
 def starttime():
@@ -123,24 +124,32 @@ def oodracesetup():
         return render_template('oodracesetup.html', racelen = data[1], lastentry = data[0], racetype = data[2], entries=entrylist(), timings = startTimeList(data[1])[0], empty = startTimeList(data[1])[1], raceType = getRaceType()[0])
 
 
-@app.route('/editentry/<id>', methods=["POST"])
+@app.route('/editentry/<id>', methods=["GET","POST"])
 def updateentry(id):
     if request.method == 'POST':
         formData = []
         #print(request.form)
         formData = request.form["name"],request.form["Cname"],request.form["sailNum"],request.form["class"]
+        boatID = literal_eval(formData[3])[0]
         #print(formData[0])
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE  competitors SET name=%s,Crew=%s,SailNum=%s,Boat=%s WHERE ID=%s",(formData[0],formData[1],formData[2],formData[3],id))
+        mycursor.execute("UPDATE competitors SET name=%s,Crew=%s,SailNum=%s,BoatID=%s WHERE ID=%s",(formData[0],formData[1],formData[2],boatID,id))
 
         # Save (commit) the changes
         conn.commit()
         #print(request.form)
     
         return redirect("/oodracesetup")
+    elif request.method == 'GET':
+        conn = mysql.connection
+        mycursor = conn.cursor(buffered=True)
+
+        mycursor.execute("SELECT * FROM Competitors WHERE ID=%s",(id,))
+        entry = mycursor.fetchone()
+        return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
 
 @app.route('/entries', methods=["GET","POST"])
 
@@ -176,15 +185,6 @@ def deleteentry(id):
     conn.commit()
     return redirect("/oodracesetup")
 
-@app.route('/editentry/<id>')
-def editentry(id):
-    conn = mysql.connection
-    mycursor = conn.cursor(buffered=True)
-
-    mycursor.execute("SELECT * FROM Racers WHERE ID=%s",(id,))
-    entry = mycursor.fetchone()
-    return render_template('entryEdit.html',boat =boats(),id=entry[0], name=entry[1], cName=entry[2], sailNo=entry[3], currentBoat=entry[4])
-
 @app.route('/pylist')
 @flask_login.login_required
 def editpylist():
@@ -199,30 +199,43 @@ def editpylist():
 def results(raceid):
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
-
-    #mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`BoatID`, FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
-    mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status FROM races INNER JOIN competitors ON competitors.ID = races.competitorID WHERE races.raceID = %s ORDER BY status, races.lapsComplete DESC, finTime ASC",(raceid,)) #WHERE races.raceID = %s",(raceid,)
-
-    results = mycursor.fetchall()
-    return render_template('results'+raceid+'.html',results=results)     
+    if getRaceType() == "PURSUIT":
+        #mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`BoatID`, FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
+        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status FROM races INNER JOIN competitors ON competitors.ID = races.competitorID WHERE races.raceID = %s ORDER BY status, races.lapsComplete DESC, finTime ASC",(raceid,)) #WHERE races.raceID = %s",(raceid,)
+        results = mycursor.fetchall()
+    else:
+        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status, pylist.PY, pylist.Class FROM races INNER JOIN competitors ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.BoatID = pylist.ID WHERE races.raceID = %s AND races.status IS NOT NULL",(raceid,))
+        results = mycursor.fetchall()
+        mycursor.execute("SELECT lapsComplete FROM races WHERE status='FIN' AND raceID=%s ORDER BY lapsComplete DESC LIMIT 1"%(raceid,))
+        try:
+            mostLaps = mycursor.fetchone()[0]
+        except:
+            mycursor.fetchone()
+            return 'No one has finished the race yet'
+        startTime = getStartTime(raceid)
+        resultsList = []
+        for result in results:
+            resultsObj = {"name":result[0],"crewName":result[1],"sailNo":result[2],"lapsComplete":result[4],"finTime":result[5],"status":result[6], "py":result[7],"class":result[8]}
+            resultsObj['elapsedTime'] = resultsObj['finTime']-startTime
+            resultsObj['correctedTime'] = (resultsObj['elapsedTime']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])     # (Elapsed time x most laps x 1000) / (PN x actual laps)
+            resultsList.append(resultsObj)
+        resultsListSorted = sorted(resultsList, key=lambda k: k['correctedTime']) 
+    return render_template('results'+raceid+'.html',results=resultsListSorted, mostLaps=mostLaps)     
 
 @app.route('/results')
 def resultsRedirect():
     return redirect("/results/1")
 
-@app.route('/pyedit/<id>')
+@app.route('/pyedit/<id>',methods=["GET","POST"])
 def editpy(id):
-    conn = mysql.connection
-    mycursor = conn.cursor(buffered=True)
+    if request.method == 'GET':
+        conn = mysql.connection
+        mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id,))
-    entry = mycursor.fetchone()
-    return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
-
-
-@app.route('/editpy/<id>', methods=["POST"])
-def updatepy(id):
-    if request.method == 'POST':
+        mycursor.execute("SELECT * FROM PyList WHERE ID=%s",(id,))
+        entry = mycursor.fetchone()
+        return render_template('pyEdit.html',id=entry[0], boat=entry[1], py=entry[2])
+    elif request.method == 'POST':
         formData = []
         print(request.form)
         formData = request.form["Bname"],request.form["PY"]
@@ -291,7 +304,11 @@ def enterresultsR2():
     if getRaceType() == "PURSUIT":
         return render_template("enterresults2.html", raceType="PURSUIT") 
     else:
-        return render_template("enterresults2H.html", raceType="HANDICAP",startTime=datetime.fromtimestamp(getStartTime(2)))
+        try:
+            startTime=datetime.fromtimestamp(getStartTime(2)).strftime("%d %b %H:%M")
+        except:
+            startTime=False
+        return render_template("enterresults2H.html", raceType="HANDICAP",startTime=startTime)
 
 @app.route('/api/results/<raceid>', methods=["GET"])
 def resultsAPI(raceid):
@@ -322,7 +339,7 @@ def resultsAPI(raceid):
                 mycursor.execute("INSERT INTO races (pk,competitorID,raceID) VALUES (%s,%s,%s)",(pk,int(ID[0]),raceid))
                 conn.commit()
 
-        mycursor.execute("SELECT competitors.*, races.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID WHERE (races.status IS NULL OR races.status = 'FIN') AND races.raceID = %s",(raceid,))
+        mycursor.execute("SELECT competitors.*, races.*, pylist.* FROM competitors INNER JOIN races ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.boatID = pylist.id WHERE (races.status IS NULL OR races.status = 'FIN') AND races.raceID = %s ORDER BY pylist.py",(raceid,))
         display = mycursor.fetchall()
         entriesJSON = json.dumps(display)
     

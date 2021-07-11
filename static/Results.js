@@ -1,4 +1,4 @@
-const raceID = window.location.href.split('/')[4];
+const raceID = window.location.href.split("/")[4];
 console.log("Race ID = " + raceID + " from URL");
 
 document.onload = updateTable();
@@ -8,13 +8,7 @@ function handleAddLap(id) {
   var currentTime = Math.round(Date.now() / 1000);
 
   var settings = {
-    url:
-      "/addlap/" +
-      raceID +
-      "/" +
-      id +
-      "?lapTime=" +
-      currentTime,
+    url: "/addlap/" + raceID + "/" + id + "?lapTime=" + currentTime,
     method: "PATCH",
     timeout: 0,
   };
@@ -28,11 +22,7 @@ function handleAddLap(id) {
 function handleRemoveLap(id) {
   console.log(id);
   var settings = {
-    url:
-      "/removelap/" +
-      raceID +
-      "/" +
-      id,
+    url: "/removelap/" + raceID + "/" + id,
     method: "PATCH",
     timeout: 0,
   };
@@ -49,13 +39,7 @@ function handleFinish(id) {
   var currentTime = Math.round(Date.now() / 1000);
 
   var settings = {
-    url:
-      "/finish/" +
-      raceID +
-      "/" +
-      id +
-      "?finishTime=" +
-      currentTime,
+    url: "/finish/" + raceID + "/" + id + "?finishTime=" + currentTime,
     method: "PATCH",
     timeout: 0,
   };
@@ -69,11 +53,7 @@ function handleFinish(id) {
 function handleUnfinish(id) {
   console.log(id);
   var settings = {
-    url:
-      "/unfinish/" +
-      raceID +
-      "/" +
-      id,
+    url: "/unfinish/" + raceID + "/" + id,
     method: "PATCH",
     timeout: 0,
   };
@@ -90,13 +70,7 @@ function handleBeforeLappingFinish(id) {
   var currentTime = Math.round(Date.now() / 1000);
 
   var settings = {
-    url:
-      "/finishbefore/" +
-      raceID +
-      "/" +
-      id +
-      "?finishTime=" +
-      currentTime,
+    url: "/finishbefore/" + raceID + "/" + id + "?finishTime=" + currentTime,
     method: "PATCH",
     timeout: 0,
   };
@@ -110,11 +84,7 @@ function handleBeforeLappingFinish(id) {
 function handleBeforeLappingUnfinish(id) {
   console.log(id);
   var settings = {
-    url:
-      "/unfinishbefore/" +
-      raceID +
-      "/" +
-      id,
+    url: "/unfinishbefore/" + raceID + "/" + id,
     method: "PATCH",
     timeout: 0,
   };
@@ -130,11 +100,7 @@ function handleRetire(id, name) {
   var r = confirm("Confirm you want to retire " + name);
   if (r == true) {
     var settings = {
-      url:
-        "/retire/" +
-        raceID +
-        "/" +
-        id,
+      url: "/retire/" + raceID + "/" + id,
       method: "PATCH",
       timeout: 0,
     };
@@ -151,8 +117,7 @@ function handleDNS(id, name) {
   var r = confirm("Confirm you want to DNS " + name);
   if (r == true) {
     var settings = {
-      url:
-        "/DNS/" + raceID + "/" + id,
+      url: "/DNS/" + raceID + "/" + id,
       method: "PATCH",
       timeout: 0,
     };
@@ -176,11 +141,11 @@ function updateTable() {
     console.log(response);
     $("#resultsTable").empty();
     $.each(response, function (i, item) {
-      console.log(item)
+      console.log(item);
       const lapBtn = `
       <div class="btn-group">
-          <button class="btn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[8]})</button>
-          <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn enterresultsbtn btn-primary btn-lg" onclick=handleAddLap(${item[0]})>ADD LAP (${item[8]})</button>
+          <button type="button" class="btn enterresultsbtn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="visually-hidden">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu">
@@ -202,13 +167,13 @@ function updateTable() {
     `;
 
       const finishBtn = `        
-  <button class="btn btn-lg btn-primary" onclick=handleFinish(${item[0]})>FINISH</button>
+  <button class="btn btn-lg enterresultsbtn btn-primary" onclick=handleFinish(${item[0]})>FINISH</button>
 `;
 
       const finishBtnDisabled = `        
 <div class="btn-group">
-<button disabled class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
-<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<button disabled class="btn enterresultsbtn btn-lg btn-outline-secondary" onclick=handleFinish(${item[0]})>FINISH</button>
+<button type="button" class="btn enterresultsbtn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span class="visually-hidden">Toggle Dropdown</span>
 </button>
 <ul class="dropdown-menu">
@@ -218,7 +183,7 @@ function updateTable() {
 `;
 
       const optionsBtn = `<div class="dropdown">
-<button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+<button class="btn btn-lg btn-secondary dropdown-toggle enterresultsbtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
   Options
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -233,16 +198,19 @@ function updateTable() {
 
       var $tr = $("<tr>").append(
         $("<td>").text(item[3] + " (" + item[1] + ")"), //Sail No
-        $("<td>").text(item[4]), //Class
+        $("<td>").text(item[12]), //Class
         item[10] ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
         item[10]
           ? $("<td>").append(finishBtnDisabled)
           : $("<td>").append(finishBtn), //finishBTN
-          
+
         $("<td>").append(optionsBtn) //Laps
       );
       console.log($tr);
       $("#resultsTable").append($tr);
     });
+    if ($("#startTime").length == 0) {
+      $(".enterresultsbtn").attr("disabled", "disabled");
+    }
   });
 }

@@ -6,6 +6,7 @@ from flask import Response, render_template, redirect
 from datetime import datetime,date,time
 import json
 import math
+from ast import literal_eval
 
 from flask import Flask, render_template, redirect, request, url_for
 import flask_login
@@ -94,11 +95,6 @@ def boats():
     mycursor.execute("SELECT * FROM PyList ORDER BY Class")
     
     rawboatList = mycursor.fetchall()
-    #print(rawboatList)
-    """for items in rawboatList:
-        boatList.append(items[0])   
-    print(boatList)
-    """
     return rawboatList
 
 def get_sec(time_str):
