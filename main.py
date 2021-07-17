@@ -217,10 +217,59 @@ def results(raceid):
         for result in results:
             resultsObj = {"name":result[0],"crewName":result[1],"sailNo":result[2],"lapsComplete":result[4],"finTime":result[5],"status":result[6], "py":result[7],"class":result[8]}
             resultsObj['elapsedTime'] = resultsObj['finTime']-startTime
-            resultsObj['correctedTime'] = (resultsObj['elapsedTime']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])     # (Elapsed time x most laps x 1000) / (PN x actual laps)
+            resultsObj['correctedTime'] = int(((resultsObj['elapsedTime']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])))     # (Elapsed time x most laps x 1000) / (PN x actual laps)
             resultsList.append(resultsObj)
         resultsListSorted = sorted(resultsList, key=lambda k: k['correctedTime']) 
-    return render_template('results'+raceid+'.html',results=resultsListSorted, mostLaps=mostLaps)     
+
+        keys = resultsListSorted[0].keys()
+        csv = []
+        csv.append(list(keys))
+        for competitor in resultsListSorted:
+            tempList = []
+            for key in keys:
+                tempList.append(str(competitor[key])+",")
+            csv.append(tempList)
+
+    return render_template('results'+raceid+'.html',results=resultsListSorted, mostLaps=mostLaps, csv=csv)     
+
+@app.route('/resultsJSON/<raceid>')
+def resultsJSO(raceid):
+    conn = mysql.connection
+    mycursor = conn.cursor(buffered=True)
+    if getRaceType() == "PURSUIT":
+        #mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`BoatID`, FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
+        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status FROM races INNER JOIN competitors ON competitors.ID = races.competitorID WHERE races.raceID = %s ORDER BY status, races.lapsComplete DESC, finTime ASC",(raceid,)) #WHERE races.raceID = %s",(raceid,)
+        results = mycursor.fetchall()
+    else:
+        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status, pylist.PY, pylist.Class FROM races INNER JOIN competitors ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.BoatID = pylist.ID WHERE races.raceID = %s AND races.status = 'FIN'",(raceid,))
+        results = mycursor.fetchall()
+        mycursor.execute("SELECT lapsComplete FROM races WHERE status='FIN' AND raceID=%s ORDER BY lapsComplete DESC LIMIT 1"%(raceid,))
+        try:
+            mostLaps = mycursor.fetchone()[0]
+        except:
+            mycursor.fetchone()
+            return 'No one has finished the race yet'
+        startTime = getStartTime(raceid)
+        resultsList = []
+        for result in results:
+            resultsObj = {"name":result[0],"crewName":result[1],"sailNo":result[2],"lapsComplete":result[4],"finTime":result[5],"status":result[6], "py":result[7],"class":result[8]}
+            resultsObj['elapsedTime'] = resultsObj['finTime']-startTime
+            resultsObj['correctedTime'] = int(((resultsObj['elapsedTime']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])))     # (Elapsed time x most laps x 1000) / (PN x actual laps)
+            resultsList.append(resultsObj)
+        resultsListSorted = sorted(resultsList, key=lambda k: k['correctedTime']) 
+
+        keys = resultsListSorted[0].keys()
+        csv = []
+        csv.append(list(keys))
+        for competitor in resultsListSorted:
+            tempList = []
+            for key in keys:
+                tempList.append(str(competitor[key]))
+            csv.append(tempList)
+        csv = json.dumps(csv)
+            
+    return Response(csv, mimetype='text/json') 
+
 
 @app.route('/results')
 def resultsRedirect():

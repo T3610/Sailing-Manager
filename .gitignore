@@ -2,3 +2,5 @@ DSC.db
 /venv
 /__pycache__
 /.vscode
+
+dbConn.py

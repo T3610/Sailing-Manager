@@ -6,6 +6,7 @@ from flask import Response, render_template, redirect
 from datetime import datetime,date,time
 import json
 import math
+import csv
 from ast import literal_eval
 
 from flask import Flask, render_template, redirect, request, url_for
@@ -20,11 +21,12 @@ from flask_mysql_connector import MySQL
 app = Flask(__name__)
 app.secret_key = '7sqTmHwNwDDRt2savrym'
 
+from dbConn import *
 
-app.config['MYSQL_USER'] = 'Dorchester'
-app.config['MYSQL_PASSWORD'] = 'hQR36hW8U24RA8Hw'
-app.config['MYSQL_DATABASE'] = 'dorchester'
-app.config['MYSQL_HOST'] = '127.0.0.1'
+app.config['MYSQL_USER'] = MYSQL_USER
+app.config['MYSQL_PASSWORD'] = MYSQL_PASSWORD
+app.config['MYSQL_DATABASE'] = MYSQL_DATABASE
+app.config['MYSQL_HOST'] = MYSQL_HOST
 mysql = MySQL()
 
 #dbPath = "/home/ubuntu/Sailing-Manager/DSC.db"
