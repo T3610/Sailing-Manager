@@ -23,7 +23,7 @@ app.secret_key = '7sqTmHwNwDDRt2savrym'
 
 app.config['MYSQL_USER'] = 'Dorchester'
 app.config['MYSQL_PASSWORD'] = 'hQR36hW8U24RA8Hw'
-app.config['MYSQL_DATABASE'] = 'dorchester_testing'
+app.config['MYSQL_DATABASE'] = 'dorchester'
 app.config['MYSQL_HOST'] = '127.0.0.1'
 mysql = MySQL()
 
@@ -92,7 +92,7 @@ def boats():
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT * FROM PyList ORDER BY Class")
+    mycursor.execute("SELECT * FROM pylist ORDER BY Class")
     
     rawboatList = mycursor.fetchall()
     return rawboatList
@@ -103,7 +103,7 @@ def get_sec(time_str):
     return int(h) * 3600 + int(m) * 60 + int(s)
 
 def outOftimeSignUp():
-    
+    '''    
     now = datetime.now()
 
     if now.weekday() == 6:
@@ -127,8 +127,8 @@ def outOftimeSignUp():
 
             #print(False)
             return False
-    else:
-        return True
+    else:'''
+    return True
     
 def getRaceType():
     conn = mysql.connection
