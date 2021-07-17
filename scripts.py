@@ -9,7 +9,7 @@ from datetime import datetime
 import os
 for raceid in [1,2]:
     #Gets the json data from server
-    url = "http://127.0.0.1:5000/resultsJSON/%s"%(raceid,)
+    url = "https://racing.dorchestersailingclub.org.uk/resultsJSON/%s"%(raceid,)
     payload={}
     headers = {}
     response = requests.request("GET", url, headers=headers, data=payload)
