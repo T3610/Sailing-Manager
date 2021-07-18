@@ -449,7 +449,7 @@ def finish(raceid,id):
         conn = mysql.connection
         mycursor = conn.cursor(buffered=True)
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE races SET finTime = %s, status = 'FIN' WHERE pk = %s ",(finishTime,id+"-"+raceid,))
+        mycursor.execute("UPDATE races SET finTime = %s, status = 'FIN', lapsComplete = lapsComplete+1 WHERE pk = %s ",(finishTime,id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
@@ -464,7 +464,7 @@ def unfinish(raceid,id):
         mycursor = conn.cursor(buffered=True)
 
         #print(formData[0],formData[1],formData[2],formData[3])
-        mycursor.execute("UPDATE races SET finTime = 0, status = NULL WHERE pk = %s ",(id+"-"+raceid,))
+        mycursor.execute("UPDATE races SET finTime = 0, status = NULL, lapsComplete = lapsComplete-1 WHERE pk = %s ",(id+"-"+raceid,))
 
         # Save (commit) the changes
         conn.commit()
