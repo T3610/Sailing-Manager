@@ -8,7 +8,6 @@ from email.mime.text import MIMEText
 from datetime import datetime,timedelta
 import os
 import mysql.connector
-from function import getRaceType, getStartTime
 import json
 from dbConn import *
 
@@ -35,23 +34,30 @@ for raceid in [1,2]:
         mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status FROM races INNER JOIN competitors ON competitors.ID = races.competitorID WHERE races.raceID = %s ORDER BY status, races.lapsComplete DESC, finTime ASC",(raceid,)) #WHERE races.raceID = %s",(raceid,)
         results = mycursor.fetchall()
     else:
-        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status, pylist.PY, pylist.Class FROM races INNER JOIN competitors ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.BoatID = pylist.ID WHERE races.raceID = %s AND races.status = 'FIN'",(raceid,))
+        mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status, pylist.PY, pylist.Class FROM races INNER JOIN competitors ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.BoatID = pylist.ID WHERE races.raceID = %s AND races.status = 'FIN' OR  races.status = 'RET'",(raceid,))
         results = mycursor.fetchall()
         mycursor.execute("SELECT lapsComplete FROM races WHERE status='FIN' AND raceID=%s ORDER BY lapsComplete DESC LIMIT 1"%(raceid,))
-        try:
-            mostLaps = mycursor.fetchone()[0]
-        except:
-            mycursor.fetchone()
+        mostLaps = mycursor.fetchone()[0]
         startTime = getStartTime
-        resultsList = []
+        resultsListFin = []
+        resultsListRet = []
         for result in results:
             resultsObj = {"name":result[0],"crewName":result[1],"sailNo":result[2],"lapsComplete":result[4],"finTime":result[5],"status":result[6], "py":result[7],"class":result[8]}
-            resultsObj['elapsedTimeSeconds'] = int(resultsObj['finTime']-startTime)
-            resultsObj['correctedTimeSeconds'] = int(((resultsObj['elapsedTimeSeconds']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])))     # (Elapsed time x most laps x 1000) / (PN x actual laps)
-            resultsObj['elapsedTime'] = str(timedelta(seconds=resultsObj['elapsedTimeSeconds']))
-            resultsObj['correctedTime'] = str(timedelta(seconds=resultsObj['elapsedTimeSeconds']))
-            resultsList.append(resultsObj)
-        resultsListSorted = sorted(resultsList, key=lambda k: k['correctedTime']) 
+            if result[6] == 'FIN':
+                resultsObj['elapsedTimeSeconds'] = int(resultsObj['finTime']-startTime)
+                resultsObj['correctedTimeSeconds'] = int(((resultsObj['elapsedTimeSeconds']*mostLaps*1000)/(resultsObj['py']*resultsObj['lapsComplete'])))     # (Elapsed time x most laps x 1000) / (PN x actual laps)
+                resultsObj['elapsedTime'] = str(timedelta(seconds=resultsObj['elapsedTimeSeconds']))
+                resultsObj['correctedTime'] = str(timedelta(seconds=resultsObj['correctedTimeSeconds']))
+                resultsListFin.append(resultsObj)
+            else:
+                resultsObj['elapsedTimeSeconds'] = 0
+                resultsObj['correctedTimeSeconds'] = 0
+                resultsObj['elapsedTime'] = str(timedelta(seconds=resultsObj['elapsedTimeSeconds']))
+                resultsObj['correctedTime'] = str(timedelta(seconds=resultsObj['correctedTimeSeconds']))
+                resultsListRet.append(resultsObj)
+
+        resultsListSorted = sorted(resultsListFin, key=lambda k: k['correctedTimeSeconds']) 
+        resultsListSorted = resultsListSorted + resultsListRet
 
         keys = resultsListSorted[0].keys()
         csvList = []

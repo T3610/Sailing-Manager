@@ -209,8 +209,8 @@ function updateTable() {
       console.log($tr);
       $("#resultsTable").append($tr);
     });
-    if ($("#startTime").length == 0) {
-      $(".enterresultsbtn").attr("disabled", "disabled");
-    }
+    // if ($("#startTime").length == 0) {
+    //   $(".enterresultsbtn").attr("disabled", "disabled");
+    // }
   });
 }

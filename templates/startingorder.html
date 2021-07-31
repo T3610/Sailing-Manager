@@ -1,7 +1,4 @@
-{% extends 'base.html' %} 
-{% block additional_scripts %}{% endblock additional_scripts %} 
-{% block additional_css %} {% endblock additional_css %} 
-{% block content %}
+{% extends 'base.html' %} {% block additional_scripts %}{% endblock additional_scripts %} {% block additional_css %} {% endblock additional_css %} {% block content %}
 <div class="container">
     {% include 'snippets/nav_bar.html' %}
 
@@ -17,9 +14,9 @@
         <tbody>
             {% for row in data %}
             <tr>
-                <td>{{row[0]}}</td>
-                <td>{{row[1]}}</td>
                 <td>{{row[2]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[3]}}</td>
             </tr>
             {% endfor %}
         </tbody>

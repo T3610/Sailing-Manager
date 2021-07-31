@@ -59,7 +59,7 @@ def startTimeList(racelen = 40): #not needed for handicap racing
     conn = mysql.connection
     mycursor = conn.cursor(buffered=True)
 
-    mycursor.execute("SELECT DISTINCT competitors.BoatID, pylist.PY FROM competitors INNER JOIN pylist ON competitors.BoatID=pylist.ID ORDER BY pylist.PY DESC")
+    mycursor.execute("SELECT DISTINCT competitors.BoatID, pylist.PY, pylist.Class FROM competitors INNER JOIN pylist ON competitors.BoatID=pylist.ID ORDER BY pylist.PY DESC")
     data = mycursor.fetchall()
     print(data)
     empty = True
