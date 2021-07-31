@@ -203,6 +203,8 @@ def results(raceid):
         #mycursor.execute("SELECT `Name`, `Crew`, `SailNum`,`BoatID`, FROM `Racers` WHERE `FinishedR"+raceid+"` != 0 ORDER BY StateR"+raceid+", `LapsR"+raceid+"` DESC,`TimeFinishedR"+raceid+"` ASC")
         mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status FROM races INNER JOIN competitors ON competitors.ID = races.competitorID WHERE races.raceID = %s ORDER BY status, races.lapsComplete DESC, finTime ASC",(raceid,)) #WHERE races.raceID = %s",(raceid,)
         results = mycursor.fetchall()
+        return render_template('results'+raceid+'.html',results=results)     
+
     else:
         mycursor.execute("SELECT competitors.Name, competitors.Crew, competitors.SailNum, BoatID,races.lapsComplete, races.finTime, races.status, pylist.PY, pylist.Class FROM races INNER JOIN competitors ON competitors.ID = races.competitorID INNER JOIN pylist ON competitors.BoatID = pylist.ID WHERE races.raceID = %s AND races.status = 'FIN'",(raceid,))
         results = mycursor.fetchall()
@@ -230,7 +232,7 @@ def results(raceid):
                 tempList.append(str(competitor[key])+",")
             csv.append(tempList)
 
-    return render_template('results'+raceid+'.html',results=resultsListSorted, mostLaps=mostLaps, csv=csv)     
+        return render_template('results'+raceid+'.html',results=resultsListSorted, mostLaps=mostLaps, csv=csv)     
 
 @app.route('/resultsJSON/<raceid>')
 def resultsJSO(raceid):
