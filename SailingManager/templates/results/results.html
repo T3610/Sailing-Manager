@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block additional_css %} {% endblock additional_css %} {% block content %}
+<div class="container">
+    <div class="row pb-3">
+        <div class="col text-center">
+            <h1>Current Results (Provisional) for Race {{pk}}</h1>
+
+        </div>
+    </div>
+
+
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Position</th>
+                <th scope="col">Helm Name</th>
+                <th scope="col">Crew Name</th>
+                <th scope="col">Sail Number</th>
+                <th scope="col">Class</th>
+            </tr>
+        </thead>
+        <tbody> {% for raceEvent in raceEvents %}
+            <tr>
+                {% if raceEvent.raceEvent.Status == 1%}
+                <td>{{forloop.counter}} (RETIRED)</td>
+                {%else%}
+                <td>{{forloop.counter}}</td>
+                {%endif%}
+                <td>{{raceEvent.raceEvent.Racer.HelmName}}</td>
+                <td>{{raceEvent.raceEvent.Racer.CrewName}}</td>
+                <td>{{raceEvent.raceEvent.Racer.SailNumber}}</td>
+                <td>{{raceEvent.raceEvent.Racer.Boat.BoatName}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

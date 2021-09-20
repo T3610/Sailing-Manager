@@ -1,0 +1,9 @@
+<h2>Boats</h2>
+<ul>
+    {% for boat in object_list %}
+    <li>{{ boat.BoatName }} ({{boat.PyNumber}})
+        <a href="/boats/edit/{{boat.id}}">Edit</a>
+        <a href="/boats/delete/{{boat.pk}}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>

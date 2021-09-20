@@ -1,0 +1,9 @@
+<h2>Racers</h2>
+<ul>
+    {% for racer in object_list %}
+    <li>{{ racer.HelmName }} ({{racer.CrewName}})
+        <a href="/racers/edit/{{racer.id}}">Edit</a>
+        <a href="/racers/delete/{{racer.pk}}">Delete</a>
+    </li>
+    {% endfor %}
+</ul>

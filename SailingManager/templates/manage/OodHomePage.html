@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block additional_css %} {% endblock additional_css %} {% block content %}
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2>Races </h2>
+        </div>
+        <div class="col text-end">
+            <a href="/race/new" class="btn btn-primary ms-auto">Add new</a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Race Number</th>
+                <th scope="col">Race type</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Run race</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for race in races %}
+            <tr>
+                <td>{{race.RaceNumber}}</td>
+                <td>{{race.get_RaceType_display}}</td>
+                <td>
+                    <a href="/race/edit/{{race.pk}}"><i class="fas fa-edit"></i></a>
+                </td>
+
+                <td><a href="/race/delete/{{race.pk}}"><i class="fas fa-trash"></i></a></td>
+                <td><a href="/manage/run/{{race.pk}}"><i class="fas fa-arrow-circle-right"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr>
+    <div class="row align-items-center">
+        <div class="col">
+            <h2>Racers </h2>
+        </div>
+        <div class="col text-end">
+            <a href="/racers/new" class="btn btn-primary ms-auto">Add new</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Helm name</th>
+                <th scope="col">Crew name</th>
+                <th scope="col">Class</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for racer in racers %}
+            <tr>
+                <td>{{racer.HelmName}}</td>
+                <td>{{racer.CrewName}}</td>
+                <td>{{racer.Boat.BoatName}}</td>
+                <td>
+                    <a href="/racers/edit/{{racer.pk}}"><i class="fas fa-edit"></i></a>
+                </td>
+
+                <td><a href="/racers/delete/{{racer.pk}}"><i class="fas fa-trash"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
