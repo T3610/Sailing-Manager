@@ -34,12 +34,55 @@
     />
 
     <!-- Home page stylesheet -->
-    <link rel="stylesheet" href="static/RaceHome.css"> {% endblock head %} {% block additional_scripts %} {% endblock additional_scripts %} {% block additional_css %} {% endblock additional_css %}
-
+    <link rel="stylesheet" href="/static/RaceHome.css" type="text/css"> {% endblock head %} {% block additional_scripts %} {% endblock additional_scripts %} {% block additional_css %} {% endblock additional_css %}
+    
+    <script>
+    $( document ).ready(function() {
+        $(`a[href="${window.location.pathname}"].nav-link`).addClass('active').attr('aria-current','page')
+    })
+    </script>
 </head>
 
 <body class="bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
+        <div class="container-fluid">
+        <a class="navbar-brand" href="/">{{config.CLUB_NAME}}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample04">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'racerNew' %}">Sign up</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'racerList' %}">Entries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'results' %}">Results</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mb-2 mb-md-0">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manage' %}">Manage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'boatList' %}">Boats</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        </div>
+    </nav>
+    {% block header %} {% endblock header %}
+    <div class="container">
     {% block content %} {% endblock content %}
+    </div>
 </body>
 
 </html>

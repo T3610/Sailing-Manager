@@ -2,14 +2,14 @@
 <!-- Start time remaining javascript -->
 <script src="static/starttime.js"></script> {% endblock additional_scripts %} {% block additional_css %}
 <!-- Home page stylesheet -->
-<link rel="stylesheet" href="static/RaceHome.css"> {% endblock additional_css %} {% block content %}
-<main role="main">
+<link rel="stylesheet" href="static/RaceHome.css"> {% endblock additional_css %} 
+{% block header %}
     <div style="background-color: #e4e4e4;">
-        <section class="py-5 text-center container">
+        <section class="py-5 text-center">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Dorchester Sailing Club</h1>
-                    <p class="lead text-muted">Dorchester Online Sailing Manager</p>
+                    <h1 class="fw-light">{{config.CLUB_NAME}}</h1>
+                    <p class="lead text-muted">{{config.CLUB_SUBTITLE}}</p>
                     <!-- <p id="countdownDesc"> Time remaining to sign up for the race
                         <span id="raceCountdown"></span>
                     </p> -->
@@ -18,68 +18,67 @@
 
         </section>
     </div>
-
+{% endblock header %}
+{% block content %}
+<main role="main">
     <div class="album py-5 bg-light">
-        <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="\static\img\Schools-Picture.jpg" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- {%if onTime%}
+                            <a href="/signup" class="btn btn-primary btn-lg">Sign Up For Race</a> {%else%}
+                            <a class="btn btn-primary btn-lg">Sign Up Closed</a> {%endif%} -->
+                            <a href="/racers/new" class="btn btn-primary btn-lg">Sign Up For Race</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="\static\img\Schools-Picture.jpg" alt="Card image cap">
-                        <div class="card-body mx-auto">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- {%if onTime%}
-                                <a href="/signup" class="btn btn-primary btn-lg">Sign Up For Race</a> {%else%}
-                                <a class="btn btn-primary btn-lg">Sign Up Closed</a> {%endif%} -->
-                                <a href="/racers/new" class="btn btn-primary btn-lg">Sign Up For Race</a>
-                            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="/static/img/DSC-Race-3-scaled.jpg" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/racers" class="btn btn-primary btn-lg">View Race Entries</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="/static\img\racingpicture.jpg" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/startingorder" class="btn btn-primary btn-lg">View Start Timings</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="/static\img\overhead.jpg" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/results" class="btn btn-primary btn-lg">Race Results</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="\static\img\New-Club-House-Large.jpg" alt="Card image cap">
+                    <div class="card-body mx-auto">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/manage" class="btn btn-primary btn-lg">OOD Page</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="/static/img/DSC-Race-3-scaled.jpg" alt="Card image cap">
-                        <div class="card-body mx-auto">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="/racers" class="btn btn-primary btn-lg">View Race Entries</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="/static\img\racingpicture.jpg" alt="Card image cap">
-                        <div class="card-body mx-auto">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="/startingorder" class="btn btn-primary btn-lg">View Start Timings</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="/static\img\overhead.jpg" alt="Card image cap">
-                        <div class="card-body mx-auto">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="/results" class="btn btn-primary btn-lg">Race Results</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 box-shadow">
-                        <img class="card-img-top" src="\static\img\New-Club-House-Large.jpg" alt="Card image cap">
-                        <div class="card-body mx-auto">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="/manage" class="btn btn-primary btn-lg">OOD Page</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>

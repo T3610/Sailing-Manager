@@ -1,9 +1,11 @@
-<h2>Racers</h2>
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Current entries</h2>
 <ul>
     {% for racer in object_list %}
-    <li>{{ racer.HelmName }} ({{racer.CrewName}})
-        <a href="/racers/edit/{{racer.id}}">Edit</a>
-        <a href="/racers/delete/{{racer.pk}}">Delete</a>
+    <li>{{ racer.HelmName }} {% if racer.CrewName %}({{racer.CrewName}}){% endif %} - {{racer.Boat.BoatName}}
     </li>
     {% endfor %}
 </ul>
+{% endblock content%}

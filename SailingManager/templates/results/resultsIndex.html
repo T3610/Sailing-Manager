@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Race number</th>
+                <th scope="col">View results</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for race in races %}
+            <tr>
+                
+                <td>{{race.RaceNumber}}</td>
+                <td><a href="{% url 'resultsRace' race.id %}" class="btn btn-primary">View results</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content%}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="mb-3">
+  <label for="formFile" class="form-label">Upload CSV</label>
+  <input class="form-control" type="file" id="formFile" name="csvFile" required>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="actionSelect" id="actionSelect1" value="DELETE" checked>
+  <label class="form-check-label" for="actionSelect1">
+    Delete all existing entries
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="actionSelect" id="actionSelect2" value="APPEND">
+  <label class="form-check-label" for="actionSelect2">
+    Append the CSV to existing entreis
+  </label>
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock content %}

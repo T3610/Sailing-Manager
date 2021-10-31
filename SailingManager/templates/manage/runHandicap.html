@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block additional_css %}
+{% extends 'base.html' %}
+
+{% block additional_css %}
 <style>
     th {
         position: sticky;
@@ -16,9 +18,32 @@
     }
 </style> {% endblock additional_css %} {% block additional_scripts %}
 <script>
-    const raceID = '{{racePK}}';
+    const raceID = '{{race.pk}}';
 
     document.onload = updateTable();
+
+    function setStart() {
+        $.ajax({
+            url: "/ajax/setStartTime/"+raceID,
+            method: "POST",
+            timeout: 0,
+        }).done(function(response) {
+            location.reload()
+        });
+    }
+
+    function clearStart() {
+        $.ajax({
+            url: "/ajax/setStartTime/"+raceID,
+            method: "POST",
+            timeout: 0,
+            data: {
+                'clear':true,
+            }
+        }).done(function(response) {
+            location.reload()
+        });
+    }
 
     function handleAddLap(id) {
         console.log(id);
@@ -201,12 +226,14 @@
                 var $tr = $("<tr>").append(
                     $("<td>").text(raceEvent.Racer.SailNumber + " (" + raceEvent.Racer.HelmName + ")"), //Sail No
                     $("<td>").text(raceEvent.Racer.Boat.BoatName), //Class
+                    {% if race.StartTime %}
+
                     raceEvent.Status !== null ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
                     raceEvent.Status !== null ?
                     $("<td>").append(finishBtnDisabled) :
                     $("<td>").append(finishBtn), //finishBTN
-
-                    $("<td>").append(optionsBtn), //Laps
+                    {% endif %}
+                    $("<td>").append(optionsBtn), //Retire/dns
                 );
                 console.log($tr);
                 $("#resultsTable").append($tr);
@@ -216,8 +243,14 @@
 </script>{% endblock additional_scripts %}{% block content %}
 <div class="row pb-3">
     <div class="col text-center">
-        <h1>You are currently completing results for race {{racePK}}</h1>
+        <h1>You are currently completing results for race {{race.pk}}</h1>
         <a href="/manage" class="btn btn-primary"><i class="fas fa-undo-alt"></i> Return</a>
+        {% if race.StartTime %}
+            <button onclick="clearStart()" class="btn btn-outline-danger"><i class="fas fa-times"></i> Click to clear start - {{race.StartTime|time:"TIME_FORMAT"}}</button>
+        {% else %}
+            <button onclick="setStart()" class="btn btn-primary"><i class="fas fa-play-circle"></i> Click to start</button>
+        {% endif %}
+        
     </div>
 </div>
 
@@ -227,8 +260,10 @@
         <tr>
             <th scope="col">Sail Number</th>
             <th scope="col">Class</th>
+            {% if race.StartTime %}
             <th scope="col">Add Lap (laps completed)</th>
             <th scope="col">Finish</th>
+            {% endif %}
             <th scope="col">RET/DNS</th>
         </tr>
     </thead>
@@ -237,4 +272,5 @@
     </tbody>
 </table>
 </div>
+
 {% endblock content %}

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-g+70#ybf0zu2b-eivd_b0m4)i%#gp$ri!d&9(jb@)ul9)y#8)r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sailing-manager',]
 
 
 # Application definition
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'constance.backends.database',
+    'constance',
     'SailingRaceManager', #App
 ]
 
@@ -66,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'constance.context_processors.config',
             ],
         },
     },
@@ -79,12 +82,12 @@ WSGI_APPLICATION = 'SailingManager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dorchester_django',
-        'USER': 'djangoUser',
+        'USER': 'djangouser',
         'PASSWORD': 'pGFrUvQ49o63lz2k',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '5432',
     }
 }
 
@@ -112,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-gb'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "Europe/London"
 
 USE_I18N = True
 
@@ -135,3 +138,11 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#Constance
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'CLUB_NAME': ('Dorchester Sailing Club', 'Club name shown on landing page'),
+    'CLUB_SUBTITLE': ('Dorchester Online Sailing Manager', 'Club sub title shown on landing page'),
+}

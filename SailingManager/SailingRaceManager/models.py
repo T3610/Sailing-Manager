@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from datetime import datetime
 # Create your models here.
 class Race(models.Model):
     RACE_TYPE_CHOICES = [
@@ -8,7 +8,7 @@ class Race(models.Model):
     ]
 
     RaceNumber = models.PositiveIntegerField(unique=True)
-    StartTime = models.TimeField(blank=True, null=True)
+    StartTime = models.DateTimeField(blank=True, null=True)
     RaceLength = models.PositiveIntegerField(default=40)
     RaceType = models.IntegerField(choices=RACE_TYPE_CHOICES, default=0)
 

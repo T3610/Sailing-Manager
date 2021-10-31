@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block additional_css %}
+<style>
+    th {
+        position: sticky;
+        top: 0;
+        background: #f8f9fa !important;
+        z-index: 4;
+    }
+    
+    .dropdownOption {
+        font-size: 20px;
+    }
+    
+    td {
+        font-size: 20px;
+    }
+</style> {% endblock additional_css %} {% block additional_scripts %}
+<script>
+    const raceID = '{{race.pk}}';
+
+    document.onload = updateTable();
+
+    function handleAddLap(id) {
+        console.log(id);
+        var currentTime = Math.round(Date.now() / 1000);
+
+        $.ajax({
+            url: "/ajax/addLap/",
+            method: "POST",
+            data: {
+                raceEventID: id,
+                raceID: raceID,
+                change: '+1',
+            },
+            timeout: 0,
+        }).done(function(response) {
+            console.log(response);
+            updateTable();
+        });
+    }
+
+    function handleRemoveLap(id) {
+        console.log(id);
+
+        $.ajax({
+            url: "/ajax/addLap/",
+            method: "POST",
+            data: {
+                raceEventID: id,
+                raceID: raceID,
+                change: '-1',
+            },
+            timeout: 0,
+        }).done(function(response) {
+            console.log(response);
+            updateTable();
+        });
+    }
+
+    function handleFinish(id) {
+        console.log(id);
+
+        var currentTime = Math.round(Date.now() / 1000);
+
+        $.ajax({
+            url: "/ajax/changeStatus/",
+            method: "POST",
+            data: {
+                raceEventID: id,
+                raceID: raceID,
+                status: '0',
+            },
+            timeout: 0,
+        }).done(function(response) {
+            console.log(response);
+            updateTable();
+        });
+    }
+
+    function handleUnfinish(id) {
+        console.log(id);
+        $.ajax({
+            url: "/ajax/changeStatus/",
+            method: "POST",
+            data: {
+                raceEventID: id,
+                raceID: raceID,
+                status: null,
+            },
+            timeout: 0,
+        }).done(function(response) {
+            console.log(response);
+            updateTable();
+        });
+    }
+
+    function handleRetire(id, name) {
+        console.log(id);
+        var r = confirm("Confirm you want to retire " + name);
+        if (r == true) {
+            $.ajax({
+                url: "/ajax/changeStatus/",
+                method: "POST",
+                data: {
+                    raceEventID: id,
+                    raceID: raceID,
+                    status: '1',
+                },
+                timeout: 0,
+            }).done(function(response) {
+                console.log(response);
+                updateTable();
+            });
+        }
+    }
+
+    function handleDNS(id, name) {
+        console.log(id);
+        var r = confirm("Confirm you want to DNS " + name);
+        if (r == true) {
+            $.ajax({
+                url: "/ajax/changeStatus/",
+                method: "POST",
+                data: {
+                    raceEventID: id,
+                    raceID: raceID,
+                    status: '2',
+                },
+                timeout: 0,
+            }).done(function(response) {
+                console.log(response);
+                updateTable();
+            });
+        }
+    }
+
+    function updateTable() {
+        var settings = {
+            url: "/ajax/results/" + raceID,
+            method: "GET",
+            timeout: 0,
+        };
+
+        $.ajax(settings).done(function(response) {
+            console.log(response);
+            $("#resultsTable").empty();
+            $.each(response, function(i, raceEvent) {
+                console.log(raceEvent)
+                const lapBtn = `
+        <div class="btn-group">
+            <button class="btn btn-primary btn-lg" onclick=handleAddLap(${raceEvent.id})>ADD LAP (${raceEvent.LapsComplete})</button>
+            <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${raceEvent.id})">Remove lap</a></li>
+            </ul>
+        </div>
+      `;
+
+                const lapBtnDisabled = `
+      <div class="btn-group">
+          <button disabled class="btn btn-lg btn-outline-secondary" onclick=handleAddLap(${raceEvent.id})>ADD LAP (${raceEvent.LapsComplete})</button>
+          <button disabled type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="visually-hidden">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item dropdownOption" onclick="handleRemoveLap(${raceEvent.id})">Remove lap</a></li>
+          </ul>
+      </div>
+    `;
+
+                const finishBtn = `        
+  <button class="btn btn-lg btn-primary" onclick=handleFinish(${raceEvent.id})>FINISH</button>
+`;
+
+                const finishBtnDisabled = `        
+<div class="btn-group">
+<button disabled class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${raceEvent.id})>FINISH</button>
+<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="visually-hidden">Toggle Dropdown</span>
+</button>
+<ul class="dropdown-menu">
+    <li><a class="dropdown-item dropdownOption" onclick="handleUnfinish(${raceEvent.id})">Unfinish</a></li>
+</ul>
+</div>
+`;
+
+                const optionsBtn = `<div class="dropdown">
+<button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+  Options
+</button>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><a class="dropdown-item dropdownOption" onclick="handleRetire(${raceEvent.id
+                    },'${raceEvent.Racer.HelmName}')">Retire</a></li>
+    <li><a class="dropdown-item dropdownOption" onclick="handleDNS(${raceEvent.id
+                    },'${raceEvent.Racer.HelmName}')">Did not start</a></li>
+</ul>
+</div>`;
+
+                var $tr = $("<tr>").append(
+                    $("<td>").text(raceEvent.Racer.SailNumber + " (" + raceEvent.Racer.HelmName + ")"), //Sail No
+                    $("<td>").text(raceEvent.Racer.Boat.BoatName), //Class
+                    raceEvent.Status !== null ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+                    raceEvent.Status !== null ?
+                    $("<td>").append(finishBtnDisabled) :
+                    $("<td>").append(finishBtn), //finishBTN
+                    $("<td>").append(optionsBtn), //Retire/dns
+                );
+                console.log($tr);
+                $("#resultsTable").append($tr);
+            });
+        })
+    }
+</script>{% endblock additional_scripts %}{% block content %}
+<div class="row pb-3">
+    <div class="col text-center">
+        <h1>You are currently completing results for race {{race.pk}}</h1>
+        <a href="/manage" class="btn btn-primary"><i class="fas fa-undo-alt"></i> Return</a>       
+    </div>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Sail Number</th>
+            <th scope="col">Class</th>
+            <th scope="col">Add Lap (laps completed)</th>
+            <th scope="col">Finish</th>
+            <th scope="col">RET/DNS</th>
+        </tr>
+    </thead>
+    <tbody id="resultsTable">
+
+    </tbody>
+</table>
+</div>
+
+{% endblock content %}
