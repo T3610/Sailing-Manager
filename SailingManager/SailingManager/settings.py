@@ -22,12 +22,15 @@ DIRNAME = os.path.abspath(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-g+70#ybf0zu2b-eivd_b0m4)i%#gp$ri!d&9(jb@)ul9)y#8)r'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ALLOWED_HOSTS = [os.getenv('WEBHOST'),]
 
-ALLOWED_HOSTS = ['sailing-manager',]
+if os.getenv('ENVIRONMENT') == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
 
 
 # Application definition
