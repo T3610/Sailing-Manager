@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'SailingManager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dorchester_django',
-        'USER': 'djangouser',
-        'PASSWORD': 'pGFrUvQ49o63lz2k',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
