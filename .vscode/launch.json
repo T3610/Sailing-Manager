@@ -8,7 +8,7 @@
       "name": "Python: Django",
       "type": "python",
       "request": "launch",
-      "program": "${workspaceFolder}/SailingManager/manage.py",
+      "program": "${workspaceFolder}/sailmanager/manage.py",
       "args": ["runserver", "--noreload"],
       "django": true,
       "justMyCode": false
