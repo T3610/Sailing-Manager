@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 import datetime, csv, uuid
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -139,7 +140,7 @@ class RacerEditFormView(UpdateView):
 class RacerNewFormView(FormView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
-    success_url = '/manage'
+    success_url = '/racer/list'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -300,7 +301,7 @@ class RaceResultsDetailedView(View):
 
 # Management views
 
-class OodHomeView(TemplateView):
+class OodHomeView(LoginRequiredMixin, TemplateView):
     template_name = 'manage/OodHomePage.html'
     def get_context_data(self):
         context = super().get_context_data()
@@ -329,7 +330,7 @@ class OodHomeView(TemplateView):
 
 
 
-class RunRaceView(TemplateView):
+class RunRaceView(LoginRequiredMixin, TemplateView):
     def get_template_names(self):
         pk=self.kwargs['pk']
         if Race.objects.get(pk=pk).RaceType == 0:
@@ -347,7 +348,7 @@ class RunRaceView(TemplateView):
 
 ## Race views
 
-class RaceEditFormView(UpdateView):
+class RaceEditFormView(LoginRequiredMixin, UpdateView):
     template_name = 'race/race_form.html'
     form_class = RaceForm
     model = Race
@@ -373,7 +374,7 @@ class RaceEditFormView(UpdateView):
         return super().form_valid(form)
 
 
-class RaceNewFormView(FormView):
+class RaceNewFormView(LoginRequiredMixin, FormView):
     template_name = 'race/race_form.html'
     form_class = RaceForm
     success_url = '/manage/'
@@ -384,7 +385,7 @@ class RaceNewFormView(FormView):
         # It should return an HttpResponse.
         return super().form_valid(form)
 
-class RaceDeleteView(DeleteView):
+class RaceDeleteView(LoginRequiredMixin, DeleteView):
     # specify the model you want to use
     template_name = 'race/race_confirm_delete.html'
     model = Race
