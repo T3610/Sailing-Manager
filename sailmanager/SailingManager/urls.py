@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from SailingRaceManager.views import *
-from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexPage.as_view(),name="home"),
-    re_path(r'^accounts/login/$', login, {'template_name': 'admin/login.html'}),
-    re_path(r'^accounts/logout/$', logout),
+
+    path('accounts/login/', LoginView.as_view(), name="login"),
+    path('accounts/logout/', LogoutView.as_view(), name="login"),
 
     path('manage/', OodHomeView.as_view(), name="manage"),
     path('manage/run/<pk>', RunRaceView.as_view(), name="manageRace"),
