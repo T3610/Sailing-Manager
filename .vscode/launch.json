@@ -12,6 +12,15 @@
       "args": ["runserver", "--noreload"],
       "django": true,
       "justMyCode": false
+    },
+    {
+      "name": "Python: Django debug command",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/sailmanager/manage.py",
+      "args": ["createWeeksRaces"],
+      "django": true,
+      "justMyCode": false
     }
   ]
 }
