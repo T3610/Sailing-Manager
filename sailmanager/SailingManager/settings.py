@@ -31,8 +31,10 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = [os.getenv('WEBHOST'),]
 
 if os.getenv('ENVIRONMENT') == 'development':
+    print('Dev')
     DEBUG = True
 else:
+    print('Prod')
     DEBUG = False
 
 

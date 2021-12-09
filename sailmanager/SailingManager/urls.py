@@ -38,6 +38,7 @@ urlpatterns = [
     path('racers/', RacerListView.as_view(),name="racerList"),
     path('racers/edit/<pk>', RacerEditFormView.as_view(),name="racerEdit"),
     path('racers/new', RacerNewFormView.as_view(),name="racerNew"),
+    path('racers/new_official', OfficialNewFormView.as_view(),name="racerNewOfficial"),
     path('racers/delete/<pk>', RacerDeleteView.as_view(),name="racerDelete"),
 
     path('race/edit/<pk>', RaceEditFormView.as_view(),name="raceEdit"),

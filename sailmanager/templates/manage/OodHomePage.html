@@ -1,4 +1,29 @@
-{% extends 'base.html' %} {% block additional_css %} {% endblock additional_css %} {% block content %}
+{% extends 'base.html' %} 
+
+{% block additional_scripts %}
+<script>
+$( document ).ready(function() {
+    
+    $( "#raceID" ).change(function() {
+        var url = new URL(window.location.href);
+        url.searchParams.set("racesForEntries", $( "#raceID" ).val()); // setting your param
+        var newUrl = url.href; 
+        window.location.href = newUrl
+    });
+});
+
+function changePrevious(newVal){
+    const urlParams = new URLSearchParams(window.location.search);
+
+    urlParams.set('previous', newVal);
+
+    window.location.search = urlParams;
+}
+</script>
+
+{% endblock additional_scripts %} 
+
+{% block content %}
 <div class="container">
     <div class="row align-items-center">
         <div class="col">
@@ -13,6 +38,7 @@
         <thead>
             <tr>
                 <th scope="col">Race Number</th>
+                <th scope="col">Date</th>
                 <th scope="col">Race type</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
@@ -23,18 +49,24 @@
             {% for race in races %}
             <tr>
                 <td>{{race.RaceNumber}}</td>
+                <td>{{race.Date|date}}</td>
                 <td>{{race.get_RaceType_display}}</td>
                 <td>
                     <a href="/race/edit/{{race.pk}}"><i class="fas fa-edit"></i></a>
                 </td>
 
                 <td><a href="/race/delete/{{race.pk}}"><i class="fas fa-trash"></i></a></td>
-                <td><a href="/manage/run/{{race.pk}}"><i class="fas fa-arrow-circle-right"></i></a></td>
+                <td><a href="/manage/run/{{race.pk}}"><i class="fas fa-2x fa-arrow-circle-right"></i></a></td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="col text-end">
+        <a onClick="changePrevious({{newValueForPreviousParam}})" class="btn btn-sm btn-outline-secondary ms-auto">Show {{timespanBtn}} races</a>
+    </div>
+
     <hr>
+
     <div class="row align-items-center">
         <div class="col">
             <h2>Racers </h2>
@@ -42,6 +74,15 @@
         <div class="col text-end">
             <a href="/racers/new" class="btn btn-primary ms-auto">Add new</a>
         </div>
+    </div>
+    <div class="form-group">
+        <label for="raceID">Select race</label>
+        <select class="form-select" id="raceID">
+                <option selected disabled hidden>SELECT RACE</option>
+            {% for race in racesForEntries %}
+                <option value="{{race.id}}"  {%if thisRace.id == race.id%}selected{%endif%}>{{race.Date}} race {{race.RaceNumber}}</option>
+            {% endfor %}
+        </select>
     </div>
     <table class="table table-striped">
         <thead>
@@ -51,21 +92,21 @@
                 <th scope="col">Class</th>
                 <th scope="col">Sail Number</th>
                 <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
+                {% comment %} <th scope="col">Delete</th> {% endcomment %}
             </tr>
         </thead>
         <tbody>
-            {% for racer in racers %}
+            {% for raceEvent in raceEvents %}
             <tr>
-                <td>{{racer.HelmName}}</td>
-                <td>{{racer.CrewName}}</td>
-                <td>{{racer.Boat.BoatName}}</td>
-                <td>{{racer.SailNumber}}</td>
+                <td>{{raceEvent.Racer.HelmName}}</td>
+                <td>{{raceEvent.Racer.CrewName}}</td>
+                <td>{{raceEvent.Racer.Boat.BoatName}}</td>
+                <td>{{raceEvent.Racer.SailNumber}}</td>
                 <td>
-                    <a href="/racers/edit/{{racer.pk}}"><i class="fas fa-edit"></i></a>
+                    <a href="/racers/edit/{{raceEvent.Racer.pk}}"><i class="fas fa-edit"></i></a>
                 </td>
 
-                <td><a href="/racers/delete/{{racer.pk}}"><i class="fas fa-trash"></i></a></td>
+                {% comment %} <td><a href="/racers/delete/{{raceEvent.Racer.pk}}"><i class="fas fa-trash"></i></a></td> {% endcomment %}
             </tr>
             {% endfor %}
         </tbody>

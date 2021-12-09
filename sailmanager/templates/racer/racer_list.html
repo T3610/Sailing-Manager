@@ -1,11 +1,50 @@
 {% extends 'base.html' %}
+{% block additional_scripts %}
+<script>
+$( document ).ready(function() {
+    
+    $( "#raceID" ).change(function() {
+        var url = new URL(window.location.href);
+        url.searchParams.set("race", $( "#raceID" ).val()); // setting your param
+        var newUrl = url.href; 
+        window.location.href = newUrl
+    });
+});
+</script>
 
+{% endblock additional_scripts %}
 {% block content %}
 <h2>Current entries</h2>
-<ul>
-    {% for racer in object_list %}
-    <li>{{ racer.HelmName }} {% if racer.CrewName %}({{racer.CrewName}}){% endif %} - {{racer.Boat.BoatName}}
-    </li>
+ <div class="form-group">
+    <label for="raceID">Select race</label>
+    <select class="form-select" id="raceID">
+            <option selected disabled hidden>SELECT RACE</option>
+        {% for race in races %}
+            <option value="{{race.id}}"  {%if thisRace.id == race.id%}selected{%endif%}>{{race.Date}} race {{race.RaceNumber}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Helm</th>
+      <th scope="col">Crew</th>
+      <th scope="col">Class</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for raceEvent in raceEvents %}
+    <tr>
+      <th scope="row">{{ raceEvent.Racer.HelmName }}</th>
+      <td>{{raceEvent.Racer.CrewName}}</td>
+      <td>{{raceEvent.Racer.Boat.BoatName}}</td>
+      <td>{% if raceEvent.Racer.SignedUpBy == signUpUUID %}<a href="/racers/edit/{{raceEvent.Racer.id}}">EDIT</a>{% endif %}</td>
+    </tr>
     {% endfor %}
-</ul>
+    
+  </tbody>
+</table>
+
 {% endblock content%}

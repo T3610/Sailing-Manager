@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block additional_css %} {% endblock additional_css %} {% block content %}
 <div class="row pb-3">
     <div class="col text-center">
-        <h1>Current Results (Provisional) for Race {{pk}}</h1>
+        <h1>Current Results (Provisional) for {{race.Date|date}} race {{race.RaceNumber}}</h1>
 
     </div>
 </div>
@@ -55,10 +55,30 @@
 </table>
 {% endif %}
 
+
 <a href="/results/detailed/{{pk}}" class="btn btn-primary"><i class="far fa-save"></i> Download detailed results</a>
 
 {% else %}
 <h4>No results have been entered for this race </h4>
 {% endif %}
 
+{% if raceOfficials %}
+<hr>
+<h2>Race officials</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Role</th>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+    <tbody> {% for raceEvent in raceOfficials %}
+        <tr>
+            <td>{{raceEvent.Official.get_Role_display}}</td>
+            <td>{{raceEvent.Official.Name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
 {% endblock content %}

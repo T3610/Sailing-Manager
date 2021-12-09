@@ -3,23 +3,18 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
-
-<div class="text-center">
-<a href="/racers/new_official" class="btn btn-primary ">Click here if you're a race volunteer</a>
-</div>
-<form method="post" enctype="multipart/form-data">{% csrf_token %} {{ form|crispy }}
-
+<h2 class="pb-2 text-center">Sign up here if you're volunteering as a race official</h2>
+<form method="post">{% csrf_token %} {{ form|crispy }}
 <legend>Select which races you want to enter</legend>
-<h6>You must select at least one race</h6>
 {% for race in races %}
 <div class="form-check">
+    {{race.id}}
   <input class="form-check-input" type="checkbox" value="{{race.id}}" name="racesEntered[]" id="raceCheck{{race.id}}" {% if race.id in racesEntered %} checked="checked" {% endif %}>
   <label class="form-check-label" for="raceCheck{{race.id}}">
     {{race.Date|date}}: Race {{race.RaceNumber}}
   </label>
 </div>
-{% endfor %}
-
+{% endfor %}   
 <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
 

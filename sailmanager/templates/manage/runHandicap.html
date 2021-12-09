@@ -18,21 +18,50 @@
     }
 </style> {% endblock additional_css %} {% block additional_scripts %}
 <script>
+    const customSort = ({data, sortBy, sortField}) => {
+        const sortByObject = sortBy.reduce((obj, item, index) => {
+            return {
+            ...obj,
+            [item]: index
+            }
+        }, {})
+        return data.sort((a, b) => sortByObject[a[sortField]] - sortByObject[b[sortField]])
+    }
+
+    function arrayMove(arr, string, diff) {
+        fromIndex = arr.indexOf(string)
+        toIndex = fromIndex - diff
+        if (toIndex < 0 || toIndex > arr.length-1){
+            return
+        }
+        var element = arr[fromIndex];
+        arr.splice(fromIndex, 1);
+        arr.splice(toIndex, 0, element);
+        updateTable()
+    }
+
+
     const raceID = '{{race.pk}}';
+
+    customOrder = [];
 
     document.onload = updateTable();
 
-    function setStart() {
+    function setStart(timeDelta) {
         $.ajax({
             url: "/ajax/setStartTime/"+raceID,
             method: "POST",
-            timeout: 0,
+            timeout: 0, 
+            data: {
+                'timedelta': timeDelta,
+            }
         }).done(function(response) {
             location.reload()
         });
     }
 
     function clearStart() {
+        if(confirm("Confirm you want to reset the start time")){
         $.ajax({
             url: "/ajax/setStartTime/"+raceID,
             method: "POST",
@@ -43,6 +72,7 @@
         }).done(function(response) {
             location.reload()
         });
+        }
     }
 
     function handleAddLap(id) {
@@ -168,6 +198,9 @@
 
         $.ajax(settings).done(function(response) {
             console.log(response);
+            customSort({data:response, sortBy:customOrder, sortField: 'id'})
+            console.log(response);
+
             $("#resultsTable").empty();
             $.each(response, function(i, raceEvent) {
                 console.log(raceEvent)
@@ -200,20 +233,12 @@
 `;
 
                 const finishBtnDisabled = `        
-<div class="btn-group">
-<button disabled class="btn btn-lg btn-outline-secondary" onclick=handleFinish(${raceEvent.id})>FINISH</button>
-<button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span class="visually-hidden">Toggle Dropdown</span>
-</button>
-<ul class="dropdown-menu">
-    <li><a class="dropdown-item dropdownOption" onclick="handleUnfinish(${raceEvent.id})">Unfinish</a></li>
-</ul>
-</div>
+<button class="btn btn-lg btn-outline-secondary" onclick="handleUnfinish(${raceEvent.id})">Unfinish</a>
 `;
 
                 const optionsBtn = `<div class="dropdown">
 <button class="btn btn-lg btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-  Options
+  RET/DNS
 </button>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
     <li><a class="dropdown-item dropdownOption" onclick="handleRetire(${raceEvent.id
@@ -223,7 +248,13 @@
 </ul>
 </div>`;
 
-                var $tr = $("<tr>").append(
+                var $tr = $(`<tr id="racerRow${raceEvent.id}"">`).append(
+                    $("<td>").html(`
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-secondary" onClick="arrayMove(customOrder, '${raceEvent.id}', 1)"><i class="fas fa-sort-up"></i></button>
+                        <button type="button" class="btn btn-secondary" onClick="arrayMove(customOrder, '${raceEvent.id}', -1)""><i class="fas fa-sort-down"></i></button>
+                    </div>
+                    `),
                     $("<td>").text(raceEvent.Racer.SailNumber + " (" + raceEvent.Racer.HelmName + ")"), //Sail No
                     $("<td>").text(raceEvent.Racer.Boat.BoatName), //Class
                     {% if race.StartTime %}
@@ -238,17 +269,29 @@
                 console.log($tr);
                 $("#resultsTable").append($tr);
             });
+            if(customOrder.length==0){
+                $('tr[id^="racerRow"]').each(function(){
+                    customOrder.push(this.id.split("racerRow")[1]); 
+                });
+            }
         })
+        
     }
 </script>{% endblock additional_scripts %}{% block content %}
 <div class="row pb-3">
     <div class="col text-center">
-        <h1>You are currently completing results for race {{race.pk}}</h1>
-        <a href="/manage" class="btn btn-primary"><i class="fas fa-undo-alt"></i> Return</a>
+        <h1>You are currently completing results for {{race.Date|date}} race {{race.RaceNumber}}</h1>
+        <a href="/manage" class="btn btn-primary"><i class="fas fa-undo-alt"></i> Back</a>
         {% if race.StartTime %}
-            <button onclick="clearStart()" class="btn btn-outline-danger"><i class="fas fa-times"></i> Click to clear start - {{race.StartTime|time:"TIME_FORMAT"}}</button>
+            <button onclick="clearStart()" class="btn btn-outline-danger"><i class="fas fa-times"></i> Click to cancel start - {{race.StartTime|time:"TIME_FORMAT"}}</button>
         {% else %}
-            <button onclick="setStart()" class="btn btn-primary"><i class="fas fa-play-circle"></i> Click to start</button>
+            <br>
+            <h2> Click a button below to start the race: </h2>
+            <button onclick="setStart(300)" class="btn btn-primary"><i class="fas fa-play-circle"></i> In 5 mins</button>
+            <button onclick="setStart(240)" class="btn btn-primary"><i class="fas fa-play-circle"></i> In 4 mins</button>
+            <button onclick="setStart(60)" class="btn btn-primary"><i class="fas fa-play-circle"></i> In 1 min</button>            
+            <button onclick="setStart(0)" class="btn btn-primary"><i class="fas fa-play-circle"></i> Now</button>
+            <h6>(these timings align with the starting sequence)</h6>
         {% endif %}
         
     </div>
@@ -258,6 +301,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">Reorder</th>
             <th scope="col">Sail Number</th>
             <th scope="col">Class</th>
             {% if race.StartTime %}

@@ -1,15 +1,17 @@
 from django.views.generic import ListView, TemplateView, FormView, View, UpdateView, CreateView
 from django.views.generic.edit import DeleteView
-from SailingRaceManager.models import Boat, Race, Racer, RaceEvent
-from SailingRaceManager.forms import BoatForm, RacerForm, RaceForm
+from SailingRaceManager.models import Boat, Race, Racer, RaceEvent, OfficialEvent
+from SailingRaceManager.forms import BoatForm, RacerForm, RaceForm, OfficialForm
 from django.shortcuts import get_object_or_404, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, request
 from .serializers import RaceEventSerializer
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-import datetime, csv
+import datetime, csv, uuid
 from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+
 # Create your views here.
 
 class IndexPage(TemplateView):
@@ -68,15 +70,33 @@ class BoatDeleteView(DeleteView):
     success_url ="/boats"
 
 # Racer registration classes
-class RacerListView(ListView):
-    model = Racer
+class RacerListView(TemplateView):
     template_name="racer/racer_list.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['signUpUUID'] = self.request.session['signUpUUID']
+
+        context['races'] = Race.objects.all()
+        if 'race' in self.request.GET:
+            context['thisRace'] = Race.objects.get(pk=self.request.GET['race'])
+            context['raceEvents'] = RaceEvent.objects.filter(Race=context['thisRace'])
+
+        return context
 
 class RacerEditFormView(UpdateView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
-    success_url = 'manage'
+    success_url = '/manage'
     model = Racer
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['races'] = Race.objects.all().order_by('RaceNumber').order_by('-Date')
+        racer = get_object_or_404(Racer, pk=self.kwargs['pk'])
+
+        context['racesEntered'] = list(RaceEvent.objects.filter(Racer=racer).values_list('Race_id',flat=True))
+        return context
 
     def get_initial(self):
         """
@@ -95,6 +115,24 @@ class RacerEditFormView(UpdateView):
         self.object = form.save()
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
+        racesEntered = self.request.POST.getlist("racesEntered[]")
+        allRacesID = list(Race.objects.all().values_list('id',flat=True))
+
+        racesNotEntered = []
+        for raceID in allRacesID:
+            if str(raceID) not in racesEntered:
+                racesNotEntered.append(raceID)
+
+        for race in racesEntered:
+            newRaceEvent, created = RaceEvent.objects.get_or_create(Racer=self.object, Race_id=race)
+            if created:
+                newRaceEvent.save()
+        for race in racesNotEntered:
+            try:
+                RaceEvent.objects.filter(Racer=self.object, Race_id=race).delete()
+            except:
+                pass
+
         return super().form_valid(form)
 
 
@@ -102,15 +140,57 @@ class RacerNewFormView(FormView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
     success_url = '/manage'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        today = datetime.date.today()
+        dateInAWeek = today + relativedelta(weeks=1)
+        context['races'] = Race.objects.filter(Date__gte=today, Date__lt=dateInAWeek).order_by('Date','RaceNumber') # Show dates from today to a weeks time
+        return context
+
     
+    def form_valid(self, form):
+        if len(self.request.POST.getlist("racesEntered[]")) < 1:
+            return super().form_invalid(form)
+
+        self.object = form.save()
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+
+        if 'signUpUUID' not in self.request.session:
+            self.object.SignedUpBy = uuid.uuid4().hex
+            self.object.save()
+            self.request.session['signUpUUID'] = self.object.SignedUpBy
+        else:
+            self.object.SignedUpBy = self.request.session['signUpUUID']
+            self.object.save()
+
+        racesEntered = self.request.POST.getlist("racesEntered[]")
+        for race in racesEntered:
+            newRaceEvent, created = RaceEvent.objects.get_or_create(Racer=self.object, Race_id=race)
+
+        return super().form_valid(form)
+
+
+class OfficialNewFormView(FormView):
+    #View for race officials
+    template_name = 'official/official_form.html'
+    form_class = OfficialForm
+    success_url = '/manage'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['races'] = Race.objects.all().order_by('RaceNumber').order_by('Date','RaceNumber')
+        return context
+        
     def form_valid(self, form):
         self.object = form.save()
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        races = Race.objects.all()
-        for race in races:
-            newRaceEvent = RaceEvent(Racer=self.object, Race=race)
-            newRaceEvent.save()
+        racesEntered = self.request.POST.getlist("racesEntered[]")
+        for race in racesEntered:
+            newRaceEvent, created = OfficialEvent.objects.get_or_create(Official=self.object, Race_id=race)
+
 
         return super().form_valid(form)
 
@@ -156,8 +236,6 @@ def getResults(racepk):
 
             context['raceEvents'] = sorted(raceEventsReturn, key=lambda k: k['correctedTime'])
 
-        return context
-
     elif race.RaceType == 1: # Pursuit
         raceEvents = RaceEvent.objects.filter(Status=0, Race_id=racepk)
 
@@ -170,7 +248,9 @@ def getResults(racepk):
 
         context['raceEvents'] = raceEventsReturn    
 
-        return context
+    context['raceOfficials'] = OfficialEvent.objects.filter(Race=race)
+
+    return context
 
 class RaceResultsView(TemplateView):
     template_name = 'results/results.html'
@@ -205,6 +285,7 @@ class RaceResultsDetailedView(View):
             results.append(event)
             position = position + 1 
 
+        
         response = HttpResponse(
             content_type='text/csv',
             headers={'Content-Disposition': 'attachment; filename="Race-results-%s.csv"'%race.RaceNumber},
@@ -223,8 +304,26 @@ class OodHomeView(TemplateView):
     template_name = 'manage/OodHomePage.html'
     def get_context_data(self):
         context = super().get_context_data()
-        context['races'] = Race.objects.all()
-        context['racers'] = Racer.objects.all()
+        if 'previous' in self.request.GET:
+            if self.request.GET['previous'] == 'true':
+                context['races'] = Race.objects.all().order_by('-RaceNumber').order_by('Date','RaceNumber')
+                context['newValueForPreviousParam'] = "false"
+                context['timespanBtn'] = "only upcoming"
+            else:
+                today = datetime.datetime.today()
+                context['races'] = Race.objects.filter(Date__gte=today).order_by('Date','RaceNumber')
+                context['newValueForPreviousParam'] = "true"
+                context['timespanBtn'] = "all"
+        else:
+            today = datetime.datetime.today()
+            context['races'] = Race.objects.filter(Date__gte=today).order_by('Date','RaceNumber')
+            context['newValueForPreviousParam'] = "true"
+            context['timespanBtn'] = "all"
+    
+        context['racesForEntries'] = Race.objects.all().order_by('-RaceNumber').order_by('Date','RaceNumber')
+        if 'racesForEntries' in self.request.GET:
+            context['thisRace'] = Race.objects.get(pk=self.request.GET['racesForEntries'])
+            context['raceEvents'] = RaceEvent.objects.filter(Race=context['thisRace'])
 
         return context
 
@@ -329,7 +428,9 @@ class AjaxSetRaceStart(View):
         if 'clear' in request.POST:
             race.StartTime = None
         else:
-            race.StartTime = timezone.now()
+            race.StartTime = timezone.now()+datetime.timedelta(seconds=int(request.POST['timedelta']))
+            race.save()
+            return HttpResponse(race.StartTime.strftime('%H:%M'))
         race.save()
         return HttpResponse('Done')
         
