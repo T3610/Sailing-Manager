@@ -14,12 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, url
 from SailingRaceManager.views import *
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexPage.as_view(),name="home"),
+    url(r'^accounts/login/$', login, {'template_name': 'admin/login.html'}),
+    url(r'^accounts/logout/$', logout),
 
     path('manage/', OodHomeView.as_view(), name="manage"),
     path('manage/run/<pk>', RunRaceView.as_view(), name="manageRace"),
