@@ -14,8 +14,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
+load_dotenv(dotenv_path="/var/www/Sailing-Manager/.env")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
@@ -26,6 +25,7 @@ DIRNAME = os.path.abspath(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
+print("Secret key: %s"%SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = [os.getenv('WEBHOST'),]
