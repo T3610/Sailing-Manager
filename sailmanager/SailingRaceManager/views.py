@@ -88,7 +88,7 @@ class RacerListView(TemplateView):
 class RacerEditFormView(UpdateView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
-    success_url = '/'
+    success_url = '/racers'
     model = Racer
 
     def get_context_data(self, **kwargs):

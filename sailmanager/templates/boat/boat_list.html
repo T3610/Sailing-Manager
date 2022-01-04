@@ -11,8 +11,10 @@
         <tr>
             <th>Boat Name</th>
             <th>PY Number</th>
+            {% if user.is_superuser %}
             <th>Edit</th>
             <th>Delete</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -20,8 +22,10 @@
         <tr>
             <td>{{ boat.BoatName }}</td>
             <td>{{boat.PyNumber}}</td>
+            {% if user.is_superuser %}
             <td><a href="{% url 'boatEdit' boat.id %}">Edit</a></td>
             <td><a href="{% url 'boatDelete' boat.pk %}">Delete</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
