@@ -15,10 +15,10 @@ class Command(BaseCommand):
         if sunday.day < 8:
             raceType = 1    # Pursuit race on the first sunday of the month
         else:
-            raceType = 2    # Handicap race every other weekend
+            raceType = 0    # Handicap race every other weekend
 
         for i in range(1,3):
             race = Race(RaceNumber=i, Date=sunday, RaceType=raceType)
             race.save()
 
-        print("Races created")
+        print("Races created")  
