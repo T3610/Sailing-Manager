@@ -88,7 +88,7 @@ class RacerListView(TemplateView):
 class RacerEditFormView(UpdateView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
-    success_url = '/manage'
+    success_url = '/'
     model = Racer
 
     def get_context_data(self, **kwargs):
@@ -140,7 +140,7 @@ class RacerEditFormView(UpdateView):
 class RacerNewFormView(FormView):
     template_name = 'racer/racer_form.html'
     form_class = RacerForm
-    success_url = '/racer/list'
+    success_url = '/racers'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -177,7 +177,7 @@ class OfficialNewFormView(FormView):
     #View for race officials
     template_name = 'official/official_form.html'
     form_class = OfficialForm
-    success_url = '/manage'
+    success_url = '/'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
