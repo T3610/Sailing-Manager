@@ -44,6 +44,11 @@
 </head>
 
 <body class="bg-light">
+    {% if config.SANDBOX_MODE == 'True' %}
+    <div class="alert alert-warning show" role="alert">
+        THIS IS THE SANDBOX VERSION - DON'T USE THIS FOR ANY ACTUAL RACES
+    </div>
+    {% endif %}
     <nav class="navbar navbar-expand-md navbar-light bg-light" aria-label="Fourth navbar example">
         <div class="container-fluid">
         <a class="navbar-brand" href="/">{{config.CLUB_NAME}}</a>

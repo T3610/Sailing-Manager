@@ -14,11 +14,16 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="/var/www/Sailing-Manager/.env")
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DIRNAME = os.path.abspath(os.path.dirname(__file__))
 
+print('BaseDir: %s'%BASE_DIR)
+
+ENV_PATH = BASE_DIR.parent / ".env"
+print("ENV_PATH: %s"%ENV_PATH)
+
+load_dotenv(dotenv_path=ENV_PATH)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -36,7 +41,6 @@ if os.getenv('ENVIRONMENT') == 'development':
 else:
     print('Prod')
     DEBUG = False
-
 
 # Application definition
 
@@ -139,9 +143,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+if os.getenv('ENVIRONMENT') == 'development':
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -156,6 +163,7 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'CLUB_NAME': ('Dorchester Sailing Club', 'Club name shown on landing page'),
     'CLUB_SUBTITLE': ('Dorchester Online Sailing Manager', 'Club sub title shown on landing page'),
+    'SANDBOX_MODE': ('False', 'False'),
 }
 
 LOGIN_REDIRECT_URL = '/manage'
