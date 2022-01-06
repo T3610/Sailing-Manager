@@ -13,6 +13,9 @@ class Race(models.Model):
     RaceLength = models.PositiveIntegerField(default=40)
     RaceType = models.IntegerField(choices=RACE_TYPE_CHOICES, default=0)
 
+    class Meta:
+        ordering = ['-Date', 'RaceNumber']
+
     def __str__(self):
         return "%s Race %s"%(str(self.Date), str(self.RaceNumber))
 

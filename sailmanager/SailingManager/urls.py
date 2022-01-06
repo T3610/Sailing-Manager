@@ -39,6 +39,8 @@ urlpatterns = [
     path('boats/delete/<pk>', BoatDeleteView.as_view(),name="boatDelete"),
     path('boats/upload', UploadBoatList.as_view(),name="boatUpload"),
 
+    path('startingOrder/', StartingOrderView.as_view(),name="startingOrder"),
+
     path('racers/', RacerListView.as_view(),name="racerList"),
     path('racers/edit/<pk>', RacerEditFormView.as_view(),name="racerEdit"),
     path('racers/new', RacerNewFormView.as_view(),name="racerNew"),

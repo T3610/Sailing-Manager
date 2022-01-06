@@ -20,11 +20,11 @@ class IndexPage(TemplateView):
 
 
 # Boat management classes
-class BoatListView(ListView):
+class BoatListView(LoginRequiredMixin,ListView):
     model = Boat
     template_name="boat/boat_list.html"
 
-class BoatEditFormView(UpdateView):
+class BoatEditFormView(LoginRequiredMixin,UpdateView):
     template_name = 'boat/boat_form.html'
     model = Boat
     form_class = BoatForm
@@ -48,7 +48,7 @@ class BoatEditFormView(UpdateView):
         return super().form_valid(form)
 
 
-class BoatNewFormView(CreateView):
+class BoatNewFormView(LoginRequiredMixin,CreateView):
     template_name = 'boat/boat_form.html'
     form_class = BoatForm
     success_url = '/boats'
@@ -60,7 +60,7 @@ class BoatNewFormView(CreateView):
         # It should return an HttpResponse.
         return super().form_valid(form)
 
-class BoatDeleteView(DeleteView):
+class BoatDeleteView(LoginRequiredMixin,DeleteView):
     # specify the model you want to use
     template_name = 'boat/boat_confirm_delete.html'
     model = Boat
@@ -70,13 +70,45 @@ class BoatDeleteView(DeleteView):
     # deleting object
     success_url ="/boats"
 
+# Start timing classes
+
+class StartingOrderView(TemplateView):
+    template_name="startTimings/timings.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context['races'] = Race.objects.filter(Date__gte=datetime.date.today(), Date__lt=datetime.date.today() + relativedelta(weeks=1))
+        if 'race' in self.request.GET:
+            race = Race.objects.get(pk=self.request.GET['race'])
+            raceEvents = RaceEvent.objects.filter(Race=race)
+            enteredBoats = raceEvents.values_list('Racer__Boat__PyNumber','Racer__Boat__BoatName').distinct()
+            enteredBoatsOrdered = sorted(enteredBoats, key=lambda x: x[0], reverse=True)
+            slowestBoatPy = enteredBoatsOrdered[0][0]
+
+            slowestBoatCorrectTime = race.RaceLength*1000/slowestBoatPy
+
+            boats = []
+            for boat in enteredBoatsOrdered:
+                boats.append({
+                    'boatName': boat[1],
+                    'boatPY': boat[0],
+                    'startTime': round(race.RaceLength - slowestBoatCorrectTime*boat[0]/1000),
+                })
+            context['boats'] = boats
+            context['thisRace'] = race
+
+        return context
+
 # Racer registration classes
 class RacerListView(TemplateView):
     template_name="racer/racer_list.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['signUpUUID'] = self.request.session['signUpUUID']
+        signUpUUID = self.request.session.get('signUpUUID')
+        if signUpUUID:
+            context['signUpUUID'] = signUpUUID
 
         context['races'] = Race.objects.all()
         if 'race' in self.request.GET:
@@ -93,7 +125,7 @@ class RacerEditFormView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['races'] = Race.objects.all().order_by('RaceNumber').order_by('-Date')
+        context['races'] = Race.objects.all()
         racer = get_object_or_404(Racer, pk=self.kwargs['pk'])
 
         context['racesEntered'] = list(RaceEvent.objects.filter(Racer=racer).values_list('Race_id',flat=True))
@@ -146,7 +178,7 @@ class RacerNewFormView(FormView):
         context = super().get_context_data(**kwargs)
         today = datetime.date.today()
         dateInAWeek = today + relativedelta(weeks=1)
-        context['races'] = Race.objects.filter(Date__gte=today, Date__lt=dateInAWeek).order_by('Date','RaceNumber') # Show dates from today to a weeks time
+        context['races'] = Race.objects.filter(Date__gte=today, Date__lt=dateInAWeek) # Show dates from today to a weeks time
         return context
 
     
@@ -181,7 +213,7 @@ class OfficialNewFormView(FormView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['races'] = Race.objects.all().order_by('RaceNumber').order_by('Date','RaceNumber')
+        context['races'] = Race.objects.all()
         return context
         
     def form_valid(self, form):
@@ -307,21 +339,21 @@ class OodHomeView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data()
         if 'previous' in self.request.GET:
             if self.request.GET['previous'] == 'true':
-                context['races'] = Race.objects.all().order_by('-RaceNumber').order_by('Date','RaceNumber')
+                context['races'] = Race.objects.all()
                 context['newValueForPreviousParam'] = "false"
                 context['timespanBtn'] = "only upcoming"
             else:
                 today = datetime.datetime.today()
-                context['races'] = Race.objects.filter(Date__gte=today).order_by('Date','RaceNumber')
+                context['races'] = Race.objects.filter(Date__gte=today)
                 context['newValueForPreviousParam'] = "true"
                 context['timespanBtn'] = "all"
         else:
             today = datetime.datetime.today()
-            context['races'] = Race.objects.filter(Date__gte=today).order_by('Date','RaceNumber')
+            context['races'] = Race.objects.filter(Date__gte=today)
             context['newValueForPreviousParam'] = "true"
             context['timespanBtn'] = "all"
     
-        context['racesForEntries'] = Race.objects.all().order_by('-RaceNumber').order_by('Date','RaceNumber')
+        context['racesForEntries'] = Race.objects.all()
         if 'racesForEntries' in self.request.GET:
             context['thisRace'] = Race.objects.get(pk=self.request.GET['racesForEntries'])
             context['raceEvents'] = RaceEvent.objects.filter(Race=context['thisRace'])

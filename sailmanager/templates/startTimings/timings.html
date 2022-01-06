@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block additional_scripts %}
+<script>
+$( document ).ready(function() {
+    
+    $( "#raceID" ).change(function() {
+        var url = new URL(window.location.href);
+        url.searchParams.set("race", $( "#raceID" ).val()); // setting your param
+        var newUrl = url.href; 
+        window.location.href = newUrl
+    });
+});
+</script>
+
+{% endblock additional_scripts %}
+{% block content %}
+<h2>Start timings</h2>
+ <div class="form-group">
+    <label for="raceID">Select race</label>
+    <select class="form-select" id="raceID">
+            <option selected disabled hidden>SELECT RACE</option>
+        {% for race in races %}
+            <option value="{{race.id}}"  {%if thisRace.id == race.id%}selected{%endif%}>{{race.Date}} race {{race.RaceNumber}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Class</th>
+      <th scope="col">PY number</th>
+      <th scope="col">Start Time (mins after slowest boat)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for boat in boats %}
+    <tr>
+      <th scope="row">{{ boat.boatName }}</th>
+      <td>{{boat.boatPY}}</td>
+      <td>{{boat.startTime}}</td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+
+{% endblock content%}
