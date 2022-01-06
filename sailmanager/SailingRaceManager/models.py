@@ -22,6 +22,9 @@ class Boat(models.Model):
     # TODO: Define fields here
     BoatName = models.CharField(max_length=50)
     PyNumber = models.PositiveIntegerField()
+    
+    class Meta:
+        ordering = ['BoatName']
 
     def __str__(self):
         """Unicode representation of Boat."""
