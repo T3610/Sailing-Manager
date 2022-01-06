@@ -331,14 +331,7 @@ class OodHomeView(LoginRequiredMixin, TemplateView):
 
 
 class RunRaceView(LoginRequiredMixin, TemplateView):
-    def get_template_names(self):
-        pk=self.kwargs['pk']
-        if Race.objects.get(pk=pk).RaceType == 0:
-            print('hi')
-            return ['manage/runHandicap.html']
-        elif Race.objects.get(pk=pk).RaceType == 1:
-            print('hi')
-            return ['manage/runPursuit.html']
+    template_name='manage/runRace.html'
 
     def get_context_data(self, pk):
         context = super().get_context_data()
