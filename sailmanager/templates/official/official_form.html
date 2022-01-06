@@ -3,12 +3,11 @@
 {% block content %}
 
 {% load crispy_forms_tags %}
-<h2 class="pb-2 text-center">Sign up here if you're volunteering as a race official</h2>
+<h2 class="pb-2 text-center">Sign up here if you're AOD/OOD/SBH</h2>
 <form method="post">{% csrf_token %} {{ form|crispy }}
 <legend>Select which races you want to enter</legend>
 {% for race in races %}
 <div class="form-check">
-    {{race.id}}
   <input class="form-check-input" type="checkbox" value="{{race.id}}" name="racesEntered[]" id="raceCheck{{race.id}}" {% if race.id in racesEntered %} checked="checked" {% endif %}>
   <label class="form-check-label" for="raceCheck{{race.id}}">
     {{race.Date|date}}: Race {{race.RaceNumber}}
