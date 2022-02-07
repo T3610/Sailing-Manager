@@ -313,7 +313,7 @@ class RaceResultsDetailedView(View):
                 elapsedTime = raceEvent['elapsedTime']
                 correctedTime = raceEvent['correctedTime']
 
-                event = {**event, 'Laps Complete': lapsComplete+1, 'Elapsed Time (seconds)':elapsedTime, 'Corrected Time (seconds)':correctedTime}
+                event = {**event, 'Laps Complete': lapsComplete, 'Elapsed Time (seconds)':elapsedTime, 'Corrected Time (seconds)':correctedTime}
 
             results.append(event)
             position = position + 1 
