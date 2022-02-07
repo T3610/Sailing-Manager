@@ -256,15 +256,15 @@ def getResults(racepk):
         raceEvents = RaceEvent.objects.filter(Status=0, Race_id=racepk)
 
         if len(raceEvents) > 0:
-            mostLaps = raceEvents.order_by('-LapsComplete')[0].LapsComplete
+            mostLaps = raceEvents.order_by('-LapsComplete')[0].LapsComplete+1
             raceStartTime = race.StartTime
 
             raceEventsReturn = []
 
             for raceEvent in raceEvents:
                 elapsedTime = (raceEvent.FinishTime - raceStartTime).seconds
-                correctedTime = (elapsedTime * mostLaps * 1000)/(raceEvent.Racer.Boat.PyNumber * raceEvent.LapsComplete)
-                raceEventsReturn.append({'raceEvent': raceEvent, 'elapsedTime':elapsedTime, 'correctedTime':correctedTime, 'lapsComplete':raceEvent.LapsComplete})
+                correctedTime = (elapsedTime * mostLaps * 1000)/(raceEvent.Racer.Boat.PyNumber * raceEvent.LapsComplete+1)
+                raceEventsReturn.append({'raceEvent': raceEvent, 'elapsedTime':elapsedTime, 'correctedTime':correctedTime, 'lapsComplete':raceEvent.LapsComplete+1})
             
 
             context['raceEvents'] = sorted(raceEventsReturn, key=lambda k: k['correctedTime'])
@@ -309,11 +309,11 @@ class RaceResultsDetailedView(View):
             event = {'Position':position, 'Helm Name': helmName, 'Crew Name':crewName, 'Sail Number':sailNumber, 'Class':boatClass}
 
             if race.RaceType == 0:
-                lapsComplete = raceEvent['lapsComplete']
+                lapsComplete = raceEvent['lapsComplete']+1
                 elapsedTime = raceEvent['elapsedTime']
                 correctedTime = raceEvent['correctedTime']
 
-                event = {**event, 'Laps Complete': lapsComplete, 'Elapsed Time (seconds)':elapsedTime, 'Corrected Time (seconds)':correctedTime}
+                event = {**event, 'Laps Complete': lapsComplete+1, 'Elapsed Time (seconds)':elapsedTime, 'Corrected Time (seconds)':correctedTime}
 
             results.append(event)
             position = position + 1 
