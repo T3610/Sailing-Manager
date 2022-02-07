@@ -309,7 +309,7 @@ class RaceResultsDetailedView(View):
             event = {'Position':position, 'Helm Name': helmName, 'Crew Name':crewName, 'Sail Number':sailNumber, 'Class':boatClass}
 
             if race.RaceType == 0:
-                lapsComplete = raceEvent['lapsComplete']+1
+                lapsComplete = raceEvent['lapsComplete']
                 elapsedTime = raceEvent['elapsedTime']
                 correctedTime = raceEvent['correctedTime']
 
