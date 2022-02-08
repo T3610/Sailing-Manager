@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+<metadata>
+Created by FontForge 20170731 at Fri Mar  5 11:48:46 2021
+ By Aleksey,,,
+Copyright Goatmeal 2015
+"Curved Seven Segment
+</metadata>
+<defs>
+<font id="Curved-Seven-Segment-2" horiz-adv-x="320" >
+  <font-face 
+    font-family="Curved Seven Segment 2"
+    font-weight="400"
+    font-stretch="normal"
+    units-per-em="1024"
+    panose-1="0 0 4 0 0 0 0 0 0 0"
+    ascent="819"
+    descent="-205"
+    bbox="0 0 418 544"
+    underline-thickness="51"
+    underline-position="26"
+    unicode-range="U+0020-0039"
+  />
+<missing-glyph horiz-adv-x="450" 
+d="M349 50l-140 202l-140 -202h280zM50 69l140 203l-140 202v-405v0zM368 69v405l-140 -202l140 -203v0zM209 291l140 203h-280l140 -203v0zM0 0v544h418v-544h-418z" />
+    <glyph glyph-name=".notdef" horiz-adv-x="450" 
+d="M349 50l-140 202l-140 -202h280zM50 69l140 203l-140 202v-405v0zM368 69v405l-140 -202l140 -203v0zM209 291l140 203h-280l140 -203v0zM0 0v544h418v-544h-418z" />
+    <glyph glyph-name=".null" horiz-adv-x="0" 
+ />
+    <glyph glyph-name="nonmarkingreturn" horiz-adv-x="341" 
+ />
+    <glyph glyph-name="space" unicode=" " 
+ />
+    <glyph glyph-name="zero" unicode="0" 
+d="M40 0l32 64h144l32 -64h-208zM32 0q-14 0 -23 9t-9 23v224l16 8l48 -24v-176l-32 -64v0zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24v0zM72 480l-32 64h208l-32 -64h-144zM272 280
+l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="one" unicode="1" 
+d="M256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="two" unicode="2" 
+d="M40 0l32 64h144l32 -64h-208zM32 0q-14 0 -23 9t-9 23v224l16 8l48 -24v-176l-32 -64v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM72 480l-32 64h208l-32 -64h-144zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="three" unicode="3" 
+d="M40 0l32 64h144l32 -64h-208zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM72 480l-32 64h208l-32 -64h-144zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="four" unicode="4" 
+d="M256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24v0zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="five" unicode="5" 
+d="M40 0l32 64h144l32 -64h-208zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24v0zM72 480l-32 64h208l-32 -64h-144z" />
+    <glyph glyph-name="six" unicode="6" 
+d="M40 0l32 64h144l32 -64h-208zM32 0q-14 0 -23 9t-9 23v224l16 8l48 -24v-176l-32 -64v0zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24
+v0zM72 480l-32 64h208l-32 -64h-144z" />
+    <glyph glyph-name="seven" unicode="7" 
+d="M256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM72 480l-32 64h208l-32 -64h-144zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="eight" unicode="8" 
+d="M40 0l32 64h144l32 -64h-208zM32 0q-14 0 -23 9t-9 23v224l16 8l48 -24v-176l-32 -64v0zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24
+v0zM72 480l-32 64h208l-32 -64h-144zM272 280l-48 24v176l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+    <glyph glyph-name="nine" unicode="9" 
+d="M40 0l32 64h144l32 -64h-208zM256 0l-32 64v176l48 24l16 -8v-224q0 -14 -10 -23q-9 -9 -22 -9v0zM80 240l-64 32l64 32h128l64 -32l-64 -32h-128zM16 280l-16 8v224q0 13 9 22q9 10 23 10l32 -64v-176l-48 -24v0zM72 480l-32 64h208l-32 -64h-144zM272 280l-48 24v176
+l32 64q13 0 22 -10q10 -9 10 -22v-224l-16 -8v0z" />
+  </font>
+</defs></svg>

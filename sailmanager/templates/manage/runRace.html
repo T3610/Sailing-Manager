@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load extra_tags %}
 {% block additional_css %}
 <style>
     th {
@@ -16,6 +16,24 @@
     td {
         font-size: 20px;
     }
+
+    @font-face {
+        font-family: 'Curved Seven Segment 2';
+        src: url('/static/fonts/subset-Curved-Seven-Segment-2.eot');
+        src: url('/static/fonts/subset-Curved-Seven-Segment-2.eot?#iefix') format('embedded-opentype'),
+             url('/static/fonts/subset-Curved-Seven-Segment-2.woff2') format('woff2'),
+             url('/static/fonts/subset-Curved-Seven-Segment-2.woff') format('woff'),
+             url('/static/fonts/subset-Curved-Seven-Segment-2.ttf') format('truetype'),
+             url('/static/fonts/subset-Curved-Seven-Segment-2.svg#Curved-Seven-Segment-2') format('svg');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    .countdown {
+        font-family: 'Curved Seven Segment 2';
+    }
+
 </style> {% endblock additional_css %} {% block additional_scripts %}
 <script>
     const customSort = ({data, sortBy, sortField}) => {
@@ -197,16 +215,19 @@
         };
 
         $.ajax(settings).done(function(response) {
-            console.log(response);
+            if (! response.map((element) => element.Status).includes(null)){
+                $('#finishedMessage').css('display','unset')
+            }else{
+                $('#finishedMessage').css('display','none')
+            }
             customSort({data:response, sortBy:customOrder, sortField: 'id'})
-            console.log(response);
 
             $("#resultsTable").empty();
             $.each(response, function(i, raceEvent) {
                 console.log(raceEvent)
                 const lapBtn = `
         <div class="btn-group">
-            <button class="btn btn-primary btn-lg" onclick=handleAddLap(${raceEvent.id})>ADD LAP (${raceEvent.LapsComplete})</button>
+            <button class="btn btn-primary btn-lg lapBtn" value=${raceEvent.id}>ADD LAP (${raceEvent.LapsComplete})</button>
             <button type="button" class="btn btn-lg btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
@@ -266,7 +287,6 @@
                     {% endif %}
                     $("<td>").append(optionsBtn), //Retire/dns
                 );
-                console.log($tr);
                 $("#resultsTable").append($tr);
             });
             if(customOrder.length==0){
@@ -274,9 +294,53 @@
                     customOrder.push(this.id.split("racerRow")[1]); 
                 });
             }
-        })
-        
+            $('.lapBtn').click(function(){
+                console.log('Lap button clicked')
+                var btn = $(this);
+                btn.prop('disabled', true);
+                handleAddLap(btn.val())
+                setTimeout(function(){
+                    $(`.lapBtn[value="${btn.val()}"]`).prop('disabled', false);
+                    btn.prop('disabled', false);
+                }, 3000);
+            })
+        })  
     }
+
+    {% if race.StartTime %}
+
+    function str_pad_left(string,pad,length) {
+        return (new Array(length+1).join(pad)+string).slice(-length);
+    }
+    
+    let startTime = Math.round({{race.StartTime|timestamp}});
+
+    function updateStartTime(){
+        let currentTime = Math.round(Date.now() / 1000);
+        let timeToDisplay = Math.abs(startTime-currentTime);
+        var minutes = Math.floor(timeToDisplay / 60);
+        var seconds = timeToDisplay - minutes * 60;
+        let finalTime = str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
+
+        if (currentTime < startTime) {
+            // Countdown to start
+            $('#countdownMessage').text('Time until start')
+            $('#countdown').text(finalTime)
+            
+        } else {
+            // Count up from start
+            $('#countdownMessage').text('Time since start')
+            $('#countdown').text(finalTime)
+        }
+    }
+
+    $(document).ready(function() {
+        updateStartTime()
+        var intervalId = window.setInterval(function(){
+            updateStartTime()
+        }, 500);
+    })
+    {% endif %}
 </script>{% endblock additional_scripts %}{% block content %}
 <div class="row pb-3">
     <div class="col text-center">
@@ -296,7 +360,16 @@
         
     </div>
 </div>
+{% if race.StartTime %}
+<div class="row text-center">
+    <h4 id="countdownMessage"></h4>
+    <span class="countdown" id="countdown" style="font-size:6rem;line-height: 0.75em;"></span>
+</div>
+{% endif %}
 
+<div class="row" id="finishedMessage" style="display:none">
+    <h3>You have now finished all the boats. This has automatically been saved, so you can safely leave this page</h3>
+</div>
 
 <table class="table table-striped">
     <thead>
