@@ -198,7 +198,7 @@ LOGGING = {
     },
 }
 
-ADMINS = [('Benjamin Broadbent', 'benjamin.d.braodbent@gmail.com'),]
+ADMINS = [('Benjamin Broadbent', 'benjamin.d.broadbent@gmail.com'),]
 
 SERVER_EMAIL = "server@sailmanager.co.uk"
 
@@ -207,3 +207,4 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_USE_SSL = True
+EMAIL_SUBJECT_PREFIX = "Sailmanager - Django"
