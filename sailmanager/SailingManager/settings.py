@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_log_to_telegram',
     'crispy_forms',
     'constance.backends.database',
     'constance',
@@ -89,6 +90,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SailingManager.wsgi.application'
 
+LOG_TO_TELEGRAM_BOT_TOKEN = os.getenv("LOG_TO_TELEGRAM_BOT_TOKEN")
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -183,6 +185,11 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
         },
+        'telegram_log': {
+            'level': 'ERROR',
+            'class': 'django_log_to_telegram.log.AdminTelegramHandler',
+            'bot_token': LOG_TO_TELEGRAM_BOT_TOKEN,
+        }
     },
     'loggers': {
         'django': {
@@ -191,7 +198,7 @@ LOGGING = {
             'propagate': True,
         },
         'django.request': {
-            'handlers': ['mail_admins'],
+            'handlers': ['mail_admins','telegram_log'],
             'level': 'ERROR',
             'propagate': True,
         },
@@ -207,4 +214,4 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_USE_SSL = True
-EMAIL_SUBJECT_PREFIX = "Sailmanager - Django"
+EMAIL_SUBJECT_PREFIX = "[Sailmanager - Django] "
