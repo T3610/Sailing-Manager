@@ -32,6 +32,7 @@ load_dotenv(dotenv_path=ENV_PATH)
 SECRET_KEY = os.getenv('SECRET_KEY')
 print("Secret key: %s"%SECRET_KEY)
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = [os.getenv('WEBHOST'),]
 
@@ -187,3 +188,13 @@ LOGGING = {
         },
     },
 }
+
+ADMINS = [('Benjamin Broadbent', 'benjamin.d.braodbent@gmail.com'),]
+
+SERVER_EMAIL = "server@sailmanager.co.uk"
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_SSL = True
