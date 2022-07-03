@@ -80,7 +80,7 @@ class StartingOrderView(TemplateView):
         
         context['races'] = Race.objects.filter(Date__gte=datetime.date.today(), Date__lt=datetime.date.today() + relativedelta(weeks=1))
         if 'race' in self.request.GET:
-            race = Race.objects.get(pk=self.request.GET['race'])
+            race = get_object_or_404(Race,pk=self.request.GET['race'])
             raceEvents = RaceEvent.objects.filter(Race=race)
             enteredBoats = raceEvents.values_list('Racer__Boat__PyNumber','Racer__Boat__BoatName').distinct()
             enteredBoatsOrdered = sorted(enteredBoats, key=lambda x: x[0], reverse=True)
@@ -112,7 +112,7 @@ class RacerListView(TemplateView):
 
         context['races'] = Race.objects.all()
         if 'race' in self.request.GET:
-            context['thisRace'] = Race.objects.get(pk=self.request.GET['race'])
+            context['thisRace'] = get_object_or_404(Race, pk=self.request.GET['race'])
             context['raceEvents'] = RaceEvent.objects.filter(Race=context['thisRace'])
 
         return context
@@ -245,7 +245,7 @@ class ResultsHomeView(TemplateView):
         return context
 
 def getResults(racepk):
-    race = Race.objects.get(pk=racepk)
+    race = get_object_or_404(Race, pk=racepk)
 
     context = {}
     context['pk'] = racepk
@@ -295,7 +295,7 @@ class RaceResultsView(TemplateView):
 
 class RaceResultsDetailedView(View):
     def get(self, request, pk):
-        race = Race.objects.get(pk=pk)
+        race = get_object_or_404(Race, pk=pk)
         raceEvents = getResults(pk)['raceEvents']
         results = []
         position = 1
@@ -355,7 +355,7 @@ class OodHomeView(LoginRequiredMixin, TemplateView):
     
         context['racesForEntries'] = Race.objects.all()
         if 'racesForEntries' in self.request.GET:
-            context['thisRace'] = Race.objects.get(pk=self.request.GET['racesForEntries'])
+            context['thisRace'] = get_object_or_404(Race, pk=self.request.GET['racesForEntries'])
             context['raceEvents'] = RaceEvent.objects.filter(Race=context['thisRace'])
 
         return context
@@ -367,7 +367,7 @@ class RunRaceView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, pk):
         context = super().get_context_data()
-        context['race'] = Race.objects.get(pk=pk)
+        context['race'] = get_object_or_404(Race, pk=pk)
 
         return context
 
@@ -424,7 +424,7 @@ class RaceDeleteView(LoginRequiredMixin, DeleteView):
 @method_decorator(csrf_exempt, name='dispatch')
 class AjaxAddLap(View):
     def post(self, request):
-        raceEvent = RaceEvent.objects.get(pk=request.POST['raceEventID'])
+        raceEvent = get_object_or_404(RaceEvent, pk=request.POST['raceEventID'])
         raceEvent.LapsComplete = raceEvent.LapsComplete + int(request.POST['change'])
         raceEvent.save()
         return HttpResponse('Done')
@@ -432,7 +432,7 @@ class AjaxAddLap(View):
 @method_decorator(csrf_exempt, name='dispatch')
 class AjaxChangeStatus(View):
     def post(self, request):
-        raceEvent = RaceEvent.objects.get(pk=request.POST['raceEventID'])
+        raceEvent = get_object_or_404(RaceEvent, pk=request.POST['raceEventID'])
         if request._post['status'] == '0':
             raceEvent.FinishTime = datetime.datetime.now(tz=timezone.utc)
         else:
@@ -450,7 +450,7 @@ class AjaxChangeStatus(View):
 @method_decorator(csrf_exempt, name='dispatch')
 class AjaxSetRaceStart(View):
     def post(self, request, pk):
-        race = Race.objects.get(pk=pk)
+        race = get_object_or_404(Race, pk=pk)
         if 'clear' in request.POST:
             race.StartTime = None
         else:
