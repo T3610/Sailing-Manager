@@ -258,16 +258,16 @@ def getResults(racepk):
         if len(raceEvents) > 0:
             mostLaps = raceEvents.order_by('-LapsComplete')[0].LapsComplete+1
             raceStartTime = race.StartTime
+            if raceStartTime:
+                raceEventsReturn = []
 
-            raceEventsReturn = []
+                for raceEvent in raceEvents:
+                    elapsedTime = (raceEvent.FinishTime - raceStartTime).seconds
+                    correctedTime = (elapsedTime * mostLaps * 1000)/(raceEvent.Racer.Boat.PyNumber * raceEvent.LapsComplete+1)
+                    raceEventsReturn.append({'raceEvent': raceEvent, 'elapsedTime':elapsedTime, 'correctedTime':correctedTime, 'lapsComplete':raceEvent.LapsComplete+1})
+                
 
-            for raceEvent in raceEvents:
-                elapsedTime = (raceEvent.FinishTime - raceStartTime).seconds
-                correctedTime = (elapsedTime * mostLaps * 1000)/(raceEvent.Racer.Boat.PyNumber * raceEvent.LapsComplete+1)
-                raceEventsReturn.append({'raceEvent': raceEvent, 'elapsedTime':elapsedTime, 'correctedTime':correctedTime, 'lapsComplete':raceEvent.LapsComplete+1})
-            
-
-            context['raceEvents'] = sorted(raceEventsReturn, key=lambda k: k['correctedTime'])
+                context['raceEvents'] = sorted(raceEventsReturn, key=lambda k: k['correctedTime'])
 
     elif race.RaceType == 1: # Pursuit
         raceEvents = RaceEvent.objects.filter(Status=0, Race_id=racepk)
