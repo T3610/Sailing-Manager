@@ -1,7 +1,7 @@
 from django.views.generic import ListView, TemplateView, FormView, View, UpdateView, CreateView
 from django.views.generic.edit import DeleteView
 from SailingRaceManager.models import Boat, Race, Racer, RaceEvent, OfficialEvent
-from SailingRaceManager.forms import BoatForm, RacerForm, RaceForm, OfficialForm
+from SailingRaceManager.forms import BoatForm, RacerForm, RaceForm, OfficialForm, NewRaceForm
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse, request
 from .serializers import RaceEventSerializer
@@ -401,7 +401,7 @@ class RaceEditFormView(LoginRequiredMixin, UpdateView):
 
 class RaceNewFormView(LoginRequiredMixin, FormView):
     template_name = 'race/race_form.html'
-    form_class = RaceForm
+    form_class = NewRaceForm
     success_url = '/manage/'
     
     def form_valid(self, form):

@@ -27,6 +27,10 @@ class RaceForm(forms.ModelForm):
             'Date': DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
         }
 
+class NewRaceForm(RaceForm):
+    def __init__(self, *args, **kwargs):
+        super(RaceForm, self).__init__(*args, **kwargs)
+        self.fields.pop('StartTime')
 
 class OfficialForm(forms.ModelForm):
 
