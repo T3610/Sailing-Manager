@@ -20,11 +20,6 @@ DIRNAME = os.path.abspath(os.path.dirname(__file__))
 
 print('BaseDir: %s'%BASE_DIR)
 
-ENV_PATH = BASE_DIR.parent / ".env"
-print("ENV_PATH: %s"%ENV_PATH)
-
-load_dotenv(dotenv_path=ENV_PATH)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -54,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_log_to_telegram',
     'crispy_forms',
+    'crispy_bootstrap4',
     'constance.backends.database',
     'constance',
     'SailingRaceManager', #App
@@ -101,7 +97,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASS'),
-        'HOST': 'localhost',
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432',
     }
 }
@@ -158,6 +154,7 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #Constance
@@ -185,11 +182,11 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
         },
-        'telegram_log': {
-            'level': 'ERROR',
-            'class': 'django_log_to_telegram.log.AdminTelegramHandler',
-            'bot_token': LOG_TO_TELEGRAM_BOT_TOKEN,
-        }
+        # 'telegram_log': {
+        #     'level': 'ERROR',
+        #     'class': 'django_log_to_telegram.log.AdminTelegramHandler',
+        #     'bot_token': LOG_TO_TELEGRAM_BOT_TOKEN,
+        # }
     },
     'loggers': {
         'django': {
@@ -198,7 +195,8 @@ LOGGING = {
             'propagate': True,
         },
         'django.request': {
-            'handlers': ['mail_admins','telegram_log'],
+            'handlers': ['mail_admins'],
+            # 'handlers': ['mail_admins','telegram_log'],
             'level': 'ERROR',
             'propagate': True,
         },
