@@ -12,6 +12,7 @@ import datetime, csv, uuid
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 # Create your views here.
 
@@ -118,7 +119,7 @@ class RacerListView(TemplateView):
         return context
 
 class RacerEditFormView(UpdateView):
-    template_name = 'racer/racer_form.html'
+    template_name = 'racer/racer_edit.html'
     form_class = RacerForm
     success_url = '/racers'
     model = Racer
@@ -170,7 +171,7 @@ class RacerEditFormView(UpdateView):
 
 
 class RacerNewFormView(FormView):
-    template_name = 'racer/racer_form.html'
+    template_name = 'racer/racer_edit.html'
     form_class = RacerForm
     success_url = '/racers'
 
@@ -482,3 +483,62 @@ class UploadBoatList(TemplateView):
                 newBoat = Boat(BoatName=fields[0].upper(),PyNumber=fields[1])
                 newBoat.save()
         return redirect('/boats')
+    
+    
+class GetRacerEditFormForModal(RacerEditFormView):
+    template_name = 'racer/racer_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        print(context)
+        
+        context['url'] = reverse("racerEditHtml", kwargs={"pk":context['racer'].pk})
+        context['hide_races'] = True
+        print(context)
+        return context
+    
+    def form_valid(self, form):
+        """
+        If the form is valid, save the object and return a JSON success response.
+        """
+        self.object = form.save()
+        print(self.object)
+        return JsonResponse({
+            'success': True,
+            'message': f'{self.object.Boat.BoatName} - {self.object.SailNumber} has been updated successfully',
+        }, status=200)
+        
+        
+    def form_invalid(self, form):
+        """
+        If the form is valid, save the object and return a JSON success response.
+        """
+        self.object = form.save()        
+        return JsonResponse({
+            'success': False,
+            'message': f'{self.object.Boat.BoatName} - {self.object.SailNumber} has not been updated successfully - errors: ${form.errors}',
+            'errors': form.errors # Contains a dictionary of field errors
+        }, status=400) # Use 400 Bad Request for invalid input
+        
+class EditRaceResults(LoginRequiredMixin, TemplateView):
+    template_name = 'manage/editRaceResults.html'
+    
+    def get_context_data(self, pk, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['race'] = Race.objects.get(pk=pk)
+        context['raceEvents'] = RaceEvent.objects.filter(Race=context['race'])
+        return context
+    
+@method_decorator(csrf_exempt, name='dispatch')
+class AjaxUpdateRaceEvent(View):
+    def post(self, request, pk):
+        raceEvent = get_object_or_404(RaceEvent, pk=pk)
+        if "numLaps" in request.POST.keys():
+            raceEvent.LapsComplete = int(request.POST['numLaps'])
+        if "status" in request.POST.keys():
+            raceEvent.Status = int(request.POST['status'])
+        if "finishTime" in request.POST.keys() and request.POST['finishTime'] != '':
+            raceEvent.FinishTime = datetime.datetime.fromisoformat(request.POST['finishTime'])
+        raceEvent.save()
+        return HttpResponse('Done')

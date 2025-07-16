@@ -1,14 +1,10 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
 {% load crispy_forms_tags %}
 
-<div class="text-center">
-<a href="/racers/new_official" class="btn btn-primary ">Click here if you're AOD/OOD/SBH</a>
-</div>
-<form method="post" enctype="multipart/form-data">{% csrf_token %} {{ form|crispy }}
 
+<form method="post" enctype="multipart/form-data" action="{{url}}" id="racer_form">{% csrf_token %} {{ form|crispy }}
+
+
+{% if hide_races|default:"False" == "False" %}
 <legend>Select which races you want to enter</legend>
 <h6>You must select at least one race</h6>
 {% for race in races %}
@@ -19,8 +15,7 @@
   </label>
 </div>
 {% endfor %}
+{% endif %}
 
 <button type="submit" class="btn btn-primary mt-2">Submit</button>
 </form>
-
-{% endblock content%}

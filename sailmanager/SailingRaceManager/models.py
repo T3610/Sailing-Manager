@@ -61,13 +61,14 @@ class RaceEvent(models.Model):
         (0, 'FINISHED'),
         (1, 'RETIRED'),
         (2, 'DID NOT START'),
+        (3, 'RACING'),
     ]
 
     Racer = models.ForeignKey(Racer, on_delete=models.CASCADE, related_name='Racer')
     Race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name='Race')
     LapsComplete = models.PositiveIntegerField(default=0)
     FinishTime = models.DateTimeField(blank=True, null=True)
-    Status = models.IntegerField(choices=RACE_STATUS_CHOICES, blank=True, null=True)
+    Status = models.IntegerField(choices=RACE_STATUS_CHOICES, default=3)
     
     def __str__(self):
         return str(self.Race.Date)+": Race "+str(self.Race.RaceNumber)+", name: "+self.Racer.HelmName

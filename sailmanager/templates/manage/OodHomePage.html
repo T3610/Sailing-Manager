@@ -40,7 +40,8 @@ function changePrevious(newVal){
                 <th scope="col">Race Number</th>
                 <th scope="col">Date</th>
                 <th scope="col">Race type</th>
-                <th scope="col">Edit</th>
+                <th scope="col">Edit race setup</th>
+                <th scope="col">Edit results</th>
                 <th scope="col">Delete</th>
                 <th scope="col">Run race</th>
             </tr>
@@ -53,6 +54,9 @@ function changePrevious(newVal){
                 <td>{{race.get_RaceType_display}}</td>
                 <td>
                     <a href="/race/edit/{{race.pk}}"><i class="fas fa-edit"></i></a>
+                </td>
+                <td>
+                    <a href="/manage/edit-results/{{race.pk}}"><i class="fas fa-clipboard"></i></a>
                 </td>
 
                 <td><a href="/race/delete/{{race.pk}}"><i class="fas fa-trash"></i></a></td>

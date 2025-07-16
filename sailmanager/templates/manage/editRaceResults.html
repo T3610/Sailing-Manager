@@ -1,0 +1,112 @@
+{% extends 'base.html' %} 
+
+{% block additional_scripts %}
+<script>
+    function disable_enable_finish_times(status_field){
+        let status = status_field.val()
+        if (status == 1 || status == 2 || status == 3) {
+            status_field.closest('tr').find('.finish-time').prop('disabled', true);
+        } else {
+            status_field.closest('tr').find('.finish-time').prop('disabled', false);
+        }
+    }
+
+    $(document).ready(function() {
+        $('.status').each(function() {
+            disable_enable_finish_times($(this))
+        })
+
+        $('.status').change(function() {
+            disable_enable_finish_times($(this))
+        })
+        $('.update-btn').click(function(){
+            console.log($(this))
+            let num_laps = $(this).closest('tr').find('.laps-complete').val()
+            let status = $(this).closest('tr').find('.status').val()
+            let finish_time = $(this).closest('tr').find('.finish-time').val()
+            let data;
+            if (finish_time) {
+                data = {
+                    numLaps: num_laps,
+                    status: status,
+                    finishTime: finish_time,
+                }
+            } else {
+                data = {
+                    numLaps: num_laps,
+                    status: status,
+                }
+            }
+            console.log(num_laps, status, finish_time)
+
+            $.ajax({
+                url: "/ajax/manage/edit-results/"+$(this).attr('raceEventPk'),
+                method: "POST",
+                data: data,
+                success: function(response) {
+                    Toastify({
+                        text: "Successfully updated race entry",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "green",
+                        },
+                    }).showToast();
+                },
+                error: function(response) {
+                    Toastify({
+                        text: "Failed to update race entry",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "red",
+                        },
+                    }).showToast();
+                }
+            });
+        })
+    })
+    
+</script>
+
+{% endblock additional_scripts %} 
+
+{% block content %}
+<div class="container">
+    <h1>Edit race results - {{race}}</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <th>Racer</th>
+            <th>Number of Laps</th>
+            <th>Status</th>
+            <th>Finish time</th>
+            <th>Update</th>
+        </thead>
+        <tbody>
+            {% for raceEvent in raceEvents %}
+            <tr>
+                <td>{{raceEvent.Racer.HelmName}}</td>
+                <td><input type="number" class="form-control laps-complete" value="{{raceEvent.LapsComplete}}" max=15 min=0></td>
+                <td>
+                    <select class="form-select class status" aria-label="Race status dropdown">
+                        <option {% if raceEvent.get_Status_display == 'RACING' %} selected {% endif %} value="3">Racing</option>
+                        <option {% if raceEvent.get_Status_display == 'FINISHED' %} selected {% endif %} value="0">Finished</option>
+                        <option {% if raceEvent.get_Status_display == 'RETIRED' %} selected {% endif %} value="1">Retired</option>
+                        <option {% if raceEvent.get_Status_display == 'DID NOT START' %} selected {% endif %}value="2">Did Not Start</option>
+                    </select>
+                </td>
+                <td><input type="datetime-local" class="form-control finish-time" value="{{ raceEvent.FinishTime|date:'Y-m-d' }}T{{raceEvent.FinishTime|time:'H:i:s'}}"></td>
+                <td><button class="btn btn-primary update-btn" raceEventPk="{{raceEvent.pk}}">Update</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}

@@ -207,6 +207,60 @@
         }
     }
 
+    function editEntry(id) {
+        var settings = {
+            url: "/racers/edit_html/" + id,
+            method: "GET",
+            timeout: 0,
+        };
+
+        $.ajax(settings).done(function(response) {
+            $('#racer_edit_modal_form').html(response)
+            const racer_edit_modal = new bootstrap.Modal(document.getElementById('racer_edit_modal'))
+            racer_edit_modal.show()
+
+            $('#racer_form').submit(function(e) {
+            console.log("Submitted form")
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var actionUrl = form.attr('action');
+        
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: form.serialize(), // serializes the form's elements.
+                success: function(data){
+                    Toastify({
+                        text: data.message,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                    }).showToast();
+                },
+                error: function(data){
+                    Toastify({
+                        text: "data.message",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "red",
+                        },
+                    }).showToast();
+                }
+            });
+        })    
+        });
+    }
+
     function updateTable() {
         var settings = {
             url: "/ajax/results/" + raceID,
@@ -253,6 +307,9 @@
   <button class="btn btn-lg btn-danger" onclick=handleFinish(${raceEvent.id})>FINISH</button>
 `;
 
+                const editBtn = `        
+<button class="btn btn-lg btn-warning" onclick=editEntry(${raceEvent.Racer.id})>EDIT</button>
+`;
                 const finishBtnDisabled = `        
 <button class="btn btn-lg btn-outline-secondary" onclick="handleUnfinish(${raceEvent.id})">Unfinish</a>
 `;
@@ -278,6 +335,7 @@
                     `),
                     $("<td>").text(raceEvent.Racer.SailNumber + " (" + raceEvent.Racer.HelmName + ")"), //Sail No
                     $("<td>").text(raceEvent.Racer.Boat.BoatName), //Class
+                    $("<td>").append(editBtn),
                     {% if race.StartTime %}
 
                     raceEvent.Status !== null ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
@@ -339,6 +397,7 @@
         var intervalId = window.setInterval(function(){
             updateStartTime()
         }, 500);
+
     })
     {% endif %}
 </script>{% endblock additional_scripts %}{% block content %}
@@ -377,6 +436,7 @@
             <th scope="col">Reorder</th>
             <th scope="col">Sail Number</th>
             <th scope="col">Class</th>
+            <th scope="col">Edit</th>
             {% if race.StartTime %}
             <th scope="col">Add Lap (laps completed)</th>
             <th scope="col">Finish</th>
@@ -390,4 +450,19 @@
 </table>
 </div>
 
+
+<div class="modal" tabindex="-1" id="racer_edit_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit racer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><i>Updating this will affect any other races this racer has signed up for.</i></p>
+        <div id="racer_edit_modal_form"></div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

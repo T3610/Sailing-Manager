@@ -26,6 +26,7 @@ urlpatterns = [
     path('accounts/logout/', LogoutView.as_view(), name="login"),
 
     path('manage/', OodHomeView.as_view(), name="manage"),
+    path('manage/edit-results/<pk>', EditRaceResults.as_view(), name="editResults"),
     path('manage/run/<pk>', RunRaceView.as_view(), name="manageRace"),
 
     path('ajax/addLap/', AjaxAddLap.as_view(),name="addLap"),
@@ -33,6 +34,8 @@ urlpatterns = [
     path('ajax/results/<pk>', AjaxGetResults.as_view(),name="results"),
     path('ajax/setStartTime/<pk>', AjaxSetRaceStart.as_view(),name="results"),
 
+    path('ajax/manage/edit-results/<pk>', AjaxUpdateRaceEvent.as_view(),name="editResultsAjax"),
+    
     path('boats/', BoatListView.as_view(),name="boatList"),
     path('boats/edit/<pk>', BoatEditFormView.as_view(),name="boatEdit"),
     path('boats/new', BoatNewFormView.as_view(),name="boatNew"),
@@ -43,6 +46,7 @@ urlpatterns = [
 
     path('racers/', RacerListView.as_view(),name="racerList"),
     path('racers/edit/<pk>', RacerEditFormView.as_view(),name="racerEdit"),
+    path('racers/edit_html/<pk>', GetRacerEditFormForModal.as_view(),name="racerEditHtml"),
     path('racers/new', RacerNewFormView.as_view(),name="racerNew"),
     path('racers/new_official', OfficialNewFormView.as_view(),name="racerNewOfficial"),
     path('racers/delete/<pk>', RacerDeleteView.as_view(),name="racerDelete"),
