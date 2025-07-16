@@ -9,7 +9,10 @@
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/sailmanager/manage.py",
-      "args": ["runserver", "--noreload"],
+      "args": [
+        "runserver",
+        "--noreload"
+      ],
       "django": true,
       "justMyCode": false
     },
@@ -18,9 +21,29 @@
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/sailmanager/manage.py",
-      "args": ["createWeeksRaces"],
+      "args": [
+        "createWeeksRaces"
+      ],
       "django": true,
       "justMyCode": false
+    },
+    {
+      "name": "Containers: Python - Django",
+      "type": "debugpy",
+      "request": "attach",
+      "preLaunchTask": "docker-compose-up",
+      // "postDebugTask": "docker-compose-down",
+      "connect": {
+                "host": "localhost",
+                "port": 5678 // This is the debugpy port exposed by your Django service
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}/sailmanager", // Map your local workspace to the remote work directory
+                    "remoteRoot": "/sailmanager" // Assuming your Dockerfile sets WORKDIR to /usr/src/app
+                }
+            ],
+            "justMyCode": false // Set to false to debug into Django/library code if needed
     }
   ]
 }
