@@ -464,7 +464,7 @@ class AjaxSetRaceStart(View):
 @method_decorator(csrf_exempt, name='dispatch')
 class AjaxGetResults(View):
     def get(self, request, pk):
-        racers = RaceEventSerializer(RaceEvent.objects.filter((Q(Status=0)|Q(Status=None)), Race__pk=pk).order_by('-Status','Racer__Boat__PyNumber'), many=True)
+        racers = RaceEventSerializer(RaceEvent.objects.filter((Q(Status=0)|Q(Status=None)|Q(Status=3)), Race__pk=pk).order_by('-Status','Racer__Boat__PyNumber'), many=True)
         return JsonResponse(racers.data, safe=False)
 
 class UploadBoatList(TemplateView):
