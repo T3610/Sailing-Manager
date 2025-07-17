@@ -147,7 +147,10 @@ if os.getenv('ENVIRONMENT') == 'development':
         BASE_DIR / "static",
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -213,3 +216,5 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_USE_SSL = True
 EMAIL_SUBJECT_PREFIX = "[Sailmanager - Django] "
+
+CSRF_TRUSTED_ORIGINS = ["https://dorchester.sailmanager.co.uk", "https://dorchester2.sailmanager.co.uk"]

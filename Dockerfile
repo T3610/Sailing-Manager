@@ -9,17 +9,30 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
+WORKDIR /sailmanager
+
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser
+
 # Install pip requirements
 COPY requirements.txt .
 RUN python -m pip install -r requirements.txt
 
-WORKDIR /sailmanager
 COPY ./sailmanager /sailmanager
-RUN mkdir /sailmanager/logging -p
 
-# Creates a non-root user with an explicit UID and adds permission to access the /app folder
-# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /sailmanager
+RUN chown -R appuser:appuser /sailmanager
+
+RUN mkdir /sailmanager/logging -p && chown appuser:appuser /sailmanager/logging
+
+# Copy entrypoint script
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+# Set the user to appuser *after* permissions are set
 USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
