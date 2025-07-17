@@ -20,11 +20,6 @@ DIRNAME = os.path.abspath(os.path.dirname(__file__))
 
 print('BaseDir: %s'%BASE_DIR)
 
-ENV_PATH = BASE_DIR.parent / ".env"
-print("ENV_PATH: %s"%ENV_PATH)
-
-load_dotenv(dotenv_path=ENV_PATH)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -54,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_log_to_telegram',
     'crispy_forms',
+    'crispy_bootstrap4',
     'constance.backends.database',
     'constance',
     'SailingRaceManager', #App
@@ -101,7 +97,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASS'),
-        'HOST': 'localhost',
+        'HOST': os.getenv('DB_HOST'),
         'PORT': '5432',
     }
 }
@@ -151,13 +147,17 @@ if os.getenv('ENVIRONMENT') == 'development':
         BASE_DIR / "static",
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 #Constance
@@ -221,3 +221,5 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_USE_SSL = True
 EMAIL_SUBJECT_PREFIX = "[Sailmanager - Django] "
+
+CSRF_TRUSTED_ORIGINS = ["https://dorchester.sailmanager.co.uk", "https://dorchester2.sailmanager.co.uk"]

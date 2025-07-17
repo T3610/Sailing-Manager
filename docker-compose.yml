@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: pGFrUvQ49o63lz2k
+      POSTGRES_USER: djangouser
+      POSTGRES_DB: dorchester_django
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  sailing-manager:
+    image: sailing-manager
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      ENVIRONMENT: production
+      WEBHOST: sailing-manager
+      # WEBHOST: localhost
+      SECRET_KEY: 'django-insecure-g+70#ybf0zu2b-eivd_b0m4)i%#gpri!d&9(jb@)ul9)y#8)r'
+      DB_NAME: dorchester_django
+      DB_USER: djangouser
+      DB_PASS: pGFrUvQ49o63lz2k
+      DB_HOST: db
