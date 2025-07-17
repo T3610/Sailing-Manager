@@ -175,34 +175,40 @@ LOGOUT_REDIRECT_URL = '/'
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
     'handlers': {
+         'console': { # <--- NEW CONSOLE HANDLER
+            'level': 'INFO', # Or 'DEBUG' for more verbosity
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple', # Use a simple formatter for console
+        },
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'logging/debug.log'),
+            'formatter': 'verbose', # Use a verbose formatter for files
         },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-        },
-        'telegram_log': {
-            'level': 'ERROR',
-            'class': 'django_log_to_telegram.log.AdminTelegramHandler',
-            'bot_token': LOG_TO_TELEGRAM_BOT_TOKEN,
-        }
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'console'],
             'level': 'INFO',
             'propagate': True,
         },
-        'django.request': {
-            'handlers': ['mail_admins','telegram_log'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
     },
+    'root': {
+        'handlers': ['console'], # All unhandled logs go to console by default
+        'level': 'WARNING', # Default level for anything not caught by specific loggers
+    }
 }
 
 ADMINS = [('Benjamin Broadbent', 'benjamin.d.broadbent@gmail.com'),]
