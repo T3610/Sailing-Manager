@@ -158,7 +158,7 @@
             data: {
                 raceEventID: id,
                 raceID: raceID,
-                status: null,
+                status: '3',
             },
             timeout: 0,
         }).done(function(response) {
@@ -269,7 +269,7 @@
         };
 
         $.ajax(settings).done(function(response) {
-            if (! response.map((element) => element.Status).includes(null)){
+            if (! response.map((element) => element.Status).includes('3')){
                 $('#finishedMessage').css('display','unset')
             }else{
                 $('#finishedMessage').css('display','none')
@@ -338,8 +338,8 @@
                     $("<td>").append(editBtn),
                     {% if race.StartTime %}
 
-                    raceEvent.Status !== null ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
-                    raceEvent.Status !== null ?
+                    raceEvent.Status !== 3 ? $("<td>").append(lapBtnDisabled) : $("<td>").append(lapBtn), //lapBTN
+                    raceEvent.Status !== 3 ?
                     $("<td>").append(finishBtnDisabled) :
                     $("<td>").append(finishBtn), //finishBTN
                     {% endif %}
