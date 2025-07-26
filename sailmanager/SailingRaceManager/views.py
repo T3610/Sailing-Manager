@@ -531,8 +531,9 @@ class EditRaceResults(LoginRequiredMixin, TemplateView):
         
         for event in race_events:
             if isinstance(event.LapsComplete, int):
-                event.LapsComplete += 1
-        
+                if event.LapsComplete > 0:
+                    event.LapsComplete += 1
+                        
         context['raceEvents'] = race_events
         return context
     
