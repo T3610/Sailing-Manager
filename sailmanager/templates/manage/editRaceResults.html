@@ -102,7 +102,7 @@
                         <option {% if raceEvent.get_Status_display == 'DID NOT START' %} selected {% endif %}value="2">Did Not Start</option>
                     </select>
                 </td>
-                <td><input type="datetime-local" class="form-control finish-time" value="{{ raceEvent.FinishTime|date:'Y-m-d' }}T{{raceEvent.FinishTime|time:'H:i:s'}}"></td>
+                <td><input type="datetime-local" class="form-control finish-time" value="{{ raceEvent.FinishTime|date:'Y-m-d' }}T{{raceEvent.FinishTime|time:'H:i:s'}}" step=1></td>
                 <td><button class="btn btn-primary update-btn" raceEventPk="{{raceEvent.pk}}">Update</button></td>
             </tr>
             {% endfor %}

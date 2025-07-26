@@ -527,7 +527,13 @@ class EditRaceResults(LoginRequiredMixin, TemplateView):
     def get_context_data(self, pk, **kwargs):
         context = super().get_context_data(**kwargs)
         context['race'] = Race.objects.get(pk=pk)
-        context['raceEvents'] = RaceEvent.objects.filter(Race=context['race'])
+        race_events = RaceEvent.objects.filter(Race=context['race'])
+        
+        for event in race_events:
+            if isinstance(event.LapsComplete, int):
+                event.LapsComplete += 1
+        
+        context['raceEvents'] = race_events
         return context
     
 @method_decorator(csrf_exempt, name='dispatch')
@@ -535,7 +541,7 @@ class AjaxUpdateRaceEvent(View):
     def post(self, request, pk):
         raceEvent = get_object_or_404(RaceEvent, pk=pk)
         if "numLaps" in request.POST.keys():
-            raceEvent.LapsComplete = int(request.POST['numLaps'])
+            raceEvent.LapsComplete = int(request.POST['numLaps']) - 1
         if "status" in request.POST.keys():
             raceEvent.Status = int(request.POST['status'])
         if "finishTime" in request.POST.keys() and request.POST['finishTime'] != '':
