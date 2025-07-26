@@ -541,7 +541,11 @@ class AjaxUpdateRaceEvent(View):
     def post(self, request, pk):
         raceEvent = get_object_or_404(RaceEvent, pk=pk)
         if "numLaps" in request.POST.keys():
-            raceEvent.LapsComplete = int(request.POST['numLaps']) - 1
+            if int(request.POST['numLaps']) > 0:
+                raceEvent.LapsComplete = int(request.POST['numLaps']) - 1
+            else:
+                raceEvent.LapsComplete = 0
+                
         if "status" in request.POST.keys():
             raceEvent.Status = int(request.POST['status'])
         if "finishTime" in request.POST.keys() and request.POST['finishTime'] != '':
