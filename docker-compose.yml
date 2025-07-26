@@ -1,5 +1,5 @@
 services:
-  db:
+  sailing-manager-db:
     image: postgres
     restart: always
     # set shared memory limit when using docker compose
@@ -10,18 +10,22 @@ services:
     #    target: /dev/shm
     #    tmpfs:
     #      size: 134217728 # 128*2^20 bytes = 128Mb
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: pGFrUvQ49o63lz2k
+      POSTGRES_PASSWORD: 9pYN7F9e2k3K8Hd
       POSTGRES_USER: djangouser
       POSTGRES_DB: dorchester_django
 
-  adminer:
+  sailing-manager-adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
-  sailing-manager:
+
+  sailing-manager-web:
     image: sailing-manager
+    restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -29,10 +33,11 @@ services:
       - 8000:8000
     environment:
       ENVIRONMENT: production
-      WEBHOST: sailing-manager
-      # WEBHOST: localhost
-      SECRET_KEY: 'django-insecure-g+70#ybf0zu2b-eivd_b0m4)i%#gpri!d&9(jb@)ul9)y#8)r'
+      WEBHOST: dorchester.sailmanager.co.uk
+      SECRET_KEY: '6$$oc8gs$$tcm(07krs7(9)bek5j)9b-8$$vhq70coz&p4mm4yda!'
       DB_NAME: dorchester_django
       DB_USER: djangouser
-      DB_PASS: pGFrUvQ49o63lz2k
-      DB_HOST: db
+      DB_PASS: 9pYN7F9e2k3K8Hd
+      DB_HOST: sailing-manager-db
+    volumes:
+      - /var/www/sailing-manager-docker/static:/sailmanager/staticfiles
