@@ -435,7 +435,7 @@ class AjaxChangeStatus(View):
     def post(self, request):
         raceEvent = get_object_or_404(RaceEvent, pk=request.POST['raceEventID'])
         if request._post['status'] == '0':
-            raceEvent.FinishTime = datetime.datetime.now(tz=timezone.utc)
+            raceEvent.FinishTime = timezone.now()
         else:
             raceEvent.FinishTime = None
 
